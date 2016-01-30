@@ -1,0 +1,42 @@
+{
+  "name": "react-native-extended-stylesheet",
+  "version": "0.1.0",
+  "description": "Extended StyleSheets for React Native",
+  "author": "Vitaliy Potapov <noginsk@rambler.ru>",
+  "license": "MIT",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "babel-jest": "^6.0.1",
+    "babel-preset-react-native": "^1.1.0",
+    "ghooks": "^1.0.1",
+    "jest-cli": "^0.8.2",
+    "react-native": "^0.18.1"
+  },
+  "config": {
+    "ghooks": {}
+  },
+  "jest": {
+    "testPathDirs": [
+      "src"
+    ],
+    "testRunner": "node_modules/jest-cli/src/testRunners/jasmine/jasmine2",
+    "scriptPreprocessor": "node_modules/babel-jest",
+    "setupEnvScriptFile": "src/__tests__/env.js",
+    "testFileExtensions": [
+      "test.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "modulePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "unmockedModulePathPatterns": [
+      "react-native-mock"
+    ],
+    "verbose": true
+  }
+}
