@@ -17,9 +17,11 @@ describe('sheet', function() {
 
     sheet.calc(variables);
 
-    expect(sheet.getResult()).toEqual({
+    let result = sheet.getResult();
+    expect(result).toEqual({
       $a: 1,
       $b: 2,
+      $get: result.$get,
       _text: {
         $c: 1,
         fontSize: 10,

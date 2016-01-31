@@ -28,6 +28,7 @@ describe('EStyleSheet', function() {
 
     expect(res1).toEqual({
       $a: 1,
+      $get: res1.$get,
       _text: {
         $b: '1',
         fontSize: 1,
@@ -36,6 +37,7 @@ describe('EStyleSheet', function() {
     });
     expect(res2).toEqual({
       $b: 3,
+      $get: res2.$get,
       _button: {
         color: 3,
       },
@@ -53,6 +55,7 @@ describe('EStyleSheet', function() {
     });
     expect(res).toEqual({
       $b: 3,
+      $get: res.$get,
       _button: {
         color: 3,
       },
@@ -67,6 +70,7 @@ describe('EStyleSheet', function() {
     });
     expect(res).toEqual({
       $b: 3,
+      $get: res.$get,
     });
   });
 
@@ -85,5 +89,13 @@ describe('EStyleSheet', function() {
 
   it('should export memoize', function() {
     expect(typeof EStyleSheet.memoize).toBe('function');
+  });
+
+  it('should export correct modificator method', function() {
+    EStyleSheet.build();
+    let res = EStyleSheet.create({
+      $b: 1,
+    });
+    expect(res.$get('$b')).toBe(1);
   });
 });

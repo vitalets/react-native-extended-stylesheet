@@ -1,9 +1,9 @@
 import {StyleSheet} from 'react-native';
 import style from './style';
 import vars from './replacers/vars';
+import modificator from './modificator';
 
 export default class {
-
   constructor(source) {
     this.source = source;
     this.result = {};
@@ -11,6 +11,7 @@ export default class {
   }
 
   calc(inVars) {
+    this.addMagicGet();
     let {cleanObj, extractedVars} = vars.extract(this.source);
     let varsArr = this.getVarsArr(extractedVars, inVars);
     this.calcStyles(cleanObj, varsArr);
@@ -54,6 +55,11 @@ export default class {
 
   getResult() {
     return this.result;
+  }
+
+  addMagicGet() {
+    // magic property-function to get styles via modificators
+    this.result.$get = (styleName, ...args) => modificator.getStyle(this.result, styleName, ...args);
   }
 }
 
