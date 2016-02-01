@@ -20,7 +20,10 @@
     "react-native": "^0.18.1"
   },
   "config": {
-    "ghooks": {}
+    "ghooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run lint && npm test"
+    }
   },
   "jest": {
     "testPathDirs": [

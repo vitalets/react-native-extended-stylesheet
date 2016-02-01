@@ -21,7 +21,6 @@ describe('sheet', function() {
     expect(result).toEqual({
       $a: 1,
       $b: 2,
-      $get: result.$get,
       _text: {
         $c: 1,
         fontSize: 10,

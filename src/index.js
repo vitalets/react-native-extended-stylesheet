@@ -7,6 +7,7 @@ import style from './style';
 import Value from './value';
 import vars from './replacers/vars';
 import memoize from './memoize';
+import child from './child';
 
 let builded = false;
 let sheets = [];
@@ -18,6 +19,7 @@ export default {
   value,
   reset,
   memoize,
+  child,
 };
 
 /**
