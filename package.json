@@ -2,13 +2,23 @@
   "name": "react-native-extended-stylesheet",
   "version": "0.1.0",
   "description": "Extended StyleSheets for React Native",
-  "author": "Vitaliy Potapov <noginsk@rambler.ru>",
-  "license": "MIT",
+  "author": {
+    "name": "Vitaliy Potapov",
+    "email": "noginsk@rambler.ru"
+  },
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint src",
     "test": "jest"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vitalets/react-native-extended-stylesheet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vitalets/react-native-extended-stylesheet/issues"
+  },
+  "license": "MIT",
   "devDependencies": {
     "babel-jest": "^6.0.1",
     "babel-preset-react-native": "^1.1.0",
