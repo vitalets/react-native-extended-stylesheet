@@ -54,7 +54,9 @@ function extract(obj) {
  * @param {Array} varsArr array of variable sets
  */
 function get(name, varsArr) {
-  for (let vars of varsArr) {
+  // todo: use for.. of after https://github.com/facebook/react-native/issues/4676
+  for (let i = 0; i < varsArr.length; i++) {
+    let vars = varsArr[i];
     if (vars && vars[name] !== undefined) {
       return vars[name];
     }

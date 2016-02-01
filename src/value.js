@@ -76,6 +76,7 @@ export default class Value {
    * @param {String} str
    */
   tryActions(actions, str) {
+    // todo: use for.. of after https://github.com/facebook/react-native/issues/4676
     for (let i = 0; i < actions.length; i++) {
       let val = actions[i].call(this, str);
       if (val !== null) {
