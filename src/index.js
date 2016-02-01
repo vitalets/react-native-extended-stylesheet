@@ -30,7 +30,7 @@ export default {
 function create(obj) {
   let sheet = new Sheet(obj);
   if (builded) {
-    sheet.calc(globalVars)
+    sheet.calc(globalVars);
   } else {
     sheets.push(sheet);
   }
@@ -39,16 +39,16 @@ function create(obj) {
 
 /**
  * Builds all created stylesheets with passed variables
- * @param {Object} [vars]
+ * @param {Object} [gVars]
  */
-function build(vars) {
+function build(gVars) {
   if (builded) {
-    throw new Error('No need to call `EStyleSheet.build` more than once');
+    throw new Error('No need to call `EStyleSheet.build()` more than once');
   }
   builded = true;
-  if (vars) {
-    vars = addPrefix(vars);
-    globalVars = style.calc(vars, [vars]).calculatedVars;
+  if (gVars) {
+    gVars = addPrefix(gVars);
+    globalVars = style.calc(gVars, [gVars]).calculatedVars;
   }
   sheets.forEach(sheet => sheet.calc(globalVars));
 }

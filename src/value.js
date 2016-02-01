@@ -21,7 +21,7 @@ export default class Value {
     this.value = value;
     // output value
     this.outValue = null;
-    // was value calculated (need rounding)
+    // was value calculated (need rounding for numbers)
     this.isCalculated = false;
     this.prop = prop;
     this.varsArr = varsArr;
@@ -177,7 +177,7 @@ export default class Value {
   }
 
   applyRound() {
-    if (this.isCalculated) {
+    if (this.isCalculated && typeof this.outValue === 'number') {
       this.outValue = Math.round(this.outValue);
     }
   }

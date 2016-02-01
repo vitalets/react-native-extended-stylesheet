@@ -1,4 +1,4 @@
-# react-native-extended-stylesheet
+# React Native Extended Stylesheet
 Extend [React Native](https://facebook.github.io/react-native/) stylesheet with variables, relative units, percents, math operations, scaling and other stuff to control app appearance.
 
 - [Installation](#installation)
@@ -10,16 +10,18 @@ Extend [React Native](https://facebook.github.io/react-native/) stylesheet with 
   - [rem units](#rem-units)
   - [percents](#percents)
   - [scaling](#scaling)
-  - [_underscored styles](#)
-  - [conditional styles](#)
-  - [pseudo selectors (nth-child)](#)
-  - [OS specific props](#)
-  - [caching](#)
+  - [_underscored styles](#underscored-styles)
+  - [pseudo classes (:nth-child)](#pseudo-classes-nth-child)
+  - [OS specific props](#os-specific-props)
+  - [caching](#caching)
 - [API](#api)
-  - [.create()](#)
-  - [.build()](#)
-  - [.value()](#)
-  - [.memoize()](#)
+  - [.create()](#create)
+  - [.build()](#build)
+  - [.value()](#value)
+  - [.memoize()](#memoize)
+  - [.child()](#child)
+- [Feedback](#feedback)
+- [License](#license)
 
 ## Installation
 ```
@@ -49,6 +51,8 @@ EStyleSheet.build({
   textColor: '#0275d8'
 });
 ```
+\[[top](#)\]
+
 ## Features
 ### Global variables
 Global variables are passed to `EStyleSheet.build()` and available in any stylesheet of whole app.  
@@ -66,7 +70,7 @@ EStyleSheet.build({
 });
 ```
 You can put all global variables to separate file to control app theme:
-```
+```js
 // theme.js
 export default {
   textColor: '#0275d8',
@@ -78,6 +82,7 @@ export default {
 import theme from '.theme';
 EStyleSheet.build(theme);
 ```
+\[[top](#)\]
 
 ### Local variables
 Local variables can be defined directly in sylesheet and have priority over global variables.
@@ -92,9 +97,10 @@ const styles = EStyleSheet.create({
   },
 });
 ```
-Local variables are also available in result style: `styles.$textColor`.
+Local variables are also available in result style: `styles.$textColor`.  
+\[[top](#)\]
 
-### Operations
+### Math operations
 Any value can contain one of following math operations: `*`, `+`, `-`. Operands can be numbers, variables and percents.  
 For example, to render circle you may create style:
 ```js
@@ -107,6 +113,7 @@ const styles = EStyleSheet.create({
   }
 });
 ```
+\[[top](#)\]
 
 ### REM units
 Similar to [CSS3 rem unit](http://snook.ca/archives/html_and_css/font-size-with-rem) it allows to define any integer value as relative to the root element. In our case root value is special `rem` global variable that can be set in `EStyleSheet.build()`. It makes easy to scale app depending on screen size and other conditions. Default rem is `16`.
@@ -124,6 +131,8 @@ EStyleSheet.build({
   rem: width > 340 ? 18 : 16
 });
 ```
+\[[top](#)\]
+
 ### Percents
 Percents are useful only for **single-orientation apps** as they are calculated once on start using screen dimensions. Supporting orientation change is always desing decision but sometimes it's really unneeded and makes life much easier.  
 ```js
@@ -135,6 +144,7 @@ const styles = EStyleSheet.create({
   }
 });
 ```
+\[[top](#)\]
 
 ### Scaling
 You can easily scale your components by setting special `$scale` variable. 
@@ -173,8 +183,193 @@ let getStyle = function (scale = 1) {
     }
   });
 }
+```
+\[[top](#)\]
 
+### Underscored styles
+Usual react-native stylesheets are calculated to integer numbers and original values are unavailable. But sometimes they are needed. Let's take an example:  
+You want to render text and icon with the same size and color. You can take this [awesome icon library](https://github.com/oblador/react-native-vector-icons) and see that `<Icon>` component has `size` and `color` props.
+It would be convenient to define style for text and keep icon's size and color in sync.
+```js
+const styles = EStyleSheet.create({
+  text: {
+    fontSize: '1rem',
+    color: 'gray'
+  }
+});
+```
+In runtime `styles` created with original react's `StyleSheet` will look like:
+```js
+styles = {
+  text: 0
+}
+```
+But extended stylesheet saves original values under `_text` property:
+```js
+styles = {
+  text: 0,
+  _text: {
+    fonrSize: 16,
+    color: 'gray'
+  }
+}
+```
+To render icon we just take styles from `_text`:
+```js
+return (
+  <View>
+    <Icon name="rocket" size={styles._text.fontSize} color={styles._text.color} />
+    <Text style={styles.text}>Hello</Text>
+  </View>
+);
+```
+\[[top](#)\]
+
+### Pseudo classes (nth-child)
+Extended stylesheet supports 3 pseudo classes: `:first-child`, `:nth-child-even`, `:last-child`. As well as in traditional CSS it allows to apply special styling for first/last items or render stripped rows.  
+To get style for appropriate index you should use `EStyleSheet.child()` method. 
+It's signature: `EStyleSheet.child(stylesObj, styleName, index, count)`.
+```js
+const styles = EStyleSheet.create({
+  row: {
+    fontSize: '1.5rem',
+    borderTopWidth: 1
+  },
+  'row:nth-child-even': {
+    backgroundColor: 'gray' // make stripped
+  },
+  'row:last-child': {
+    borderBottomWitdh: 1 // render bottom edge for last row
+  }
+});
+...
+render() {
+  return (
+    <View>
+      {items.map((item, index) => {
+        return (
+          <View style={EStyleSheet.child(styles, 'row', index, items.length)}></View>
+        );
+      })}
+    </View>
+  );
+}
+```
+\[[top](#)\]
+
+### OS specific props
+If you want different values of the same prop for IOS / Android, just name prop with appropriate suffix:
+```js
+const styles = EStyleSheet.create({
+  container: {
+    marginTopIOS: 10,
+    marginTopAndroid: 0
+  }
+});
+```
+The output style will have only one property `marginTop` depending on OS.  
+\[[top](#)\]
+
+### Caching
+If you use dynamic styles depending on runtime prop or you are making reusable component with dynamic styling you may need stylesheet creation in every `render()` call. Let's take example from [scaling](#scaling) section:
+```js
+class Button extends React.Component {
+  static propTypes = {
+    scale: React.PropTypes.number
+  };
+  render() {
+    let style = getStyle(this.props.scale)
+    return (
+      <View style={style.button}>
+      </View>
+    );
+  }
+}
+
+let getStyle = function (scale = 1) {
+  return EStyleSheet.create({
+    $scale: scale,
+    button: {
+      width: 100,
+      height: 20,
+      marginLeft: 10
+    }
+  });
+}
+```
+To avoid creating styles on every render you can use `EStyleSheet.memoize()` wrapper method that works similar to [lodash.memoize](https://lodash.com/docs#memoize): store result for particular parameters and returns it from cache when called with the same parameters. Updated example:
+```js
+let getStyle = EStyleSheet.memoize(function (scale = 1) {
+  return EStyleSheet.create({
+    $scale: scale,
+    button: {
+      width: 100,
+      height: 20,
+      marginLeft: 10
+    }
+  });
+});
+```
+Now if you call `getStyle(1.5)` 3 times actually style will be created on the first call and two other calls will get it from cache.  
+\[[top](#)\]
+
+## EStyleSheet API
+### .create()
+```js
+/**
+ * Creates extended stylesheet object
+ * @param {Object} source style
+ * @returns {Object} extended stylesheet object
+ */
+EStyleSheet.create = function (source) {...}
 ```
 
+### .build()
+```js
+/**
+ * Calculates all stylesheets
+ * @param {Object} [globalVars] global variables for all stylesheets
+ */
+EStyleSheet.build = function (globalVars) {...}
+```
 
+### .value()
+```js
+/**
+ * Calculates particular value
+ * @param {*} value
+ * @param {String} [prop] property for which value is calculated. Needed for example for percent values.
+ * @returns {*} calculated result
+ */
+EStyleSheet.value = function (value, prop) {...}
+```
 
+### .memoize()
+```js
+/**
+ * Wraps function to cache calls with the same parameters
+ * @param {Function} fn
+ * @returns {Function} wrapped function
+ */
+EStyleSheet.memoize = function (fn) {...}
+```
+### .child()
+```js
+/**
+ * Returns styles with pseudo classes :first-child, :nth-child-even, :last-child according to index and count
+ *
+ * @param {Object} stylesheet
+ * @param {String} styleName
+ * @param {Number} index index of item for style
+ * @param {Number} count total count of items
+ * @returns {Object|Array} styles
+ */
+EStyleSheet.child = function (styles, styleName, index, count) {...}
+```
+\[[top](#)\]
+
+## Feedback
+If you have any ideas or problems feel free to open issue or pull request.
+
+## License
+MIT

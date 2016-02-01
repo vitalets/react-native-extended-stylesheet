@@ -11,8 +11,9 @@ describe('style', function() {
       borderWidth: '$b',
       propAndroid: 1,
       propIOS: 2,
+      color: '$e',
     };
-    let varsArr = [{$a: 3, $d: 3}];
+    let varsArr = [{$a: 3, $d: 3, $e: 'abc'}];
 
     let res = style.calc(source, varsArr);
 
@@ -25,6 +26,7 @@ describe('style', function() {
         fontSize: 1,
         borderWidth: 3,
         prop: 2,
+        color: 'abc',
       }
     });
   });

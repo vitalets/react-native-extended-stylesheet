@@ -10,9 +10,10 @@ describe('sheet', function() {
         $c: '$a',
         fontSize: 10,
         borderWidth: '$b',
+        prop: '$e',
       }
     };
-    let variables = {$a: 2, $d: 2};
+    let variables = {$a: 2, $d: 2, $e: 'abc'};
     let sheet = new Sheet(source);
 
     sheet.calc(variables);
@@ -25,6 +26,7 @@ describe('sheet', function() {
         $c: 1,
         fontSize: 10,
         borderWidth: 2,
+        prop: 'abc',
       },
       text: 0,
     });

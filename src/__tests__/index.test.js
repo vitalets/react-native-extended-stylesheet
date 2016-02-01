@@ -72,7 +72,7 @@ describe('EStyleSheet', function() {
 
   it('should throw error on second `build` call', function() {
     EStyleSheet.build();
-    expect(() => EStyleSheet.build()).toThrowError('No need to call `EStyleSheet.build` more than once');
+    expect(() => EStyleSheet.build()).toThrowError('No need to call `EStyleSheet.build()` more than once');
   });
 
   it('should calculate value', function() {

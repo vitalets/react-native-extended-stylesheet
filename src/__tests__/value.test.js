@@ -9,6 +9,8 @@ const varsArr = [
   {
     $a: 2,
     $c: 3,
+    $e: 'abc',
+    $d: {x: 1}
   }
 ];
 
@@ -24,7 +26,9 @@ describe('value', function() {
   it('should calc var', function() {
     expect(new Value('$a', 'prop', varsArr).calc()).toEqual(1);
     expect(new Value('$b', 'prop', varsArr).calc()).toEqual(2);
-    expect(() => new Value('$d', 'prop', varsArr).calc()).toThrowError('Unresolved variable: $d');
+    expect(new Value('$e', 'prop', varsArr).calc()).toEqual('abc');
+    expect(new Value('$d', 'prop', varsArr).calc()).toEqual({x: 1});
+    expect(() => new Value('$xxx', 'prop', varsArr).calc()).toThrowError('Unresolved variable: $xxx');
   });
 
   it('should calc percent', function() {
