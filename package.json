@@ -54,6 +54,7 @@
     "unmockedModulePathPatterns": [
       "react-native-mock"
     ],
-    "verbose": true
+    "verbose": true,
+    "collectCoverage": false
   }
 }
