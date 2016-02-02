@@ -59,5 +59,12 @@
     ],
     "verbose": true,
     "collectCoverage": false
-  }
+  },
+  "keywords": [
+    "react",
+    "react-native",
+    "react-component",
+    "ios",
+    "android"
+  ]
 }
