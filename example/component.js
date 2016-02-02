@@ -16,9 +16,9 @@ export default class extends React.Component {
     return (
       <View style={styles.column}>
         <Text style={styles.header}>Extended StyleSheets</Text>
-        <Text style={styles.label}>Container: width=80%, margin=10%</Text>
+        <Text style={styles.label}>Container: width=<Text style={styles.bold}>80%</Text>, margin=<Text style={styles.bold}>10%</Text></Text>
 
-        <Text style={styles.label}>Stripped rows:</Text>
+        <Text style={styles.label}><Text style={styles.bold}>Stripped</Text> rows:</Text>
         {items.map((item, index) => {
           return (
             <View key={index} style={EStyleSheet.child(styles, 'row', index, items.length)}>
@@ -27,16 +27,18 @@ export default class extends React.Component {
           );
         })}
 
-        <Text style={styles.label}>Circle button: borderRadius = 0.5 * $size</Text>
+        <Text style={styles.label}>Button: width=<Text style={styles.bold}>$size</Text>,
+          height=<Text style={styles.bold}>$size</Text>,
+          borderRadius=<Text style={styles.bold}>0.5*$size</Text></Text>
         <TouchableHighlight style={btnStyles.button} underlayColor={btnStyles._button.$underlayColor}>
           <Text style={btnStyles.buttonText}>Like it!</Text>
         </TouchableHighlight>
-        <Text style={styles.label}>Circle button scaled to 1.4</Text>
+        <Text style={styles.label}>Circle button scaled to <Text style={styles.bold}>1.4x</Text></Text>
         <TouchableHighlight style={btnStylesScaled.button} underlayColor={btnStylesScaled._button.$underlayColor}>
           <Text style={btnStylesScaled.buttonText}>Like it!</Text>
         </TouchableHighlight>
 
-        <Text style={styles.label}>Look into docs for full list of features...</Text>
+        <Text style={styles.label}>View docs for all features...</Text>
       </View>
     );
   }
@@ -58,10 +60,13 @@ const styles = EStyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
   },
+  bold: {
+    fontWeight: 'bold',
+  },
   label: {
-    fontSize: '0.7rem',
+    fontSize: '0.8rem',
     color: '$textColor',
-    marginTop: 15,
+    marginTop: 10,
     marginBottom: 3,
   },
   row: {
@@ -77,14 +82,14 @@ const styles = EStyleSheet.create({
     borderBottomWidth: 1 // render bottom edge for last row
   },
   rowText: {
-    fontSize: '.6rem',
+    fontSize: '.8rem',
   }
 });
 
 const getButtonStyles = EStyleSheet.memoize(scale => {
   return EStyleSheet.create({
     $scale: scale,
-    $size: '5rem',
+    $size: '4rem',
     button: {
       width: '$size',
       height: '$size',
@@ -95,7 +100,7 @@ const getButtonStyles = EStyleSheet.memoize(scale => {
       $underlayColor: 'red',  // put underlayColor to variable, access via styles._button.$underlayColor
     },
     buttonText: {
-      fontSize: '1.2rem',
+      fontSize: '1.1rem',
       color: 'white',
       fontWeight: 'bold',
     },

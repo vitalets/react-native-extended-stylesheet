@@ -6,7 +6,7 @@ import theme from './theme';
 
 // define REM depending on screen width
 let {width} = Dimensions.get('window');
-const rem = width > 340 ? 16 : 15;
+const rem = width > 340 ? 18 : 17;
 
 // calc styles
 EStyleSheet.build({...theme, rem});
