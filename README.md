@@ -29,28 +29,43 @@ npm i react-native-extended-stylesheet --save
 ```
 
 ## Usage
-Define styles via `EStyleSheet.create()`:
-```js
-import EStyleSheet from 'react-native-extended-stylesheet';
+1. Define extended styles via `EStyleSheet.create()`:
 
-const styles = EStyleSheet.create({
-  column: {
-    width: '80%'
-  },
-  text: {
-    color: '$textColor',
-    fontSize: '1.5rem'
-  }
-});
-```
-Actually calc styles in entry point of your app via `EStyleSheet.build()`:
-```js
-import EStyleSheet from 'react-native-extended-stylesheet';
+  ```js
+  // component.js
+  import EStyleSheet from 'react-native-extended-stylesheet';
+  
+  const styles = EStyleSheet.create({
+    column: {
+      width: '80%'         // 80% of screen width
+    },
+    text: {
+      color: '$textColor', // use variable $textColor
+      fontSize: '1.5rem'   // use relative unit - CSS3 rem
+    }
+  });
+  
+  class MyComponent extends React.Component {
+    render() {
+      return (
+        <View style={styles.column}>
+          <Text style={styles.text}>Hello</Text>
+        </View>
+      );
+    }
+  }  
+  ```
 
-EStyleSheet.build({
-  textColor: '#0275d8'
-});
-```
+2. Actually calculate styles in entry point of your app via `EStyleSheet.build()`:
+
+  ```js
+  // app.js
+  import EStyleSheet from 'react-native-extended-stylesheet';
+  
+  EStyleSheet.build({
+    textColor: '#0275d8'
+  });
+  ```
 \[[top](#)\]
 
 ## Features
@@ -134,7 +149,7 @@ EStyleSheet.build({
 \[[top](#)\]
 
 ### Percents
-Percents are useful only for **single-orientation apps** as they are calculated once on start using screen dimensions. Supporting orientation change is always desing decision but sometimes it's really unneeded and makes life much easier.  
+Percents are useful only for **single-orientation apps** as calculation performed once on start using screen dimensions. Supporting orientation change is always desing-decision but sometimes it's really unneeded and makes life much easier.  
 ```js
 const styles = EStyleSheet.create({
   column: {
@@ -144,6 +159,7 @@ const styles = EStyleSheet.create({
   }
 });
 ```
+How to lock orientaion for [IOS](http://stackoverflow.com/a/24205653/740245), [Android](http://stackoverflow.com/a/4675801/740245).  
 \[[top](#)\]
 
 ### Scaling
@@ -225,8 +241,8 @@ return (
 ```
 \[[top](#)\]
 
-### Pseudo classes (nth-child)
-Extended stylesheet supports 3 pseudo classes: `:first-child`, `:nth-child-even`, `:last-child`. As well as in traditional CSS it allows to apply special styling for first/last items or render stripped rows.  
+### Pseudo classes (:nth-child)
+Extended stylesheet supports 4 pseudo classes: `:first-child`, `:nth-child-even`, `:nth-child-odd`, `:last-child`. As well as in traditional CSS it allows to apply special styling for first/last items or render stripped rows.  
 To get style for appropriate index you should use `EStyleSheet.child()` method. 
 It's signature: `EStyleSheet.child(stylesObj, styleName, index, count)`.
 ```js
@@ -239,7 +255,7 @@ const styles = EStyleSheet.create({
     backgroundColor: 'gray' // make stripped
   },
   'row:last-child': {
-    borderBottomWitdh: 1 // render bottom edge for last row
+    borderBottomWidth: 1 // render bottom edge for last row
   }
 });
 ...
@@ -248,7 +264,7 @@ render() {
     <View>
       {items.map((item, index) => {
         return (
-          <View style={EStyleSheet.child(styles, 'row', index, items.length)}></View>
+          <View key={index} style={EStyleSheet.child(styles, 'row', index, items.length)}></View>
         );
       })}
     </View>

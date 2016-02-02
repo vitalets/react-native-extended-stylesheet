@@ -1,5 +1,6 @@
 /**
- * React-native stub
+ * React-native mock
+ * todo: use https://github.com/lelandrichardson/react-native-mock
  */
 
 export default {
