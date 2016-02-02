@@ -8,8 +8,9 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "lint": "eslint src && jscs src --verbose",
-    "test": "jest"
+    "check": "eslint src && jscs src --verbose",
+    "test": "jest",
+    "prepublish": "npm run check && npm test"
   },
   "repository": {
     "type": "git",
@@ -33,8 +34,8 @@
   },
   "config": {
     "ghooks": {
-      "pre-commit": "npm run lint",
-      "pre-push": "npm run lint && npm test"
+      "pre-commit": "npm run check",
+      "pre-push": "npm run check && npm test"
     }
   },
   "jest": {
