@@ -1,6 +1,8 @@
 # React Native Extended Stylesheet
 Extend [React Native](https://facebook.github.io/react-native/) stylesheet with variables, relative units, percents, math operations, scaling and other stuff to control app appearance.
 
+<img align="right" src="https://raw.githubusercontent.com/vitalets/react-native-extended-stylesheet/master/example/screenshot.png">
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
