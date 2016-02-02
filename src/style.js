@@ -8,7 +8,7 @@ import Value from './value';
 
 export default {
   calc
-}
+};
 
 /**
  * Calculates style

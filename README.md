@@ -385,7 +385,7 @@ EStyleSheet.child = function (styles, styleName, index, count) {...}
 \[[top](#)\]
 
 ## Feedback
-If you have any ideas or problems feel free to open issue or pull request.
+If you have any ideas or something goes wrong feel free to [open issue](https://github.com/vitalets/react-native-extended-stylesheet/issues/new) or pull request.
 
 ## License
 MIT

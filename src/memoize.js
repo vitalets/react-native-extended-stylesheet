@@ -7,5 +7,5 @@ export default function (fn) {
     let key = args.join('|');
     m.cache[key] = key in m.cache ? m.cache[key] : fn(...args);
     return m.cache[key];
-  }
+  };
 }

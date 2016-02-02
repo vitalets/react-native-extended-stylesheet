@@ -116,7 +116,7 @@ export default class Value {
     if (vars.isVar(str)) {
       let val = vars.calc(str, this.varsArr);
       if (this.stack.indexOf(str) >= 0) {
-        throw new Error('Cyclic reference: ' + this.stack.concat([str]).join(' -> '))
+        throw new Error('Cyclic reference: ' + this.stack.concat([str]).join(' -> '));
       }
       let stack = this.stack.concat([str]);
       // recursion

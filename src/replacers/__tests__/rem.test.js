@@ -11,6 +11,6 @@ describe('rem', function() {
     expect(rem.calc('rem', 10)).toBe(10);
   });
   it('should throw error for invalid koef', function() {
-    expect(() => {rem.calc('abcrem', 10)}).toThrowError('Invalid rem value: abcrem');
+    expect(() => {rem.calc('abcrem', 10);}).toThrowError('Invalid rem value: abcrem');
   });
 });

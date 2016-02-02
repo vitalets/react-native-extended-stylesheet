@@ -1,7 +1,3 @@
-jest.dontMock('../osprop');
-
-//let rnStub = require('../../__tests__/react-native-stub').default;
-
 describe('osprop', function() {
   beforeEach(function () {
     delete require.cache['../osprop'];

@@ -17,7 +17,7 @@ export default {
       return Object.keys(obj).reduce((res, key, index) => {
         res[key] = index;
         return res;
-      }, {})
+      }, {});
     }
   }
-}
+};

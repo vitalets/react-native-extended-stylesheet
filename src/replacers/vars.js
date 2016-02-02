@@ -7,7 +7,7 @@ export default {
   calc,
   extract,
   get,
-}
+};
 
 /**
  * Is string equals to another variable: '$varName'
@@ -25,7 +25,7 @@ function isVar(str) {
 function calc(str, varsArr) {
   let realValue = get(str, varsArr);
   if (realValue === undefined) {
-    throw new Error('Unresolved variable: ' + str)
+    throw new Error(`Unresolved variable: ${str}`);
   }
   return realValue;
 }

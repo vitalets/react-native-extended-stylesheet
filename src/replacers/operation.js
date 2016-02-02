@@ -12,7 +12,7 @@ const operators = {
 export default {
   isOperation,
   exec,
-}
+};
 
 /**
  * Is operation in string: '0.25 * $abc' => {operator: '*', v1: '0.25', v2: '$abc'}
