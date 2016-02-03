@@ -149,7 +149,8 @@ EStyleSheet.build({
 \[[top](#)\]
 
 ### Percents
-Percents are useful only for **single-orientation apps** as calculation performed once on start using screen dimensions. Supporting orientation change is always desing-decision but sometimes it's really unneeded and makes life much easier.  
+Percents are useful only for **single-orientation apps** as calculation performed once on start using screen dimensions.
+You can apply it to top-level components to render layout.
 ```js
 const styles = EStyleSheet.create({
   column: {
@@ -159,7 +160,39 @@ const styles = EStyleSheet.create({
   }
 });
 ```
+Supporting orientation change is always design-decision but sometimes it's really unneeded and makes life much easier.
 How to lock orientaion for [IOS](http://stackoverflow.com/a/24205653/740245), [Android](http://stackoverflow.com/a/4675801/740245).  
+
+**Percents in nested components**  
+If you need sub-components with percentage props based on parent, you can easily achieve it with variables.  
+For example, to render 2 sub-columns with 30%/70% width of parent:
+```js
+const styles = EStyleSheet.create({
+  $columnWidth: '80%',
+  column: {
+    width: '$columnWidth',
+    flexDirection: 'row'
+  },
+  subColumnLeft: {
+    width: '0.3 * $columnWidth'
+  },
+  subColumnRight: {
+    width: '0.7 * $columnWidth'
+  }
+});
+
+...
+
+render() {
+  return (
+    <View style={styles.column}>
+      <View style={styles.subColumnLeft}></View>
+      <View style={styles.subColumnRight}></View>
+    </View>
+  );
+}
+
+```
 \[[top](#)\]
 
 ### Scaling
