@@ -66,7 +66,7 @@ npm i react-native-extended-stylesheet --save
   import EStyleSheet from 'react-native-extended-stylesheet';
   
   EStyleSheet.build({
-    textColor: '#0275d8'
+    textColor: '#0275d8'  // pass variables for styling
   });
   ```
 \[[top](#)\]
