@@ -64,6 +64,8 @@
     "react",
     "react-native",
     "react-component",
+    "react-native-component",
+    "mobile",
     "ios",
     "android"
   ]
