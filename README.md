@@ -49,6 +49,7 @@ npm i react-native-extended-stylesheet --save
   class MyComponent extends React.Component {
     render() {
       return (
+        // use styles as usual
         <View style={styles.column}>
           <Text style={styles.text}>Hello</Text>
         </View>
