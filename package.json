@@ -10,7 +10,7 @@
   "scripts": {
     "check": "eslint src && jscs src --verbose",
     "test": "jest",
-    "prepublish": "npm run check && npm test"
+    "release-patch": "npm run check && npm test && npm version patch && npm publish && git push --follow-tags"
   },
   "repository": {
     "type": "git",
