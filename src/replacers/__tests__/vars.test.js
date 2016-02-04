@@ -24,7 +24,7 @@ describe('vars', function() {
       }
     };
     expect(vars.extract(obj)).toEqual({
-      cleanObj: {
+      extractedProps: {
         c: 3,
         d: {
           $e: 1,
@@ -41,4 +41,22 @@ describe('vars', function() {
     expect(vars.get('$abc', [{$abc: 1}, {$abc: 2}])).toBe(1);
     expect(vars.get('abc', [])).toBe(undefined);
   });
+
+  it('should add prefix', function () {
+    let obj = {
+      a: 1,
+      b: '2',
+      d: {
+        e: 1,
+      }
+    };
+    expect(vars.addPrefix(obj)).toEqual({
+      $a: 1,
+      $b: '2',
+      $d: {
+        e: 1,
+      }
+    });
+  });
+
 });

@@ -6,40 +6,63 @@ import osprop from './replacers/osprop';
 import vars from './replacers/vars';
 import Value from './value';
 
-export default {
-  calc
-};
+export default class {
+  /**
+   * Constructor
+   * @param {Object} source plain object style with variables
+   * @param {Array} [varsArr] array of vars objects
+   */
+  constructor(source, varsArr = []) {
+    this.source = source;
+    this.varsArr = varsArr;
+    this.calculatedVars = null;
+    this.calculatedProps = null;
+  }
+
+  /**
+   * Calculates style
+   * @returns {Object} {calculatedVars, calculatedStyles}
+   */
+  calc() {
+    let {extractedProps, extractedVars} = vars.extract(this.source);
+    if (extractedVars) {
+      this.calcVars(extractedVars);
+    }
+    this.calcProps(extractedProps);
+    return {
+      calculatedVars: this.calculatedVars,
+      calculatedProps: this.calculatedProps,
+    };
+  }
+
+  calcVars(extractedVars) {
+    let varsArrForVars = [extractedVars].concat(this.varsArr);
+    this.calculatedVars = calcPlainObject(extractedVars, varsArrForVars);
+    this.varsArr = [this.calculatedVars].concat(this.varsArr);
+  }
+
+  calcProps(extractedProps) {
+    this.calculatedProps = calcPlainObject(extractedProps, this.varsArr);
+    this.tryOutline();
+  }
+
+  tryOutline() {
+    let outline = vars.get('$outline', this.varsArr);
+    if (outline) {
+      this.calculatedProps.borderWidth = typeof outline === 'number' ? outline : 1;
+      this.calculatedProps.borderColor = getRandomColor();
+    }
+  }
+
+}
 
 /**
- * Calculates style
- * @param {Object} sourceStyle style with variables
- * @param {Array} varsArr array of vars objects
- * @returns {Object} {calculatedVars, calculatedStyles}
+ * Calculates values in plain object
+ *
+ * @param {Object} obj
+ * @param {Array} varsArr
+ * @returns {Object}
  */
-function calc(sourceStyle, varsArr = []) {
-  let {cleanObj, extractedVars} = vars.extract(sourceStyle);
-  let {calculatedVars, updatedVarsArr} = calcVars(extractedVars, varsArr);
-  let calculatedStyles = calcPlainObject(cleanObj, updatedVarsArr);
-  return {
-    calculatedVars,
-    calculatedStyles,
-  };
-}
-
-function calcVars(extractedVars, varsArr) {
-  let calculatedVars;
-  let updatedVarsArr = varsArr;
-  if (extractedVars) {
-    let varsArrForVars = [extractedVars].concat(varsArr);
-    calculatedVars = calcPlainObject(extractedVars, varsArrForVars);
-    updatedVarsArr = [calculatedVars].concat(updatedVarsArr);
-  }
-  return {
-    calculatedVars,
-    updatedVarsArr,
-  };
-}
-
 function calcPlainObject(obj, varsArr) {
   return Object.keys(obj).reduce((res, prop) => {
     let value = obj[prop];
@@ -49,4 +72,15 @@ function calcPlainObject(obj, varsArr) {
     }
     return res;
   }, {});
+}
+
+function getRandomColor() {
+  let colors = [
+    'black',
+    'red',
+    'green',
+    'blue',
+  ];
+  let index = Math.round(Math.random() * (colors.length - 1));
+  return colors[index];
 }

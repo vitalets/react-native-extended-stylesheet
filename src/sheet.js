@@ -1,30 +1,49 @@
 import {StyleSheet} from 'react-native';
-import style from './style';
+import Style from './style';
 import vars from './replacers/vars';
 
 export default class {
+  /**
+   * Constructor
+   * @param {Object} source
+   */
   constructor(source) {
     this.source = source;
     this.result = {};
     this.nativeSheet = {};
+    this.varsArr = [];
   }
 
+  /**
+   * Calculates sheet and update result
+   * @param {Object} inVars
+   */
   calc(inVars) {
-    let {cleanObj, extractedVars} = vars.extract(this.source);
-    let varsArr = this.getVarsArr(extractedVars, inVars);
-    this.calcStyles(cleanObj, varsArr);
+    let {extractedProps: extractedStyles, extractedVars} = vars.extract(this.source);
+    this.varsArr = inVars ? [inVars] : [];
+    if (extractedVars) {
+      this.calcVars(extractedVars);
+    }
+    this.calcStyles(extractedStyles);
     this.calcNative();
   }
 
-  calcStyles(cleanObj, varsArr) {
-    Object.keys(cleanObj).forEach(key => {
-      let {calculatedStyles, calculatedVars} = style.calc(cleanObj[key], varsArr);
-      let merged = merge(calculatedVars || {}, calculatedStyles);
+  calcVars(extractedVars) {
+    let varsArrForVars = [extractedVars].concat(this.varsArr);
+    let {calculatedVars} = new Style(extractedVars, varsArrForVars).calc();
+    this.copyToResult(calculatedVars);
+    this.varsArr = [calculatedVars].concat(this.varsArr);
+  }
+
+  calcStyles(extractedStyles) {
+    Object.keys(extractedStyles).forEach(key => {
+      let {calculatedProps, calculatedVars} = new Style(extractedStyles[key], this.varsArr).calc();
+      let merged = merge(calculatedVars || {}, calculatedProps);
       if (key.charAt(0) === '_') {
         this.result[key] = merged;
       } else {
         this.result['_' + key] = merged;
-        this.nativeSheet[key] = calculatedStyles;
+        this.nativeSheet[key] = calculatedProps;
       }
     });
   }
@@ -34,17 +53,6 @@ export default class {
       let rnStyleSheet = StyleSheet.create(this.nativeSheet);
       this.copyToResult(rnStyleSheet);
     }
-  }
-
-  getVarsArr(extractedVars, inVars) {
-    let result = inVars ? [inVars] : [];
-    if (extractedVars) {
-      let varsArrForVars = [extractedVars].concat(result);
-      let {calculatedVars} = style.calc(extractedVars, varsArrForVars);
-      this.copyToResult(calculatedVars);
-      result.unshift(calculatedVars);
-    }
-    return result;
   }
 
   copyToResult(obj) {

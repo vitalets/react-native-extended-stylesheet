@@ -1,5 +1,5 @@
 
-import style from '../style';
+import Style from '../style';
 
 describe('style', function() {
 
@@ -15,14 +15,14 @@ describe('style', function() {
     };
     let varsArr = [{$a: 3, $d: 3, $e: 'abc'}];
 
-    let res = style.calc(source, varsArr);
+    let res = new Style(source, varsArr).calc();
 
     expect(res).toEqual({
       calculatedVars: {
         $a: 1,
         $b: 3,
       },
-      calculatedStyles: {
+      calculatedProps: {
         fontSize: 1,
         borderWidth: 3,
         prop: 2,
@@ -36,7 +36,7 @@ describe('style', function() {
       $a: '$b',
       $b: '$a',
     };
-    expect(() => style.calc(source)).toThrowError('Cyclic reference: $b -> $a -> $b');
+    expect(() => new Style(source).calc()).toThrowError('Cyclic reference: $b -> $a -> $b');
   });
 
   it('should apply scale inlined', function() {
@@ -50,14 +50,14 @@ describe('style', function() {
     };
     let varsArr = [{$a: 2, $d: 3}];
 
-    let res = style.calc(source, varsArr);
+    let res = new Style(source, varsArr).calc();
 
     expect(res).toEqual({
       calculatedVars: {
         $scale: 2,
         $b: 3,
       },
-      calculatedStyles: {
+      calculatedProps: {
         fontSize: 4,
         borderWidth: 6,
         prop: 1,
@@ -77,13 +77,14 @@ describe('style', function() {
     };
     let varsArr = [{$a: 2, $d: 3}, {$scale: 2}];
 
-    let res = style.calc(source, varsArr);
+    let res = new Style(source, varsArr).calc();
+
     expect(res).toEqual({
       calculatedVars: {
         $width: 1,
         $b: 3,
       },
-      calculatedStyles: {
+      calculatedProps: {
         fontSize: 4,
         borderWidth: 6,
         prop: 1,
@@ -91,4 +92,25 @@ describe('style', function() {
       }
     });
   });
+
+  it('should outline', function() {
+    let source = {
+      prop: 10,
+    };
+    let varsArr = [{$outline: true}, {}];
+    Math.random = jest.genMockFn().mockReturnValue(0);
+
+    let res = new Style(source, varsArr).calc();
+
+    expect(res).toEqual({
+      calculatedVars: null,
+      calculatedProps: {
+        prop: 10,
+        borderWidth: 1,
+        borderColor: 'black',
+      }
+    });
+    expect(Math.random.mock.calls.length).toBe(1);
+  });
+
 });

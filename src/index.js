@@ -1,17 +1,15 @@
 /**
- * Extended StyleSheet
+ * Extended StyleSheet API
  */
 
 import Sheet from './sheet';
-import style from './style';
 import Value from './value';
-import vars from './replacers/vars';
 import memoize from './memoize';
 import child from './child';
+import sheetList from './sheet-list';
+import globalVars from './global-vars';
 
 let builded = false;
-let sheets = [];
-let globalVars = null;
 
 export default {
   create,
@@ -30,9 +28,9 @@ export default {
 function create(obj) {
   let sheet = new Sheet(obj);
   if (builded) {
-    sheet.calc(globalVars);
+    sheet.calc(globalVars.get());
   } else {
-    sheets.push(sheet);
+    sheetList.add(sheet);
   }
   return sheet.getResult();
 }
@@ -44,13 +42,11 @@ function create(obj) {
 function build(gVars) {
   if (builded) {
     throw new Error('No need to call `EStyleSheet.build()` more than once');
+  } else {
+    builded = true;
   }
-  builded = true;
-  if (gVars) {
-    gVars = addPrefix(gVars);
-    globalVars = style.calc(gVars, [gVars]).calculatedVars;
-  }
-  sheets.forEach(sheet => sheet.calc(globalVars));
+  globalVars.set(gVars);
+  sheetList.calc(globalVars.get());
 }
 
 /**
@@ -60,7 +56,7 @@ function build(gVars) {
  * @returns {*}
  */
 function value(expr, prop) {
-  let varsArr = globalVars ? [globalVars] : [];
+  let varsArr = globalVars.get() ? [globalVars.get()] : [];
   return new Value(expr, prop, varsArr).calc();
 }
 
@@ -69,18 +65,6 @@ function value(expr, prop) {
  */
 function reset() {
   builded = false;
-  globalVars = null;
-  sheets.length = 0;
-}
-
-/**
- * Adds $ to object keys
- * @param {Object} variables
- * @returns {Object}
- */
-function addPrefix(variables) {
-  return Object.keys(variables).reduce((res, key) => {
-    res[`${vars.PREFIX}${key}`] = variables[key];
-    return res;
-  }, {});
+  globalVars.clear();
+  sheetList.clear();
 }

@@ -2,11 +2,11 @@
 const PREFIX = '$';
 
 export default {
-  PREFIX,
   isVar,
   calc,
   extract,
   get,
+  addPrefix,
 };
 
 /**
@@ -31,29 +31,32 @@ function calc(str, varsArr) {
 }
 
 /**
- * Extract variables from object and returns vars and clean obj
+ * Extract variables / props from mixed object
  * @param {Object} obj
  */
 function extract(obj) {
-  let cleanObj = {};
-  let extractedVars;
+  let extractedProps = {};
+  let extractedVars = null;
   Object.keys(obj).forEach(key => {
     if (isVar(key)) {
       extractedVars = extractedVars || {};
       extractedVars[key] = obj[key];
     } else {
-      cleanObj[key] = obj[key];
+      extractedProps[key] = obj[key];
     }
   });
-  return {cleanObj, extractedVars};
+  return {extractedProps, extractedVars};
 }
 
 /**
  * Return variable value using provided array of variable sets
- * @param {String} name variable without $
+ * @param {String} name variable with $, e.g. '$myVar'
  * @param {Array} varsArr array of variable sets
  */
 function get(name, varsArr) {
+  if (!Array.isArray(varsArr)) {
+    throw new Error('You should pass vars array to vars.get()');
+  }
   // todo: use for.. of after https://github.com/facebook/react-native/issues/4676
   for (let i = 0; i < varsArr.length; i++) {
     let vars = varsArr[i];
@@ -61,4 +64,16 @@ function get(name, varsArr) {
       return vars[name];
     }
   }
+}
+
+/**
+ * Adds $ to object keys
+ * @param {Object} obj
+ * @returns {Object}
+ */
+function addPrefix(obj) {
+  return Object.keys(obj).reduce((res, key) => {
+    res[`${PREFIX}${key}`] = obj[key];
+    return res;
+  }, {});
 }

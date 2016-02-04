@@ -1,6 +1,6 @@
 import EStyleSheet from '../index';
 
-describe('EStyleSheet', function() {
+describe('EStyleSheet API', function() {
 
   beforeEach(function () {
     EStyleSheet.reset();
