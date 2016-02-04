@@ -14,6 +14,7 @@ Extend [React Native](https://facebook.github.io/react-native/) stylesheet with 
   - [pseudo classes (:nth-child)](#pseudo-classes-nth-child)
   - [OS specific props](#os-specific-props)
   - [caching](#caching)
+  - [outline for debug](#outline-for-debug)
 - [API](#api)
   - [.create()](#create)
   - [.build()](#build)
@@ -70,18 +71,20 @@ npm i react-native-extended-stylesheet --save
 
 ## Features
 ### Global variables
-Global variables are passed to `EStyleSheet.build()` and available in any stylesheet of whole app.  
+Global variables are useful for global theming or A/B UI experiments of your app. 
+They are passed to `EStyleSheet.build()` and available in any stylesheet.  
 To use global variable just reference it's name with `$` prefix:
 ```js
-// component
+// app entry: set global variables
+EStyleSheet.build({
+  textColor: '#0275d8'
+});
+
+// component: use global variables
 const styles = EStyleSheet.create({
   text: {
     color: '$textColor'
   }
-});
-// app entry
-EStyleSheet.build({
-  textColor: '#0275d8'
 });
 ```
 You can put all global variables to separate file to control app theme:
@@ -360,6 +363,24 @@ let getStyle = EStyleSheet.memoize(function (scale = 1) {
 });
 ```
 Now if you call `getStyle(1.5)` 3 times actually style will be created on the first call and two other calls will get it from cache.  
+\[[top](#)\]
+
+### Outline for debug
+To outline all components for debug purpuses just set special `$outline` variable:
+```js
+// outline all stylesheets
+EStyleSheet.build({outline: 1}); 
+
+// outline particular stylesheet
+const styles = EStyleSheet.create({
+  $outline: 1,
+  column: {
+    width: '80%',
+    flexDirection: 'row'
+  },
+  ...
+});
+```
 \[[top](#)\]
 
 ## EStyleSheet API
