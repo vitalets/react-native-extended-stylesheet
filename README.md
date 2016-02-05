@@ -16,6 +16,7 @@ math operations, scaling and other stuff to control app styling.
   - [_underscored styles](#underscored-styles)
   - [pseudo classes (:nth-child)](#pseudo-classes-nth-child)
   - [OS specific props](#os-specific-props)
+  - [value as a function](#value-as-a-function)
   - [caching](#caching)
   - [outline for debug](#outline-for-debug)
 - [API](#api)
@@ -324,6 +325,32 @@ const styles = EStyleSheet.create({
 });
 ```
 The output style will have only one property `marginTop` depending on OS.  
+\[[top](#)\]
+
+### Value as a function
+For the deepest customization you can specify any value as a function that will be executed on EStyleSheet build.
+It is practically useful if you need to calculate value depending on some global variable.  
+For example, you may *darken* or *lighten* color of variable via [npm color package](https://www.npmjs.com/package/color): 
+```js
+import Color from 'color';
+import EStyleSheet from 'react-native-extended-stylesheet';
+
+const styles = EStyleSheet.create({
+  button: {
+    backgroundColor: '$buttonColor',
+  },
+  $underlayColor: () => Color(EStyleSheet.value('$buttonColor')).darken(0.1).hexString();
+});
+...
+render() {
+  return (
+    <TouchableHighlight style={styles.button} underlayColor={styles.$underlayColor}>
+      ...
+    </TouchableHighlight>
+  );
+}
+
+```
 \[[top](#)\]
 
 ### Caching

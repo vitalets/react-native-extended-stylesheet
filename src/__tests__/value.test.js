@@ -16,10 +16,12 @@ const varsArr = [
 
 describe('value', function() {
 
-  it('should pass non strings', function() {
+  it('should keep values without transform', function() {
     expect(new Value(10, 'prop', varsArr).calc()).toEqual(10);
+    expect(new Value('10', 'prop', varsArr).calc()).toEqual('10');
+    expect(new Value('abc', 'prop', varsArr).calc()).toEqual('abc');
     expect(new Value([], 'prop', varsArr).calc()).toEqual([]);
-    expect(new Value({}, 'prop', varsArr).calc()).toEqual({});
+    expect(new Value({x: 1}, 'prop', varsArr).calc()).toEqual({x: 1});
     expect(new Value(null, 'prop', varsArr).calc()).toEqual(null);
   });
 
@@ -52,4 +54,10 @@ describe('value', function() {
     expect(new Value('0.5rem', 'propWidth', [{$scale: 3}]).calc()).toEqual(24);
     expect(new Value('0.5rem', 'prop', [{$scale: 3}]).calc()).toEqual(8);
   });
+
+  it('should exec value as a function', function() {
+    expect(new Value(() => 10, 'prop').calc()).toEqual(10);
+    expect(new Value(() => '$a', 'prop', [{$a: 1}]).calc()).toEqual(1);
+  });
+
 });
