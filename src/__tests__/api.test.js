@@ -1,20 +1,22 @@
-import EStyleSheet from '../index';
+import Api from '../api';
 
 describe('EStyleSheet API', function() {
 
+  let api;
+
   beforeEach(function () {
-    EStyleSheet.reset();
+    api = new Api();
   });
 
   it('should create stylesheets and fill after build', function() {
-    let res1 = EStyleSheet.create({
+    let res1 = api.create({
       $a: 1,
       text: {
         $b: '1',
         fontSize: '$a',
       }
     });
-    let res2 = EStyleSheet.create({
+    let res2 = api.create({
       $b: '$c',
       button: {
         color: '$c',
@@ -24,7 +26,7 @@ describe('EStyleSheet API', function() {
     expect(res1).toEqual({});
     expect(res2).toEqual({});
 
-    EStyleSheet.build({c: 3});
+    api.build({c: 3});
 
     expect(res1).toEqual({
       $a: 1,
@@ -44,8 +46,8 @@ describe('EStyleSheet API', function() {
   });
 
   it('should create calculated stylesheets after build', function() {
-    EStyleSheet.build({c: 3});
-    let res = EStyleSheet.create({
+    api.build({c: 3});
+    let res = api.create({
       $b: '$c',
       button: {
         color: '$c',
@@ -61,8 +63,8 @@ describe('EStyleSheet API', function() {
   });
 
   it('should calculate global vars', function() {
-    EStyleSheet.build({c: '$d+1', d: 2});
-    let res = EStyleSheet.create({
+    api.build({c: '$d+1', d: 2});
+    let res = api.create({
       $b: '$c',
     });
     expect(res).toEqual({
@@ -71,23 +73,23 @@ describe('EStyleSheet API', function() {
   });
 
   it('should throw error on second `build` call', function() {
-    EStyleSheet.build();
-    expect(() => EStyleSheet.build()).toThrowError('No need to call `EStyleSheet.build()` more than once');
+    api.build();
+    expect(() => api.build()).toThrowError('No need to call `EStyleSheet.build()` more than once');
   });
 
   it('should calculate value', function() {
-    EStyleSheet.build({d: 1});
-    let res1 = EStyleSheet.value('$d+1');
-    let res2 = EStyleSheet.value('100% - 10', 'width');
+    api.build({d: 1});
+    let res1 = api.value('$d+1');
+    let res2 = api.value('100% - 10', 'width');
     expect(res1).toBe(2);
     expect(res2).toBe(90);
   });
 
   it('should export memoize method', function() {
-    expect(typeof EStyleSheet.memoize).toBe('function');
+    expect(typeof api.memoize).toBe('function');
   });
 
   it('should export child method', function() {
-    expect(typeof EStyleSheet.child).toBe('function');
+    expect(typeof api.child).toBe('function');
   });
 });
