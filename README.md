@@ -265,7 +265,7 @@ But extended stylesheet saves original values under `_text` property:
 styles = {
   text: 0,
   _text: {
-    fonrSize: 16,
+    fontSize: 16,
     color: 'gray'
   }
 }
