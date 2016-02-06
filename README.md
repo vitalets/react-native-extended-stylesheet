@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/react-native-extended-stylesheet.svg)](https://badge.fury.io/js/react-native-extended-stylesheet)
 [![Build Status](https://travis-ci.org/vitalets/react-native-extended-stylesheet.svg?branch=master)](https://travis-ci.org/vitalets/react-native-extended-stylesheet)
-
+[![Coverage Status](https://coveralls.io/repos/github/vitalets/react-native-extended-stylesheet/badge.svg?branch=master)](https://coveralls.io/github/vitalets/react-native-extended-stylesheet?branch=master)
 
 Extend [React Native](https://facebook.github.io/react-native/) stylesheets with variables, relative units, percents, 
 math operations, scaling and other stuff to control app styling.
