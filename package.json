@@ -10,6 +10,7 @@
   "scripts": {
     "check": "eslint src && jscs src --verbose",
     "test": "jest",
+    "coveralls": "coveralls < coverage/lcov.info",
     "release": "npm run check && npm test && npm version patch && npm publish && git push --follow-tags"
   },
   "repository": {
@@ -24,6 +25,7 @@
     "babel-eslint": "^4.1.8",
     "babel-jest": "^6.0.1",
     "babel-preset-react-native": "^1.1.0",
+    "coveralls": "^2.11.6",
     "eslint": "^1.10.3",
     "eslint-plugin-react": "^3.16.1",
     "eslint-plugin-react-native": "^0.5.0",
@@ -59,7 +61,21 @@
       "react-native-mock"
     ],
     "verbose": true,
-    "collectCoverage": false
+    "collectCoverage": true,
+    "collectCoverageOnlyFrom": {
+      "src/api.js": true,
+      "src/child.js": true,
+      "src/memoize.js": true,
+      "src/sheet.js": true,
+      "src/style.js": true,
+      "src/value.js": true,
+      "src/replacers/operation.js": true,
+      "src/replacers/osprop.js": true,
+      "src/replacers/percent.js": true,
+      "src/replacers/rem.js": true,
+      "src/replacers/scale.js": true,
+      "src/replacers/vars.js": true
+    }
   },
   "keywords": [
     "react",
