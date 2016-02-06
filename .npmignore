@@ -4,4 +4,5 @@
 .eslintrc
 .jscsrc
 .idea
+.travis.yml
 /coverage
