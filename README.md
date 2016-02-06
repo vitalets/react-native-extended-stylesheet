@@ -1,6 +1,8 @@
 # React Native Extended StyleSheet
 
 [![npm version](https://badge.fury.io/js/react-native-extended-stylesheet.svg)](https://badge.fury.io/js/react-native-extended-stylesheet)
+[![Build Status](https://travis-ci.org/vitalets/react-native-extended-stylesheet.svg?branch=master)](https://travis-ci.org/vitalets/react-native-extended-stylesheet)
+
 
 Extend [React Native](https://facebook.github.io/react-native/) stylesheets with variables, relative units, percents, 
 math operations, scaling and other stuff to control app styling.
