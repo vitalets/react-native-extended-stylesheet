@@ -30,6 +30,7 @@ math operations, scaling and other stuff to control app styling.
   - [.value()](#value)
   - [.memoize()](#memoize)
   - [.child()](#child)
+  - [.subscribe()](#subscribe)
 - [Feedback](#feedback)
 - [License](#license)
 
@@ -424,41 +425,50 @@ const styles = EStyleSheet.create({
 ```js
 /**
  * Creates extended stylesheet object
+ *
  * @param {Object} source style
  * @returns {Object} extended stylesheet object
  */
-EStyleSheet.create = function (source) {...}
+ create (source) {...}
 ```
+\[[top](#)\]
 
 ### .build()
 ```js
 /**
  * Calculates all stylesheets
+ *
  * @param {Object} [globalVars] global variables for all stylesheets
  */
-EStyleSheet.build = function (globalVars) {...}
+ build (globalVars) {...}
 ```
+\[[top](#)\]
 
 ### .value()
 ```js
 /**
  * Calculates particular value
+ *
  * @param {*} value
  * @param {String} [prop] property for which value is calculated. Needed for example for percent values.
  * @returns {*} calculated result
  */
-EStyleSheet.value = function (value, prop) {...}
+ value (value, prop) {...}
 ```
+\[[top](#)\]
 
 ### .memoize()
 ```js
 /**
  * Wraps function to cache calls with the same parameters
+ *
  * @param {Function} fn
  * @returns {Function} wrapped function
  */
-EStyleSheet.memoize = function (fn) {...}
+ memoize (fn) {...}
 ```
+\[[top](#)\]
+
 ### .child()
 ```js
 /**
@@ -470,7 +480,40 @@ EStyleSheet.memoize = function (fn) {...}
  * @param {Number} count total count of items
  * @returns {Object|Array} styles
  */
-EStyleSheet.child = function (styles, styleName, index, count) {...}
+ child (styles, styleName, index, count) {...}
+```
+\[[top](#)\]
+
+### .subscribe()
+```js
+/**
+ * Subscribe to events. Currently only 'build' event is supported
+ *
+ * @param {String} event
+ * @param {Function} listener
+ */
+ subscribe (event, listener) {...}
+
+```
+This method is useful when you want to pre-render some component on init.
+As extended style is calculated after call of `EStyleSheet.build()`,
+it is not available instantly after creation so you should wrap pre-render
+info listener to `build` event:
+```js
+const styles = EStyleSheet.create({
+  button: {
+    width: '80%',
+  }
+});
+
+// this will NOT work as styles.button is not calculated yet
+let Button = <View style={styles.button}></View>;
+
+// but this will work
+let Button;
+EStyleSheet.subscribe('build', () => {
+  Button = <View style={styles.button}></View>;
+});
 ```
 \[[top](#)\]
 

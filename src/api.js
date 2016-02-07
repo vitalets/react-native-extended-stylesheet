@@ -9,6 +9,8 @@ import vars from './replacers/vars';
 import memoize from './memoize';
 import child from './child';
 
+const BUILD_EVENT = 'build';
+
 export default class {
   memoize = memoize;
   child = child;
@@ -20,6 +22,7 @@ export default class {
     this.builded = false;
     this.sheets = [];
     this.globalVars = null;
+    this.listeners = {};
   }
 
   /**
@@ -49,6 +52,7 @@ export default class {
     }
     this._calcVars(gVars);
     this._calcSheets();
+    this._callListeners(BUILD_EVENT);
   }
 
   /**
@@ -62,6 +66,26 @@ export default class {
     return new Value(expr, prop, varsArr).calc();
   }
 
+  /**
+   * Subscribe to events. Currently only 'build' event is supported
+   * @param {String} event
+   * @param {Function} listener
+   */
+  subscribe(event, listener) {
+    if (event !== BUILD_EVENT) {
+      throw new Error(`Only '${BUILD_EVENT}' event currently supported.`);
+    }
+    if (typeof listener !== 'function') {
+      throw new Error('Listener should be a function.');
+    }
+    if (this.builded) {
+      listener();
+    } else {
+      this.listeners[BUILD_EVENT] = this.listeners[BUILD_EVENT] || [];
+      this.listeners[BUILD_EVENT].push(listener);
+    }
+  }
+
   _calcVars(gVars) {
     if (gVars) {
       gVars = vars.addPrefix(gVars);
@@ -72,5 +96,12 @@ export default class {
   _calcSheets() {
     this.sheets.forEach(sheet => sheet.calc(this.globalVars));
     this.sheets.length = 0;
+  }
+
+  _callListeners(event) {
+    if (this.listeners[event]) {
+      this.listeners[event].forEach(listener => listener());
+      delete this.listeners[event];
+    }
   }
 }

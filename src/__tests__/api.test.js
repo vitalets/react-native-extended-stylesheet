@@ -62,7 +62,7 @@ describe('EStyleSheet API', function() {
     });
   });
 
-  it('should calculate global vars', function() {
+  it('should calculate global vars after build', function() {
     api.build({c: '$d+1', d: 2});
     let res = api.create({
       $b: '$c',
@@ -91,5 +91,17 @@ describe('EStyleSheet API', function() {
 
   it('should export child method', function() {
     expect(typeof api.child).toBe('function');
+  });
+
+  it('should subscribe to build and call listeners', function() {
+    let listener1 = jest.genMockFn();
+    let listener2 = jest.genMockFn();
+
+    api.subscribe('build', listener1);
+    api.build();
+    api.subscribe('build', listener2);
+
+    expect(listener1.mock.calls.length).toBe(1);
+    expect(listener2.mock.calls.length).toBe(1);
   });
 });
