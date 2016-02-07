@@ -82,7 +82,7 @@ npm i react-native-extended-stylesheet --save
 
 ## Features
 ### Global variables
-Global variables are useful for global theming or A/B UI experiments of your app. 
+Global variables are useful for global theming or A/B testing of your app. 
 They are passed to `EStyleSheet.build()` and available in any stylesheet.  
 To use global variable just reference it's name with `$` prefix:
 ```js
