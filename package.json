@@ -52,12 +52,6 @@
     "testFileExtensions": [
       "test.js"
     ],
-    "testPathIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "modulePathIgnorePatterns": [
-      "/node_modules/"
-    ],
     "unmockedModulePathPatterns": [
       "react-native-mock"
     ],
