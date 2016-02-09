@@ -1,6 +1,5 @@
-jest.dontMock('../operation');
 
-const operation = require('../operation').default;
+import operation from '../operation';
 
 describe('operation', function() {
   it('should detect *', function () {

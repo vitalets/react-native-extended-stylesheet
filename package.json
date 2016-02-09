@@ -48,12 +48,11 @@
     ],
     "testRunner": "node_modules/jest-cli/src/testRunners/jasmine/jasmine2",
     "scriptPreprocessor": "node_modules/babel-jest",
-    "setupEnvScriptFile": "src/__tests__/env.js",
     "testFileExtensions": [
       "test.js"
     ],
     "unmockedModulePathPatterns": [
-      "react-native-mock"
+      "/src/"
     ],
     "verbose": true,
     "collectCoverage": true,

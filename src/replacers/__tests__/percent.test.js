@@ -1,10 +1,5 @@
-jest.dontMock('../percent');
 
-ReactMock.Dimensions.get = () => {
-  return {width: 100, height: 200};
-};
-
-const percent = require('../percent').default;
+import percent from '../percent';
 
 describe('percent', function() {
   it('should detect percent', function () {
