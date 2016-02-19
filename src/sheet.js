@@ -31,14 +31,14 @@ export default class {
   calcVars(extractedVars) {
     let varsArrForVars = [extractedVars].concat(this.varsArr);
     let {calculatedVars} = new Style(extractedVars, varsArrForVars).calc();
-    this.copyToResult(calculatedVars);
+    Object.assign(this.result, calculatedVars);
     this.varsArr = [calculatedVars].concat(this.varsArr);
   }
 
   calcStyles(extractedStyles) {
     Object.keys(extractedStyles).forEach(key => {
       let {calculatedProps, calculatedVars} = new Style(extractedStyles[key], this.varsArr).calc();
-      let merged = merge(calculatedVars || {}, calculatedProps);
+      let merged = Object.assign({}, calculatedVars, calculatedProps);
       if (key.charAt(0) === '_') {
         this.result[key] = merged;
       } else {
@@ -51,22 +51,11 @@ export default class {
   calcNative() {
     if (Object.keys(this.nativeSheet).length) {
       let rnStyleSheet = StyleSheet.create(this.nativeSheet);
-      this.copyToResult(rnStyleSheet);
+      Object.assign(this.result, rnStyleSheet);
     }
-  }
-
-  copyToResult(obj) {
-    Object.keys(obj).forEach(key => this.result[key] = obj[key]);
   }
 
   getResult() {
     return this.result;
   }
-}
-
-function merge(to, from) {
-  if (to && from) {
-    Object.keys(from).forEach(key => to[key] = from[key] !== undefined ? from[key] : to[key]);
-  }
-  return to;
 }
