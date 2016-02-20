@@ -1,7 +1,7 @@
 
 import operation from '../operation';
 
-describe('operation', function() {
+describe('operation', function () {
   it('should detect *', function () {
     expect(operation.isOperation('10 * 20')).toEqual({operator: '*', v1: '10', v2: '20'});
     expect(operation.isOperation('$abc*100%')).toEqual({operator: '*', v1: '$abc', v2: '100%'});

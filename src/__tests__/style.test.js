@@ -1,9 +1,9 @@
 
 import Style from '../style';
 
-describe('style', function() {
+describe('style', function () {
 
-  it('should calc style', function() {
+  it('should calc style', function () {
     let source = {
       $a: 1,
       $b: '$d',
@@ -31,7 +31,7 @@ describe('style', function() {
     });
   });
 
-  it('should throw error on cyclic refs', function() {
+  it('should throw error on cyclic refs', function () {
     let source = {
       $a: '$b',
       $b: '$a',
@@ -39,7 +39,7 @@ describe('style', function() {
     expect(() => new Style(source).calc()).toThrowError('Cyclic reference: $b -> $a -> $b');
   });
 
-  it('should apply scale inlined', function() {
+  it('should apply scale inlined', function () {
     let source = {
       $scale: 2,
       $b: '$d',
@@ -66,7 +66,7 @@ describe('style', function() {
     });
   });
 
-  it('should apply scale from vars', function() {
+  it('should apply scale from vars', function () {
     let source = {
       $b: '$d',
       $width: 1,
@@ -93,7 +93,7 @@ describe('style', function() {
     });
   });
 
-  it('should outline', function() {
+  it('should outline', function () {
     let source = {
       prop: 10,
     };

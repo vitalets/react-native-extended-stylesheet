@@ -1,8 +1,8 @@
 
 import Sheet from '../sheet';
 
-describe('sheet', function() {
-  it('should calc sheet', function() {
+describe('sheet', function () {
+  it('should calc sheet', function () {
     let source = {
       $a: 1,
       $b: '$a + 1',

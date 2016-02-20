@@ -1,6 +1,6 @@
 import child from '../child';
 
-describe('child', function() {
+describe('child', function () {
 
   it('should apply pseudo classes', function () {
     let styles = {

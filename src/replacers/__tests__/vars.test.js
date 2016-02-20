@@ -1,7 +1,7 @@
 
 import vars from '../vars';
 
-describe('vars', function() {
+describe('vars', function () {
   it('should detect var', function () {
     expect(vars.isVar('$abc')).toBe(true);
     expect(vars.isVar('abc')).toBe(false);

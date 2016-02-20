@@ -1,6 +1,6 @@
 import memoize from '../memoize';
 
-describe('memoize', function() {
+describe('memoize', function () {
 
   it('should cache calls with the same args', function () {
     let f = jest.genMockFn().mockImpl((a, b) => a + b);

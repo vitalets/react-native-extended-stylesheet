@@ -1,7 +1,7 @@
 
 import percent from '../percent';
 
-describe('percent', function() {
+describe('percent', function () {
   it('should detect percent', function () {
     expect(percent.isPercent('10%')).toBe(true);
     expect(percent.isPercent('10')).toBe(false);

@@ -17,6 +17,7 @@
   ],
 
   "rules": {
+    "space-before-function-paren": [2, {"anonymous": "always", "named": "never"}],
     "react/display-name": 0,
     "react/forbid-prop-types": 1,
     "react/jsx-boolean-value": 1,
