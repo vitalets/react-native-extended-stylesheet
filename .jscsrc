@@ -1,6 +1,7 @@
 {
   "preset": "yandex",
   "esnext": true,
+  "verbose": true,
   "validateIndentation": 2,
   "disallowEmptyBlocks": null,
   "disallowQuotedKeysInObjects": null,

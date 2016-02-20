@@ -8,8 +8,8 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "code": "eslint src && jscs src --verbose",
-    "code-fix": "eslint src --fix && jscs src --verbose --fix",
+    "code": "eslint src && jscs src",
+    "code-fix": "eslint src --fix && jscs src --fix",
     "test": "jest",
     "coveralls": "coveralls < coverage/lcov.info",
     "release": "npm run check && npm test && npm version patch && npm publish && git push --follow-tags"
