@@ -9,6 +9,12 @@ const operators = {
   '-': (v1, v2) => v1 - v2,
 };
 
+/**
+ * Prevents flexbox's justifyContent values from being treated as operator
+ */
+
+const noops = ['flex-start', 'flex-end', 'space-around', 'space-between'];
+
 export default {
   isOperation,
   exec,
@@ -45,7 +51,9 @@ function exec(opInfo) {
 function findOperator(str) {
   for (let operator in operators) {
     let pos = str.indexOf(operator);
-    if (pos >= 0) {
+    let skip = noops.indexOf(str);
+
+    if (pos >= 0 && skip === -1) {
       return {operator, pos};
     }
   }
