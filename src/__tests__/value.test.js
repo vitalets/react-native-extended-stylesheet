@@ -25,6 +25,12 @@ describe('value', function() {
     expect(new Value(null, 'prop', varsArr).calc()).toEqual(null);
   });
 
+  it('should keep justifyContent values', function() {
+    ['flex-start', 'flex-end', 'space-around', 'space-between'].map((value) => {
+      expect(new Value(value, 'prop', varsArr).calc()).toEqual(value);
+    });
+  });
+
   it('should calc var', function() {
     expect(new Value('$a', 'prop', varsArr).calc()).toEqual(1);
     expect(new Value('$b', 'prop', varsArr).calc()).toEqual(2);
@@ -59,5 +65,4 @@ describe('value', function() {
     expect(new Value(() => 10, 'prop').calc()).toEqual(10);
     expect(new Value(() => '$a', 'prop', [{$a: 1}]).calc()).toEqual(1);
   });
-
 });
