@@ -73,7 +73,7 @@ export default class {
    */
   subscribe(event, listener) {
     if (event !== BUILD_EVENT) {
-      throw new Error(`Only '${BUILD_EVENT}' event currently supported.`);
+      throw new Error(`Only '${BUILD_EVENT}' event is currently supported.`);
     }
     if (typeof listener !== 'function') {
       throw new Error('Listener should be a function.');

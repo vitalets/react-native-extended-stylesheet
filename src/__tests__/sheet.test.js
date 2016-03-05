@@ -3,7 +3,7 @@ import Sheet from '../sheet';
 
 describe('sheet', function () {
   it('should calc sheet', function () {
-    let source = {
+    const source = {
       $a: 1,
       $b: '$a + 1',
       text: {
@@ -13,12 +13,12 @@ describe('sheet', function () {
         prop: '$e',
       }
     };
-    let variables = {$a: 2, $d: 2, $e: 'abc'};
-    let sheet = new Sheet(source);
+    const variables = {$a: 2, $d: 2, $e: 'abc'};
+    const sheet = new Sheet(source);
 
     sheet.calc(variables);
 
-    let result = sheet.getResult();
+    const result = sheet.getResult();
     expect(result).toEqual({
       $a: 1,
       $b: 2,
@@ -29,6 +29,26 @@ describe('sheet', function () {
         prop: 'abc',
       },
       text: 0,
+    });
+  });
+
+  it('should calc underscored props', function () {
+    const source = {
+      $b: 2,
+      _text: {
+        borderWidth: '$b',
+      }
+    };
+    const sheet = new Sheet(source);
+
+    sheet.calc();
+
+    const result = sheet.getResult();
+    expect(result).toEqual({
+      $b: 2,
+      _text: {
+        borderWidth: 2,
+      }
     });
   });
 

@@ -180,12 +180,12 @@ export default class Value {
     if (vars.isVar(this.prop)) {
       return;
     }
-    let scaleValue = vars.get('$scale', this.varsArr) || 1;
-    if (scaleValue === 1) {
+    let scaleFactor = vars.get('$scale', this.varsArr) || 1;
+    if (scaleFactor === 1) {
       return;
     }
     if (scale.isScalable(this.outValue, this.prop)) {
-      this.outValue = scale.calc(this.outValue, scaleValue);
+      this.outValue = scale.calc(this.outValue, scaleFactor);
       this.isCalculated = true;
     }
   }

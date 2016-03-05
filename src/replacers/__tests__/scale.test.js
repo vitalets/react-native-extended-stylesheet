@@ -15,4 +15,9 @@ describe('scale', function () {
     expect(scale.calc(1, 0.5)).toBe(0.5);
   });
 
+  it('should throw errors for invalid input', function () {
+    expect(() => scale.calc('abc', 2)).toThrowError('Invalid value for scale: abc');
+    expect(() => scale.calc(2, 'cde')).toThrowError('Invalid scaleFactor for scale: cde');
+  });
+
 });

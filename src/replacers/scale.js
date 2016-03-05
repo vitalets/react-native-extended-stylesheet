@@ -29,17 +29,17 @@ function isScalable(value, prop) {
 /**
  * Performs scaling
  * @param {Number} value
- * @param {Number} scaleValue
+ * @param {Number} scaleFactor
  * @returns {number}
  */
-function calc(value, scaleValue) {
-  if (isNaN(value)) {
+function calc(value, scaleFactor) {
+  if (typeof value !== 'number') {
     throw new Error('Invalid value for scale: ' + value);
   }
-  if (isNaN(scaleValue)) {
-    throw new Error('Invalid value for scale: ' + scaleValue);
+  if (typeof scaleFactor !== 'number') {
+    throw new Error('Invalid scaleFactor for scale: ' + scaleFactor);
   }
-  return value * scaleValue;
+  return value * scaleFactor;
 }
 
 function isScalableProp(prop) {

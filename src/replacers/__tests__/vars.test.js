@@ -40,6 +40,7 @@ describe('vars', function () {
   it('should get var', function () {
     expect(vars.get('$abc', [{$abc: 1}, {$abc: 2}])).toBe(1);
     expect(vars.get('abc', [])).toBe(undefined);
+    expect(() => vars.get('abc')).toThrowError('You should pass vars array to vars.get()');
   });
 
   it('should add prefix', function () {

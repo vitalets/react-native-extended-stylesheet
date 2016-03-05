@@ -104,4 +104,14 @@ describe('EStyleSheet API', function () {
     expect(listener1.mock.calls.length).toBe(1);
     expect(listener2.mock.calls.length).toBe(1);
   });
+
+  it('should throw error when subscribe to incorrect event', function () {
+    const fn = () => api.subscribe('abc', () => {});
+    expect(fn).toThrowError('Only \'build\' event is currently supported.');
+  });
+
+  it('should throw error when subscribe with non-function listener', function () {
+    const fn = () => api.subscribe('build', null);
+    expect(fn).toThrowError('Listener should be a function.');
+  });
 });
