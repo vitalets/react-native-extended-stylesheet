@@ -50,6 +50,11 @@ describe('value', function () {
     expect(new Value('50% + 1', 'width', varsArr).calc()).toEqual(51);
   });
 
+  it('should not calc operations for non-operation values', function () {
+    expect(new Value('flex-start', 'prop', varsArr).calc()).toEqual('flex-start');
+    expect(new Value('1 - start', 'prop', varsArr).calc()).toEqual('1 - start');
+  });
+
   it('should calc scale', function () {
     expect(new Value('0.5rem', 'propWidth', [{$scale: 3}]).calc()).toEqual(24);
     expect(new Value('0.5rem', 'prop', [{$scale: 3}]).calc()).toEqual(8);

@@ -74,6 +74,10 @@ function calcPlainObject(obj, varsArr) {
   }, {});
 }
 
+/**
+ * Returns random color (needed for outline)
+ * @returns {String}
+ */
 function getRandomColor() {
   let colors = [
     'black',

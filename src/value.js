@@ -88,28 +88,32 @@ export default class Value {
 
   tryCalcOperation(str) {
     let opInfo = operation.isOperation(str);
-    if (opInfo) {
-      opInfo.v1 = this.calcOperationValue(opInfo.v1);
-      opInfo.v2 = this.calcOperationValue(opInfo.v2);
-      return operation.exec(opInfo);
-    } else {
+    if (!opInfo) {
       return null;
     }
+    // todo: use for.. of after https://github.com/facebook/react-native/issues/4676
+    const operands = ['v1', 'v2'];
+    for (let i = 0; i < operands.length; i++) {
+      const operand = operands[i];
+      const operandValue = this.calcOperandValue(opInfo[operand]);
+      if (operandValue !== null) {
+        opInfo[operand] = operandValue;
+      } else {
+        // if we cant calculate operand - it is not operation, see #3
+        return null;
+      }
+    }
+    return operation.exec(opInfo);
   }
 
-  calcOperationValue(str) {
+  calcOperandValue(str) {
     let actions = [
       this.tryCalcVar,
       this.tryCalcPercent,
       this.tryCalcRem,
       this.tryCalcFloat,
     ];
-    let value = this.tryActions(actions, str);
-    if (value !== null) {
-      return value;
-    } else {
-      throw new Error('Operations allowed only with numbers, rems and percents. You are trying: ' + str);
-    }
+    return this.tryActions(actions, str);
   }
 
   tryCalcVar(str) {
@@ -148,21 +152,31 @@ export default class Value {
     }
   }
 
+  /**
+   * Tries calc float value from string
+   */
   tryCalcFloat(str) {
     let val = parseFloat(str);
     return !isNaN(val) ? val : null;
   }
 
+  /**
+   * Is it final calculation (not recursion)
+   */
   isFinal() {
     return !this.stack.length;
   }
 
+  /**
+   * Just proxies value when no processing needed
+   */
   proxyValue() {
     this.outValue = this.value;
   }
 
   applyScale() {
-    // do not apply scale to variables
+    // do not apply scale to variables, only for final numbers
+    // otherwise scale will be applied several times
     if (vars.isVar(this.prop)) {
       return;
     }
@@ -176,6 +190,9 @@ export default class Value {
     }
   }
 
+  /**
+   * Round outValue if it was calculated and is number
+   */
   applyRound() {
     if (this.isCalculated && typeof this.outValue === 'number') {
       this.outValue = Math.round(this.outValue);
