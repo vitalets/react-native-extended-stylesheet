@@ -12,7 +12,7 @@
     "code-fix": "eslint src --fix && jscs src --fix",
     "test": "jest",
     "coveralls": "coveralls < coverage/lcov.info",
-    "release": "npm run check && npm test && npm version patch && npm publish && git push --follow-tags"
+    "release": "npm run code && npm test && npm version patch && npm publish && git push --follow-tags"
   },
   "repository": {
     "type": "git",
