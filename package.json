@@ -40,7 +40,7 @@
   },
   "config": {
     "ghooks": {
-      "pre-commit": "npm run code",
+      "pre-commit": "bash hooks/pre-commit.sh",
       "pre-push": "npm run code && npm test"
     }
   },
