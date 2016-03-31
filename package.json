@@ -23,19 +23,20 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "babel-eslint": "^4.1.8",
-    "babel-jest": "^6.0.1",
-    "babel-preset-react-native": "^1.2.4",
-    "coveralls": "^2.11.6",
-    "eslint": "^1.10.3",
-    "eslint-plugin-react": "^3.16.1",
-    "eslint-plugin-react-native": "^0.5.0",
-    "ghooks": "^1.0.1",
-    "jest-cli": "^0.8.2",
-    "jscs": "^2.9.0",
-    "jscs-jsdoc": "^1.3.1",
-    "npm-check": "^4.1.4",
-    "react-native": "^0.19.0"
+    "babel-eslint": "^6.0.0",
+    "babel-jest": "^10.0.1",
+    "babel-preset-react-native": "^1.5.6",
+    "coveralls": "^2.11.9",
+    "eslint": "^2.5.3",
+    "eslint-plugin-react": "^4.2.3",
+    "eslint-plugin-react-native": "^1.0.0",
+    "ghooks": "^1.1.1",
+    "jest-cli": "^0.10.0",
+    "jscs": "^2.11.0",
+    "jscs-jsdoc": "^1.3.2",
+    "npm-check": "^5.0.1",
+    "react": "^0.14.8",
+    "react-native": "^0.22.2"
   },
   "config": {
     "ghooks": {
@@ -44,33 +45,16 @@
     }
   },
   "jest": {
+    "automock": false,
     "testPathDirs": [
       "src"
     ],
-    "testRunner": "node_modules/jest-cli/src/testRunners/jasmine/jasmine2",
     "scriptPreprocessor": "node_modules/babel-jest",
     "testFileExtensions": [
       "test.js"
     ],
-    "unmockedModulePathPatterns": [
-      "/src/"
-    ],
     "verbose": true,
-    "collectCoverage": true,
-    "collectCoverageOnlyFrom": {
-      "src/api.js": true,
-      "src/child.js": true,
-      "src/memoize.js": true,
-      "src/sheet.js": true,
-      "src/style.js": true,
-      "src/value.js": true,
-      "src/replacers/operation.js": true,
-      "src/replacers/osprop.js": true,
-      "src/replacers/percent.js": true,
-      "src/replacers/rem.js": true,
-      "src/replacers/scale.js": true,
-      "src/replacers/vars.js": true
-    }
+    "collectCoverage": true
   },
   "keywords": [
     "react",
