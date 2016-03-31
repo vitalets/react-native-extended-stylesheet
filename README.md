@@ -40,7 +40,7 @@ npm i react-native-extended-stylesheet --save
 ```
 
 ## Usage
-1. Define extended styles via `EStyleSheet.create()`:
+1. Define styles as usual using `EStyleSheet.create()`:
 
   ```js
   // component.js
@@ -68,14 +68,18 @@ npm i react-native-extended-stylesheet --save
   }  
   ```
 
-2. Actually calculate styles in entry point of your app via `EStyleSheet.build()`:
+2. Call `EStyleSheet.build()` in entry point of your app:
 
   ```js
   // app.js
   import EStyleSheet from 'react-native-extended-stylesheet';
   
+  // build styles
+  EStyleSheet.build();
+  
+  // build styles with passed variables
   EStyleSheet.build({
-    textColor: '#0275d8'  // pass variables for styling
+    textColor: '#0275d8'
   });
   ```
 \[[top](#)\]
