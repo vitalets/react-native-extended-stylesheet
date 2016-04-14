@@ -22,6 +22,9 @@
     "url": "https://github.com/vitalets/react-native-extended-stylesheet/issues"
   },
   "license": "MIT",
+  "dependencies": {
+    "object-resolve-path": "^1.1.0"
+  },
   "devDependencies": {
     "babel-eslint": "^6.0.2",
     "babel-jest": "^11.0.0",
