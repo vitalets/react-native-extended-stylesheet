@@ -68,7 +68,11 @@ function get(name, varsArr) {
       if (rootVar.length ===  name.length) {
         return vars[rootVar];
       } else {
-        return resolvePath({[rootVar]: vars[rootVar]}, name);
+        try {
+          return resolvePath({[rootVar]: vars[rootVar]}, name);
+        } catch (error) {
+          return undefined;
+        }
       }
     }
   }
