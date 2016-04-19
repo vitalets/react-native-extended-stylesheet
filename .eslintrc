@@ -1,4 +1,6 @@
 {
+  "extends": "eslint:recommended",
+
   "parser": "babel-eslint",
 
   "ecmaFeatures": {
@@ -8,7 +10,8 @@
 
   "env": {
     "es6": true,
-    "jasmine": true
+    "node": true,
+    "jest": true
   },
 
   "plugins": [
@@ -17,6 +20,8 @@
   ],
 
   "rules": {
+    "comma-dangle": ["error", "only-multiline"],
+    "no-multi-spaces": 2,
     "space-before-function-paren": [2, {"anonymous": "always", "named": "never"}],
     "react/display-name": 0,
     "react/forbid-prop-types": 1,
