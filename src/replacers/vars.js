@@ -60,20 +60,21 @@ function get(name, varsArr) {
   }
 
   const rootVar = name.match(/[^\.\[]*/)[0];
+  const isSimpleVar = rootVar === name;
 
   // todo: use for.. of after https://github.com/facebook/react-native/issues/4676
   for (let i = 0; i < varsArr.length; i++) {
     let vars = varsArr[i];
-    if (vars && vars[rootVar] !== undefined) {
-      if (rootVar.length ===  name.length) {
-        return vars[rootVar];
-      } else {
-        try {
-          return resolvePath({[rootVar]: vars[rootVar]}, name);
-        } catch (error) {
-          return undefined;
-        }
-      }
+    if (!vars || vars[rootVar] === undefined) {
+      continue;
+    }
+    if (isSimpleVar) {
+      return vars[name];
+    }
+    try {
+      return resolvePath({[rootVar]: vars[rootVar]}, name);
+    } catch (error) {
+      return undefined;
     }
   }
 }
