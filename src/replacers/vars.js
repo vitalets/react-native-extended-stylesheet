@@ -1,3 +1,4 @@
+import resolvePath from 'object-resolve-path';
 
 const PREFIX = '$';
 
@@ -57,11 +58,23 @@ function get(name, varsArr) {
   if (!Array.isArray(varsArr)) {
     throw new Error('You should pass vars array to vars.get()');
   }
+
+  const rootVar = name.match(/[^\.\[]*/)[0];
+  const isSimpleVar = rootVar === name;
+
   // todo: use for.. of after https://github.com/facebook/react-native/issues/4676
   for (let i = 0; i < varsArr.length; i++) {
     let vars = varsArr[i];
-    if (vars && vars[name] !== undefined) {
+    if (!vars || vars[rootVar] === undefined) {
+      continue;
+    }
+    if (isSimpleVar) {
       return vars[name];
+    }
+    try {
+      return resolvePath({[rootVar]: vars[rootVar]}, name);
+    } catch (error) {
+      return undefined;
     }
   }
 }
