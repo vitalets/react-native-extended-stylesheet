@@ -56,6 +56,7 @@ describe('vars', function () {
     expect(vars.get('$abc.foo', [obj])).toBe('foo');
     expect(vars.get('$abc.bar.color', [obj])).toBe('#FF');
     expect(vars.get('$abc.bar.color2', [obj])).toBe(undefined);
+    expect(vars.get('$abc.bar1.color', [obj])).toBe(undefined);
   });
 
   it('should get object array values using path', function () {
