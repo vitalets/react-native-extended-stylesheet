@@ -215,9 +215,9 @@ render() {
 \[[top](#)\]
 
 ### Media queries
-Media queries are supported in standard format (thanks for idea to @grabbou, 
+Media queries are supported in standard format (thanks for idea to [@grabbou](https://github.com/grabbou), 
 [#5](https://github.com/vitalets/react-native-extended-stylesheet/issues/5)).
-They allows to have different styles for different screens, platforms, orienation etc.
+They allows to have different styles for different screens, platform, orienation etc.  
 You can define media queries on sheet level or style level.
 
 Supported values are:
@@ -241,7 +241,7 @@ const styles = EStyleSheet.create({
   },
   header: {
     fontSize: 18,
-    '@media ios': {     // media query on style level
+    '@media ios': { // media query on style level
       color: 'green',
     },
     '@media android': {
@@ -250,7 +250,7 @@ const styles = EStyleSheet.create({
   }
 });
 ```
-See full example [here](examples/media-queries).
+See full example [here](examples/media-queries).  
 \[[top](#)\]
 
 ### Scaling
@@ -291,7 +291,7 @@ let getStyle = function (scale = 1) {
   });
 }
 ```
-To cache calculated styles please have a look on [caching](#caching) section.
+To cache calculated styles please have a look on [caching](#caching) section.  
 \[[top](#)\]
 
 ### Underscored styles
