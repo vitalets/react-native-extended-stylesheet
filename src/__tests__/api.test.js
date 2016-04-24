@@ -72,9 +72,15 @@ describe('EStyleSheet API', function () {
     });
   });
 
-  it('should throw error on second `build` call', function () {
-    api.build();
-    expect(() => api.build()).toThrowError('No need to call `EStyleSheet.build()` more than once');
+  it('should work correctly with several `build()` calls', function () {
+    const res1 = api.create({$b: '$a'});
+    api.build({a: 1});
+    const res2 = api.create({$b: '$a'});
+    expect(res1).toEqual({$b: 1});
+    expect(res2).toEqual({$b: 1});
+    api.build({a: 2});
+    expect(res1).toEqual({$b: 2});
+    expect(res2).toEqual({$b: 2});
   });
 
   it('should calculate value', function () {

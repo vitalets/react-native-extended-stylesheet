@@ -34,9 +34,8 @@ export default class {
     let sheet = new Sheet(obj);
     if (this.builded) {
       sheet.calc(this.globalVars);
-    } else {
-      this.sheets.push(sheet);
     }
+    this.sheets.push(sheet);
     return sheet.getResult();
   }
 
@@ -45,11 +44,7 @@ export default class {
    * @param {Object} [gVars]
    */
   build(gVars) {
-    if (this.builded) {
-      throw new Error('No need to call `EStyleSheet.build()` more than once');
-    } else {
-      this.builded = true;
-    }
+    this.builded = true;
     this._calcVars(gVars);
     this._calcSheets();
     this._callListeners(BUILD_EVENT);
@@ -95,13 +90,11 @@ export default class {
 
   _calcSheets() {
     this.sheets.forEach(sheet => sheet.calc(this.globalVars));
-    this.sheets.length = 0;
   }
 
   _callListeners(event) {
-    if (this.listeners[event]) {
+    if (Array.isArray(this.listeners[event])) {
       this.listeners[event].forEach(listener => listener());
-      delete this.listeners[event];
     }
   }
 }
