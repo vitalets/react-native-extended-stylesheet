@@ -108,7 +108,7 @@ export default {
 }
 
 // app entry
-import theme from '.theme';
+import theme from './theme';
 EStyleSheet.build(theme);
 ```
 
@@ -133,6 +133,7 @@ const styles = EStyleSheet.create({
 
 ### Local variables
 Local variables can be defined directly in sylesheet and have priority over global variables.
+To define local variable just start it with `$`:
 ```js
 const styles = EStyleSheet.create({
   $textColor: '#0275d8',
@@ -181,9 +182,8 @@ EStyleSheet.build({
 \[[top](#)\]
 
 ### Percents
-Percents are useful for **single-orientation apps** because calculation is performed on app start only.
-You can apply it to top-level components as percent values are calculated from **screen** width/height
-(not from parent component).
+Percent values are useful for **single-orientation apps** because calculation is performed on app start only.
+They are calculated relative to **screen width/height** (not parent component!).
 ```js
 const styles = EStyleSheet.create({
   column: {
@@ -232,7 +232,6 @@ render() {
 Media queries are supported in standard format (thanks for idea to [@grabbou](https://github.com/grabbou), 
 [#5](https://github.com/vitalets/react-native-extended-stylesheet/issues/5)).
 They allows to have different styles for different screens, platform, orienation etc.  
-You can define media queries on sheet level or style level.
 
 Supported values are:
 
@@ -242,7 +241,7 @@ Supported values are:
 * `orientation` (`landscape|portrait`)
 * `aspect-ratio`
 
-Example:
+You can define media queries on sheet level or style level:
 ```js
 const styles = EStyleSheet.create({
   column: {
