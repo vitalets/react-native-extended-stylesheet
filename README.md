@@ -5,7 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/vitalets/react-native-extended-stylesheet/badge.svg?branch=master)](https://coveralls.io/github/vitalets/react-native-extended-stylesheet?branch=master)
 
 Extend [React Native](https://facebook.github.io/react-native/) stylesheets with media-queries, variables, themes,
-relative units, percents, math operations, scaling and other stuff.
+relative units, percents, math operations, scaling and other styling stuff.
 
 <img align="right" src="https://raw.githubusercontent.com/vitalets/react-native-extended-stylesheet/master/example/screenshot.png">
 
@@ -76,12 +76,8 @@ npm i react-native-extended-stylesheet --save
   
   // calculate styles
   EStyleSheet.build();
-  
-  // calculate styles with passed variables
-  EStyleSheet.build({
-    textColor: '#0275d8'
-  });
   ```
+  
 \[[top](#)\]
 
 ## Features
@@ -115,6 +111,24 @@ export default {
 import theme from '.theme';
 EStyleSheet.build(theme);
 ```
+
+You can define nested variables and access them via dot path:
+```js
+// entry
+EStyleSheet.build({
+  button: {
+    size: 10
+  }
+});
+
+// component
+const styles = EStyleSheet.create({
+  text: {
+    color: '$button.size'
+  }
+});
+```
+
 \[[top](#)\]
 
 ### Local variables
