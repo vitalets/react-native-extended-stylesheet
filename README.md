@@ -4,8 +4,8 @@
 [![Build Status](https://travis-ci.org/vitalets/react-native-extended-stylesheet.svg?branch=master)](https://travis-ci.org/vitalets/react-native-extended-stylesheet)
 [![Coverage Status](https://coveralls.io/repos/github/vitalets/react-native-extended-stylesheet/badge.svg?branch=master)](https://coveralls.io/github/vitalets/react-native-extended-stylesheet?branch=master)
 
-Extend [React Native](https://facebook.github.io/react-native/) stylesheets with variables, relative units, percents, 
-math operations, scaling and other stuff to control app styling.
+Extend [React Native](https://facebook.github.io/react-native/) stylesheets with media-queries, variables, themes,
+relative units, percents, math operations, scaling and other stuff.
 
 <img align="right" src="https://raw.githubusercontent.com/vitalets/react-native-extended-stylesheet/master/example/screenshot.png">
 
@@ -17,6 +17,7 @@ math operations, scaling and other stuff to control app styling.
   - [math operations](#math-operations)
   - [rem units](#rem-units)
   - [percents](#percents)
+  - [media queries](#media-queries)
   - [scaling](#scaling)
   - [_underscored styles](#underscored-styles)
   - [pseudo classes (:nth-child)](#pseudo-classes-nth-child)
@@ -67,16 +68,16 @@ npm i react-native-extended-stylesheet --save
   }  
   ```
 
-2. Call `EStyleSheet.build()` in entry point of your app:
+2. Call `EStyleSheet.build()` in entry point of your app to actually calculate styles:
 
   ```js
   // app.js
   import EStyleSheet from 'react-native-extended-stylesheet';
   
-  // build styles
+  // calculate styles
   EStyleSheet.build();
   
-  // build styles with passed variables
+  // calculate styles with passed variables
   EStyleSheet.build({
     textColor: '#0275d8'
   });
@@ -166,8 +167,9 @@ EStyleSheet.build({
 \[[top](#)\]
 
 ### Percents
-Percents are useful only for **single-orientation apps** as calculation performed once on start using screen dimensions.
-You can apply it to top-level components to render layout.
+Percents are useful for **single-orientation apps** because calculation is performed on app start only.
+You can apply it to top-level components as percent values are calculated from **screen** width/height
+(not from parent component).
 ```js
 const styles = EStyleSheet.create({
   column: {
@@ -177,11 +179,11 @@ const styles = EStyleSheet.create({
   }
 });
 ```
-Supporting orientation change is always design-decision but sometimes it's really unneeded and makes life much easier.
+Note: supporting orientation change is always design-decision but sometimes it's really unneeded and makes life much easier.
 How to lock orientaion for [IOS](http://stackoverflow.com/a/24205653/740245), [Android](http://stackoverflow.com/a/4675801/740245).  
 
 **Percents in nested components**  
-If you need sub-components with percentage props based on parent, you can easily achieve it with variables.  
+If you need sub-components with percentage props based on parent, you can achieve it with variables.  
 For example, to render 2 sub-columns with 30%/70% width of parent:
 ```js
 const styles = EStyleSheet.create({
@@ -212,8 +214,47 @@ render() {
 ```
 \[[top](#)\]
 
+### Media queries
+Media queries are supported in standard format (thanks for idea to @grabbou, 
+[#5](https://github.com/vitalets/react-native-extended-stylesheet/issues/5)).
+They allows to have different styles for different screens, platforms, orienation etc.
+You can define media queries on sheet level or style level.
+
+Supported values are:
+
+* media type: `ios|android`
+* `width`, `min-width`, `max-width`
+* `height`, `min-height`, `max-height`
+* `orientation` (`landscape|portrait`)
+* `aspect-ratio`
+
+Example:
+```js
+const styles = EStyleSheet.create({
+  column: {
+    width: '80%',
+  },
+  '@media (min-width: 350) and (max-width: 500)': { // media query on sheet level
+    column: {
+      width: '90%',
+    }
+  },
+  header: {
+    fontSize: 18,
+    '@media ios': {     // media query on style level
+      color: 'green',
+    },
+    '@media android': {
+      color: 'blue',
+    },
+  }
+});
+```
+See full example [here](examples/media-queries).
+\[[top](#)\]
+
 ### Scaling
-You can easily scale your components by setting special `$scale` variable. 
+You can apply scale to components by setting special `$scale` variable. 
 ```js
 const styles = EStyleSheet.create({
   $scale: 1.5,
@@ -224,7 +265,7 @@ const styles = EStyleSheet.create({
   }
 });
 ```
-This also helps to create reusable components that could be scaled depending on prop.
+This helps to create reusable components that could be scaled depending on prop:
 ```js
 class Button extends React.Component {
   static propTypes = {
@@ -250,12 +291,16 @@ let getStyle = function (scale = 1) {
   });
 }
 ```
+To cache calculated styles please have a look on [caching](#caching) section.
 \[[top](#)\]
 
 ### Underscored styles
-Usual react-native stylesheets are calculated to integer numbers and original values are unavailable. But sometimes they are needed. Let's take an example:  
-You want to render text and icon with the same size and color. You can take this [awesome icon library](https://github.com/oblador/react-native-vector-icons) and see that `<Icon>` component has `size` and `color` props.
-It would be convenient to define style for text and keep icon's size and color in sync.
+Original react-native stylesheets are calculated to integer numbers and original values are unavailable. 
+But sometimes they are needed. Let's take an example:  
+You want to render text and icon with the same size and color. 
+You can take this [awesome icon library](https://github.com/oblador/react-native-vector-icons) 
+and see that `<Icon>` component has `size` and `color` props.
+It would be convenient to define style for text and keep icon's size/color in sync.
 ```js
 const styles = EStyleSheet.create({
   text: {
@@ -270,7 +315,7 @@ styles = {
   text: 0
 }
 ```
-But extended stylesheet saves original values under `_text` property:
+But extended stylesheet saves calculated values under `_text` property:
 ```js
 styles = {
   text: 0,
@@ -324,8 +369,7 @@ render() {
 \[[top](#)\]
 
 ### Value as a function
-For the deepest customization you can specify any value as a function that will be executed on EStyleSheet build.
-It is practically useful if you need to calculate value depending on some global variable.  
+For the deepest customization you can specify any value as a function that will be executed on EStyleSheet build. 
 For example, you may *darken* or *lighten* color of variable via [npm color package](https://www.npmjs.com/package/color): 
 ```js
 import Color from 'color';
@@ -350,7 +394,8 @@ render() {
 \[[top](#)\]
 
 ### Caching
-If you use dynamic styles depending on runtime prop or you are making reusable component with dynamic styling you may need stylesheet creation in every `render()` call. Let's take example from [scaling](#scaling) section:
+If you use dynamic styles depending on runtime prop or you are making reusable component with dynamic styling
+you may need stylesheet creation in every `render()` call. Let's take example from [scaling](#scaling) section:
 ```js
 class Button extends React.Component {
   static propTypes = {
@@ -389,7 +434,8 @@ let getStyle = EStyleSheet.memoize(function (scale = 1) {
   });
 });
 ```
-Now if you call `getStyle(1.5)` 3 times actually style will be created on the first call and two other calls will get it from cache.  
+Now if you call `getStyle(1.5)` 3 times actually style will be created on the first call 
+and two other calls will get it from cache.  
 \[[top](#)\]
 
 ### Outline for debug
