@@ -20,10 +20,18 @@ describe('media-queries', function () {
     const obj = {
       a: 1,
       b: 2,
+      e: {
+        x: 1,
+        y: 2,
+      },
       '@media (min-width: 50) and (min-height: 100)': {
         a: 2,
         c: 3,
-        d: 4
+        d: 4,
+        e: {
+          x: 2,
+          z: 3,
+        }
       },
       '@media ios': {
         d: 5,
@@ -33,7 +41,12 @@ describe('media-queries', function () {
       a: 2,
       b: 2,
       c: 3,
-      d: 5
+      d: 5,
+      e: {
+        x: 2,
+        y: 2,
+        z: 3,
+      }
     });
   });
 
@@ -83,6 +96,19 @@ describe('media-queries', function () {
       }
     };
     expect(mq.process(obj)).toEqual({a: 1});
+  });
+
+  it('should ignore invalid media queries', function () {
+    const obj = {
+      a: 0,
+      '@media sdfgsdfg': {
+        a: 1,
+      },
+      '@media (min-width)': {
+        a: 2,
+      }
+    };
+    expect(mq.process(obj)).toEqual({a: 0});
   });
 
 });

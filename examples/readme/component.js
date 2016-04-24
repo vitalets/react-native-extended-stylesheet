@@ -1,5 +1,5 @@
 import React, {View, Text, TouchableHighlight} from 'react-native';
-import EStyleSheet from '../src';
+import EStyleSheet from '../../src';
 
 const items = [
   'first-child',
@@ -16,9 +16,12 @@ export default class extends React.Component {
     return (
       <View style={styles.column}>
         <Text style={styles.header}>Extended StyleSheets</Text>
-        <Text style={styles.label}>Container: width=<Text style={styles.bold}>80%</Text>, margin=<Text style={styles.bold}>10%</Text></Text>
+        <Text style={styles.label}>
+          <Text style={styles.bold}>Percent</Text>
+          values: width=<Text style={styles.bold}>80%</Text>, margin=<Text style={styles.bold}>10%</Text>
+        </Text>
 
-        <Text style={styles.label}><Text style={styles.bold}>Stripped</Text> rows:</Text>
+        <Text style={styles.label}>Stripped rows via <Text style={styles.bold}>pseudo-classes</Text></Text>
         {items.map((item, index) => {
           return (
             <View key={index} style={EStyleSheet.child(styles, 'row', index, items.length)}>
@@ -27,13 +30,14 @@ export default class extends React.Component {
           );
         })}
 
-        <Text style={styles.label}>Button: width=<Text style={styles.bold}>$size</Text>,
+        <Text style={styles.label}>Circle button via <Text style={styles.bold}>variables</Text>:
+          width=<Text style={styles.bold}>$size</Text>,
           height=<Text style={styles.bold}>$size</Text>,
           borderRadius=<Text style={styles.bold}>0.5*$size</Text></Text>
         <TouchableHighlight style={btnStyles.button} underlayColor={btnStyles._button.$underlayColor}>
           <Text style={btnStyles.buttonText}>Like it!</Text>
         </TouchableHighlight>
-        <Text style={styles.label}>Circle button scaled to <Text style={styles.bold}>1.4x</Text></Text>
+        <Text style={styles.label}>Scaled to <Text style={styles.bold}>1.4x</Text></Text>
         <TouchableHighlight style={btnStylesScaled.button} underlayColor={btnStylesScaled._button.$underlayColor}>
           <Text style={btnStylesScaled.buttonText}>Like it!</Text>
         </TouchableHighlight>

@@ -10,6 +10,7 @@
 
 import {Dimensions, Platform} from 'react-native';
 import mediaQuery from 'css-mediaquery';
+import utils from '../utils';
 
 const PREFIX = '@media';
 
@@ -50,7 +51,7 @@ function process(obj) {
       const mqStr = key.replace(PREFIX, '');
       const isMatch = mediaQuery.match(mqStr, matchObject);
       if (isMatch) {
-        Object.assign(res, obj[key]);
+        merge(res, obj[key]);
       }
     });
   }
@@ -71,4 +72,19 @@ function getMatchObject() {
     'aspect-ratio': win.width / win.height,
     type: Platform.OS,
   };
+}
+
+/**
+ * Merge media query obj into parent obj
+ * @param {Object} obj
+ * @param {Object} mqObj
+ */
+function merge(obj, mqObj) {
+  Object.keys(mqObj).forEach(key => {
+    if (utils.isObject(obj[key]) && utils.isObject(mqObj[key])) {
+      Object.assign(obj[key], mqObj[key]);
+    } else {
+      obj[key] = mqObj[key];
+    }
+  });
 }

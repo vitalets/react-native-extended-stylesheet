@@ -3,7 +3,8 @@
  */
 
 export default {
-  excludeKeys
+  excludeKeys,
+  isObject,
 };
 
 /**
@@ -21,4 +22,12 @@ function excludeKeys(obj, keys) {
     }
     return res;
   }, {});
+}
+
+/**
+ * Is object
+ * @param {*} obj
+ */
+function isObject(obj) {
+  return typeof obj === 'object' && obj !== null;
 }
