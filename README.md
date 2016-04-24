@@ -20,7 +20,6 @@ math operations, scaling and other stuff to control app styling.
   - [scaling](#scaling)
   - [_underscored styles](#underscored-styles)
   - [pseudo classes (:nth-child)](#pseudo-classes-nth-child)
-  - [OS specific props](#os-specific-props)
   - [value as a function](#value-as-a-function)
   - [caching](#caching)
   - [outline for debug](#outline-for-debug)
@@ -322,19 +321,6 @@ render() {
   );
 }
 ```
-\[[top](#)\]
-
-### OS specific props
-If you want different values of the same prop for IOS / Android, just name prop with appropriate suffix:
-```js
-const styles = EStyleSheet.create({
-  container: {
-    marginTopIOS: 10,
-    marginTopAndroid: 0
-  }
-});
-```
-The output style will have only one property `marginTop` depending on OS.  
 \[[top](#)\]
 
 ### Value as a function

@@ -1,3 +1,7 @@
+/**
+ * Variables
+ */
+
 import resolvePath from 'object-resolve-path';
 
 const PREFIX = '$';
@@ -32,21 +36,18 @@ function calc(str, varsArr) {
 }
 
 /**
- * Extract variables / props from mixed object
+ * Extract variables from mixed object
  * @param {Object} obj
+ * @returns {null|Object}
  */
 function extract(obj) {
-  let extractedProps = {};
-  let extractedVars = null;
-  Object.keys(obj).forEach(key => {
+  return Object.keys(obj).reduce((res, key) => {
     if (isVar(key)) {
-      extractedVars = extractedVars || {};
-      extractedVars[key] = obj[key];
-    } else {
-      extractedProps[key] = obj[key];
+      res = res || {};
+      res[key] = obj[key];
     }
-  });
-  return {extractedProps, extractedVars};
+    return res;
+  }, null);
 }
 
 /**
@@ -86,7 +87,8 @@ function get(name, varsArr) {
  */
 function addPrefix(obj) {
   return Object.keys(obj).reduce((res, key) => {
-    res[`${PREFIX}${key}`] = obj[key];
+    const resKey = key.charAt(0) !== PREFIX ? PREFIX + key : key;
+    res[resKey] = obj[key];
     return res;
   }, {});
 }

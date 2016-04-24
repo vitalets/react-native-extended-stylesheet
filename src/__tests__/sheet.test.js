@@ -14,11 +14,7 @@ describe('sheet', function () {
       }
     };
     const variables = {$a: 2, $d: 2, $e: 'abc'};
-    const sheet = new Sheet(source);
-
-    sheet.calc(variables);
-
-    const result = sheet.getResult();
+    const result = new Sheet(source).calc(variables);
     expect(result).toEqual({
       $a: 1,
       $b: 2,
@@ -39,16 +35,35 @@ describe('sheet', function () {
         borderWidth: '$b',
       }
     };
-    const sheet = new Sheet(source);
-
-    sheet.calc();
-
-    const result = sheet.getResult();
+    const result = new Sheet(source).calc();
     expect(result).toEqual({
       $b: 2,
       _text: {
         borderWidth: 2,
       }
+    });
+  });
+
+  it('should support media queries', function () {
+    const source = {
+      $b: 2,
+      '@media ios': {
+        $b: 3
+      },
+      button: {
+        prop: 2,
+        '@media ios': {
+          prop: '$b'
+        },
+      }
+    };
+    const result = new Sheet(source).calc();
+    expect(result).toEqual({
+      $b: 3,
+      _button: {
+        prop: 3,
+      },
+      button: 0,
     });
   });
 
