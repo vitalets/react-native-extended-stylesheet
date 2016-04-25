@@ -40,7 +40,7 @@ npm i react-native-extended-stylesheet --save
 ```
 
 ## Usage
-1. Define styles as usual using `EStyleSheet.create()`:
+1. Define styles using `EStyleSheet.create()`:
 
   ```js
   // component.js
