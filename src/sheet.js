@@ -1,6 +1,8 @@
 import {StyleSheet} from 'react-native';
 import Style from './style';
+import utils from './utils';
 import vars from './replacers/vars';
+import mediaQueries from './replacers/media-queries';
 
 export default class {
   /**
@@ -9,9 +11,11 @@ export default class {
    */
   constructor(source) {
     this.source = source;
-    this.result = {};
+    this.result = Object.create(null);
     this.nativeSheet = {};
     this.varsArr = [];
+    this.extractedVars = null;
+    this.processedSource = null;
   }
 
   /**
@@ -19,26 +23,33 @@ export default class {
    * @param {Object} inVars
    */
   calc(inVars) {
-    let {extractedProps: extractedStyles, extractedVars} = vars.extract(this.source);
-    this.varsArr = inVars ? [inVars] : [];
-    if (extractedVars) {
-      this.calcVars(extractedVars);
-    }
-    this.calcStyles(extractedStyles);
+    this.processSource();
+    this.calcVars(inVars);
+    this.calcStyles();
     this.calcNative();
+    return this.getResult();
   }
 
-  calcVars(extractedVars) {
-    let varsArrForVars = [extractedVars].concat(this.varsArr);
-    let {calculatedVars} = new Style(extractedVars, varsArrForVars).calc();
-    Object.assign(this.result, calculatedVars);
-    this.varsArr = [calculatedVars].concat(this.varsArr);
+  processSource() {
+    this.processedSource = mediaQueries.process(this.source);
   }
 
-  calcStyles(extractedStyles) {
+  calcVars(inVars) {
+    this.varsArr = inVars ? [inVars] : [];
+    this.extractedVars = vars.extract(this.processedSource);
+    if (this.extractedVars) {
+      let varsArrForVars = [this.extractedVars].concat(this.varsArr);
+      let {calculatedVars} = new Style(this.extractedVars, varsArrForVars).calc();
+      Object.assign(this.result, calculatedVars);
+      this.varsArr = [calculatedVars].concat(this.varsArr);
+    }
+  }
+
+  calcStyles() {
+    const extractedStyles = utils.excludeKeys(this.processedSource, this.extractedVars);
     Object.keys(extractedStyles).forEach(key => {
-      let {calculatedProps, calculatedVars} = new Style(extractedStyles[key], this.varsArr).calc();
-      let merged = Object.assign({}, calculatedVars, calculatedProps);
+      const {calculatedProps, calculatedVars} = new Style(extractedStyles[key], this.varsArr).calc();
+      const merged = Object.assign({}, calculatedVars, calculatedProps);
       if (key.charAt(0) === '_') {
         this.result[key] = merged;
       } else {

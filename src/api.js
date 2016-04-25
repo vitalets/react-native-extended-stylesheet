@@ -34,8 +34,9 @@ export default class {
     let sheet = new Sheet(obj);
     if (this.builded) {
       sheet.calc(this.globalVars);
+    } else {
+      this.sheets.push(sheet);
     }
-    this.sheets.push(sheet);
     return sheet.getResult();
   }
 
@@ -90,6 +91,7 @@ export default class {
 
   _calcSheets() {
     this.sheets.forEach(sheet => sheet.calc(this.globalVars));
+    this.sheets.length = 0;
   }
 
   _callListeners(event) {

@@ -1,4 +1,4 @@
-## How to run this example
+## How to run examples
 
 1. Create new react-native project
 
@@ -17,7 +17,7 @@
 
   ```js
   import {AppRegistry} from 'react-native';
-  import App from 'react-native-extended-stylesheet/example/app';
+  import App from 'react-native-extended-stylesheet/examples/simple/app';
   AppRegistry.registerComponent('ExtendedStyleSheetExample', () => App);
   ```
   

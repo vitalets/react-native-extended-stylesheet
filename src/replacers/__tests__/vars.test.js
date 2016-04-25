@@ -1,4 +1,3 @@
-
 import vars from '../vars';
 
 describe('vars', function () {
@@ -24,16 +23,8 @@ describe('vars', function () {
       }
     };
     expect(vars.extract(obj)).toEqual({
-      extractedProps: {
-        c: 3,
-        d: {
-          $e: 1,
-        },
-      },
-      extractedVars: {
-        $a: 1,
-        $b: 2
-      }
+      $a: 1,
+      $b: 2
     });
   });
 
@@ -78,7 +69,7 @@ describe('vars', function () {
   it('should add prefix', function () {
     let obj = {
       a: 1,
-      b: '2',
+      $b: '2',
       d: {
         e: 1,
       }

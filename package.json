@@ -10,7 +10,7 @@
   "scripts": {
     "code": "eslint src && jscs src",
     "code-fix": "eslint src --fix && jscs src --fix",
-    "test": "jest",
+    "test": "jest --coverage",
     "coveralls": "coveralls < coverage/lcov.info",
     "release": "npm run code && npm test && npm version patch && npm publish && git push --follow-tags"
   },
@@ -23,6 +23,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "css-mediaquery": "^0.1.2",
     "object-resolve-path": "^1.1.0"
   },
   "devDependencies": {
@@ -57,7 +58,7 @@
       "test.js"
     ],
     "verbose": true,
-    "collectCoverage": true
+    "collectCoverage": false
   },
   "keywords": [
     "react",

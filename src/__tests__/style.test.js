@@ -9,8 +9,6 @@ describe('style', function () {
       $b: '$d',
       fontSize: '$a',
       borderWidth: '$b',
-      propAndroid: 1,
-      propIOS: 2,
       color: '$e',
     };
     let varsArr = [{$a: 3, $d: 3, $e: 'abc'}];
@@ -25,7 +23,6 @@ describe('style', function () {
       calculatedProps: {
         fontSize: 1,
         borderWidth: 3,
-        prop: 2,
         color: 'abc',
       }
     });
@@ -111,6 +108,26 @@ describe('style', function () {
       }
     });
     expect(Math.random.mock.calls.length).toBe(1);
+  });
+
+  it('should support media queries', function () {
+    const source = {
+      $b: 2,
+      c: 1,
+      '@media ios': {
+        $b: 3,
+        c: '$b',
+      }
+    };
+    const result = new Style(source).calc();
+    expect(result).toEqual({
+      calculatedVars: {
+        $b: 3,
+      },
+      calculatedProps: {
+        c: 3,
+      }
+    });
   });
 
 });

@@ -2,9 +2,10 @@
  * Style
  */
 
-import osprop from './replacers/osprop';
 import vars from './replacers/vars';
+import mediaQueries from './replacers/media-queries';
 import Value from './value';
+import utils from './utils';
 
 export default class {
   /**
@@ -15,35 +16,44 @@ export default class {
   constructor(source, varsArr = []) {
     this.source = source;
     this.varsArr = varsArr;
+    this.processedSource = null;
+    this.extractedVars = null;
+    this.extractedProps = null;
     this.calculatedVars = null;
     this.calculatedProps = null;
   }
 
   /**
    * Calculates style
-   * @returns {Object} {calculatedVars, calculatedStyles}
+   * @returns {Object}
    */
   calc() {
-    let {extractedProps, extractedVars} = vars.extract(this.source);
-    if (extractedVars) {
-      this.calcVars(extractedVars);
-    }
-    this.calcProps(extractedProps);
+    this.processSource();
+    this.calcVars();
+    this.calcProps();
+    this.tryOutline();
     return {
       calculatedVars: this.calculatedVars,
       calculatedProps: this.calculatedProps,
     };
   }
 
-  calcVars(extractedVars) {
-    let varsArrForVars = [extractedVars].concat(this.varsArr);
-    this.calculatedVars = calcPlainObject(extractedVars, varsArrForVars);
-    this.varsArr = [this.calculatedVars].concat(this.varsArr);
+  processSource() {
+    this.processedSource = mediaQueries.process(this.source);
   }
 
-  calcProps(extractedProps) {
-    this.calculatedProps = calcPlainObject(extractedProps, this.varsArr);
-    this.tryOutline();
+  calcVars() {
+    this.extractedVars = vars.extract(this.processedSource);
+    if (this.extractedVars) {
+      const varsArrForVars = [this.extractedVars].concat(this.varsArr);
+      this.calculatedVars = calcPlainObject(this.extractedVars, varsArrForVars);
+      this.varsArr = [this.calculatedVars].concat(this.varsArr);
+    }
+  }
+
+  calcProps() {
+    this.extractedProps = utils.excludeKeys(this.processedSource, this.extractedVars);
+    this.calculatedProps = calcPlainObject(this.extractedProps, this.varsArr);
   }
 
   tryOutline() {
@@ -65,11 +75,7 @@ export default class {
  */
 function calcPlainObject(obj, varsArr) {
   return Object.keys(obj).reduce((res, prop) => {
-    let value = obj[prop];
-    prop = osprop.replace(prop);
-    if (prop) {
-      res[prop] = new Value(value, prop, varsArr).calc();
-    }
+    res[prop] = new Value(obj[prop], prop, varsArr).calc();
     return res;
   }, {});
 }
