@@ -17,8 +17,9 @@ export default class extends React.Component {
       <View style={styles.column}>
         <Text style={styles.header}>Extended StyleSheets</Text>
         <Text style={styles.label}>
-          <Text style={styles.bold}>Percent</Text>
-          values: width=<Text style={styles.bold}>80%</Text>, margin=<Text style={styles.bold}>10%</Text>
+          <Text style={styles.bold}>Percent</Text> values:
+          width=<Text style={styles.bold}>80%</Text>,
+          margin=<Text style={styles.bold}>10%</Text>
         </Text>
 
         <Text style={styles.label}>Stripped rows via <Text style={styles.bold}>pseudo-classes</Text></Text>
@@ -30,7 +31,7 @@ export default class extends React.Component {
           );
         })}
 
-        <Text style={styles.label}>Circle button via <Text style={styles.bold}>variables</Text>:
+        <Text style={styles.label}>Circle button via <Text style={styles.bold}>variables{'\n'}</Text>
           width=<Text style={styles.bold}>$size</Text>,
           height=<Text style={styles.bold}>$size</Text>,
           borderRadius=<Text style={styles.bold}>0.5*$size</Text></Text>
