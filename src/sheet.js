@@ -11,7 +11,7 @@ export default class {
    */
   constructor(source) {
     this.source = source;
-    this.result = {};
+    this.result = Object.create(null);
     this.nativeSheet = {};
     this.varsArr = [];
     this.extractedVars = null;

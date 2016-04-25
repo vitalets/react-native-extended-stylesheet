@@ -78,9 +78,9 @@ describe('EStyleSheet API', function () {
     const res2 = api.create({$b: '$a'});
     expect(res1).toEqual({$b: 1});
     expect(res2).toEqual({$b: 1});
-    api.build({a: 2});
-    expect(res1).toEqual({$b: 2});
-    expect(res2).toEqual({$b: 2});
+    api.build({a: 1});
+    expect(res1).toEqual({$b: 1});
+    expect(res2).toEqual({$b: 1});
   });
 
   it('should calculate value', function () {
