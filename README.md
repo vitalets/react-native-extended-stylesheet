@@ -7,7 +7,7 @@
 Extend [React Native](https://facebook.github.io/react-native/) stylesheets with media-queries, variables, themes,
 relative units, percents, math operations, scaling and other styling stuff.
 
-<img align="right" src="https://raw.githubusercontent.com/vitalets/react-native-extended-stylesheet/master/example/screenshot.png">
+<img align="right" src="https://raw.githubusercontent.com/vitalets/react-native-extended-stylesheet/master/examples/screenshot.png">
 
 - [Installation](#installation)
 - [Usage](#usage)
