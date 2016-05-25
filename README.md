@@ -24,6 +24,7 @@ relative units, percents, math operations, scaling and other styling stuff.
   - [value as a function](#value-as-a-function)
   - [caching](#caching)
   - [outline for debug](#outline-for-debug)
+  - [platform styles](#platform-styles)
 - [API](#api)
   - [.create()](#create)
   - [.build()](#build)
@@ -45,7 +46,7 @@ npm i react-native-extended-stylesheet --save
   ```js
   // component.js
   import EStyleSheet from 'react-native-extended-stylesheet';
-  
+
   const styles = EStyleSheet.create({
     column: {
       width: '80%'         // 80% of screen width
@@ -55,7 +56,7 @@ npm i react-native-extended-stylesheet --save
       fontSize: '1.5rem'   // use relative unit - CSS3 rem
     }
   });
-  
+
   class MyComponent extends React.Component {
     render() {
       return (
@@ -73,16 +74,16 @@ npm i react-native-extended-stylesheet --save
   ```js
   // app.js
   import EStyleSheet from 'react-native-extended-stylesheet';
-  
+
   // calculate styles
   EStyleSheet.build();
   ```
-  
+
 \[[top](#)\]
 
 ## Features
 ### Global variables
-Global variables are useful for global theming or A/B testing of your app. 
+Global variables are useful for global theming or A/B testing of your app.
 They are passed to `EStyleSheet.build()` and available in any stylesheet.  
 To use global variable just reference it's name with `$` prefix:
 ```js
@@ -229,7 +230,7 @@ render() {
 \[[top](#)\]
 
 ### Media queries
-Media queries are supported in standard format (thanks for idea to [@grabbou](https://github.com/grabbou), 
+Media queries are supported in standard format (thanks for idea to [@grabbou](https://github.com/grabbou),
 [#5](https://github.com/vitalets/react-native-extended-stylesheet/issues/5)).
 They allows to have different styles for different screens, platform, orienation etc.  
 
@@ -267,7 +268,7 @@ See full example [here](examples/media-queries).
 \[[top](#)\]
 
 ### Scaling
-You can apply scale to components by setting special `$scale` variable. 
+You can apply scale to components by setting special `$scale` variable.
 ```js
 const styles = EStyleSheet.create({
   $scale: 1.5,
@@ -308,10 +309,10 @@ To cache calculated styles please have a look on [caching](#caching) section.
 \[[top](#)\]
 
 ### Underscored styles
-Original react-native stylesheets are calculated to integer numbers and original values are unavailable. 
+Original react-native stylesheets are calculated to integer numbers and original values are unavailable.
 But sometimes they are needed. Let's take an example:  
-You want to render text and icon with the same size and color. 
-You can take this [awesome icon library](https://github.com/oblador/react-native-vector-icons) 
+You want to render text and icon with the same size and color.
+You can take this [awesome icon library](https://github.com/oblador/react-native-vector-icons)
 and see that `<Icon>` component has `size` and `color` props.
 It would be convenient to define style for text and keep icon's size/color in sync.
 ```js
@@ -351,7 +352,7 @@ return (
 
 ### Pseudo classes (:nth-child)
 Extended stylesheet supports 4 pseudo classes: `:first-child`, `:nth-child-even`, `:nth-child-odd`, `:last-child`. As well as in traditional CSS it allows to apply special styling for first/last items or render stripped rows.  
-To get style for appropriate index you should use `EStyleSheet.child()` method. 
+To get style for appropriate index you should use `EStyleSheet.child()` method.
 It's signature: `EStyleSheet.child(stylesObj, styleName, index, count)`.
 ```js
 const styles = EStyleSheet.create({
@@ -382,8 +383,8 @@ render() {
 \[[top](#)\]
 
 ### Value as a function
-For the deepest customization you can specify any value as a function that will be executed on EStyleSheet build. 
-For example, you may *darken* or *lighten* color of variable via [npm color package](https://www.npmjs.com/package/color): 
+For the deepest customization you can specify any value as a function that will be executed on EStyleSheet build.
+For example, you may *darken* or *lighten* color of variable via [npm color package](https://www.npmjs.com/package/color):
 ```js
 import Color from 'color';
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -447,7 +448,7 @@ let getStyle = EStyleSheet.memoize(function (scale = 1) {
   });
 });
 ```
-Now if you call `getStyle(1.5)` 3 times actually style will be created on the first call 
+Now if you call `getStyle(1.5)` 3 times actually style will be created on the first call
 and two other calls will get it from cache.  
 \[[top](#)\]
 
@@ -455,7 +456,7 @@ and two other calls will get it from cache.
 To outline all components for debug purpuses just set special `$outline` variable:
 ```js
 // outline all stylesheets
-EStyleSheet.build({outline: 1}); 
+EStyleSheet.build({outline: 1});
 
 // outline particular stylesheet
 const styles = EStyleSheet.create({
@@ -463,6 +464,31 @@ const styles = EStyleSheet.create({
   column: {
     width: '80%',
     flexDirection: 'row'
+  },
+  ...
+});
+```
+\[[top](#)\]
+
+### Platform StyleSheet
+Use nested stylesheet for iOS and android platform:
+```js
+const styles = EStyleSheet.create({
+  column: {
+    width: '80%',
+    marginHorizontal: '10%',
+    marginTop: '10%',
+    backgroundColor: '#e6e6e6',
+    alignItems: 'center',
+    padding: '0.5rem',
+    // platform iOS
+    ios: {
+      backgroundColor: '#666666',
+    },
+    // platform android
+    android: {
+      backgroundColor: '#dcdcdc',
+    },
   },
   ...
 });
