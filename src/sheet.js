@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import Style from './style';
 import utils from './utils';
 import vars from './replacers/vars';

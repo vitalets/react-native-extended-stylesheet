@@ -470,7 +470,7 @@ const styles = EStyleSheet.create({
 ```
 \[[top](#)\]
 
-### Platform StyleSheet
+### Platform Styles
 Use nested stylesheet for iOS and android platform:
 ```js
 const styles = EStyleSheet.create({
