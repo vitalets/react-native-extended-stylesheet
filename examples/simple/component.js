@@ -19,6 +19,12 @@ const styles = EStyleSheet.create({
     backgroundColor: '#e6e6e6',
     alignItems: 'center',
     padding: '0.5rem',
+    ios: {
+      backgroundColor: '#666666',
+    },
+    android: {
+      backgroundColor: '#dcdcdc',
+    },
   },
   header: {
     fontSize: '1rem',

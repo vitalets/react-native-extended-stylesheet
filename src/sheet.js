@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import Style from './style';
 import utils from './utils';
 import vars from './replacers/vars';
@@ -59,9 +59,31 @@ export default class {
     });
   }
 
+  calcPlatformStyles() {
+    if (Object.keys(this.nativeSheet).length) {
+      const platformStyles = {};
+      Object.keys(this.nativeSheet).forEach((name) => {
+        let {ios, android, ...style} = {...this.nativeSheet[name]};
+
+        if (ios && Platform.OS === 'ios') {
+          style = {...style, ...ios};
+        }
+
+        if (android && Platform.OS === 'android') {
+          style = {...style, ...android};
+        }
+
+        platformStyles[name] = style;
+      });
+
+      return platformStyles;
+    }
+  }
+
   calcNative() {
     if (Object.keys(this.nativeSheet).length) {
-      let rnStyleSheet = StyleSheet.create(this.nativeSheet);
+      let platformStyles = this.calcPlatformStyles();
+      let rnStyleSheet = StyleSheet.create(platformStyles);
       Object.assign(this.result, rnStyleSheet);
     }
   }
