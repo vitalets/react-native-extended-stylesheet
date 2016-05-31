@@ -25,13 +25,14 @@
   },
   "license": "MIT",
   "dependencies": {
+    "chnl": "^0.1.1",
     "css-mediaquery": "^0.1.2",
     "object-resolve-path": "^1.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.1.0",
     "babel-jest": "^13.0.0",
-    "babel-preset-react-native": "^1.5.7",
+    "babel-preset-react-native": "^1.9.0",
     "check-dependencies": "^0.12.0",
     "coveralls": "^2.11.9",
     "eslint": "^3.0.0",
