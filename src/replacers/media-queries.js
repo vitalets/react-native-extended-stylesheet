@@ -32,6 +32,11 @@ function isMediaQuery(str) {
  * @returns {null|Object}
  */
 function process(obj) {
+
+  if(obj === undefined || obj == null || obj.length <= 0) {
+    return null;
+  }
+
   const mqKeys = [];
 
   // copy non-media-query stuff
