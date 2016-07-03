@@ -21,8 +21,6 @@ export default class Value {
     this.value = value;
     // output value
     this.outValue = null;
-    // was value calculated (need rounding for numbers)
-    this.isCalculated = false;
     this.prop = prop;
     this.varsArr = varsArr;
     this.stack = stack;
@@ -45,7 +43,6 @@ export default class Value {
 
     if (this.isFinal()) {
       this.applyScale();
-      this.applyRound();
     }
 
     return this.outValue;
@@ -64,7 +61,6 @@ export default class Value {
     let value = this.tryActions(actions, this.value);
     if (value !== null) {
       this.outValue = value;
-      this.isCalculated = true;
     } else {
       this.proxyValue();
     }
@@ -186,16 +182,6 @@ export default class Value {
     }
     if (scale.isScalable(this.outValue, this.prop)) {
       this.outValue = scale.calc(this.outValue, scaleFactor);
-      this.isCalculated = true;
-    }
-  }
-
-  /**
-   * Round outValue if it was calculated and is number
-   */
-  applyRound() {
-    if (this.isCalculated && typeof this.outValue === 'number') {
-      this.outValue = Math.round(this.outValue);
     }
   }
 }
