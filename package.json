@@ -11,7 +11,8 @@
     "code": "eslint src",
     "test": "jest --coverage",
     "coveralls": "coveralls < coverage/lcov.info",
-    "release": "npm run code && npm test && npm version patch && npm publish && git push --follow-tags",
+    "release-patch": "npm run code && npm test && npm version patch && npm publish && git push --follow-tags",
+    "release-minor": "npm run code && npm test && npm version minor && npm publish && git push --follow-tags",
     "deps": "npm ls --depth=0"
   },
   "repository": {
