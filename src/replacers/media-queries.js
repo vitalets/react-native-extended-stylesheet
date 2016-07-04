@@ -8,8 +8,9 @@
  * - aspect-ratio
  */
 
-import {Dimensions, Platform} from 'react-native';
+import {Platform} from 'react-native';
 import mediaQuery from 'css-mediaquery';
+import layout from '../layout';
 import utils from '../utils';
 
 const PREFIX = '@media';
@@ -34,7 +35,7 @@ function isMediaQuery(str) {
 function process(obj) {
   const mqKeys = [];
 
-  // copy non-media-query stuff
+  // copy non media-queries props
   const res = Object.keys(obj).reduce((res, key) => {
     if (!isMediaQuery(key)) {
       res[key] = obj[key];
@@ -44,7 +45,7 @@ function process(obj) {
     return res;
   }, {});
 
-  // apply media query stuff
+  // apply media queries
   if (mqKeys.length) {
     const matchObject = getMatchObject();
     mqKeys.forEach(key => {
@@ -64,12 +65,11 @@ function process(obj) {
  * @returns {Object}
  */
 function getMatchObject() {
-  const win = Dimensions.get('window');
   return {
-    width: win.width,
-    height: win.height,
-    orientation: win.width > win.height ? 'landscape' : 'portrait',
-    'aspect-ratio': win.width / win.height,
+    width: layout.width,
+    height: layout.height,
+    orientation: layout.orientation,
+    'aspect-ratio': layout.aspectRatio,
     type: Platform.OS,
   };
 }

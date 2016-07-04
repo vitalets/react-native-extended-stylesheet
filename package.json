@@ -8,7 +8,7 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "code": "npm run check-deps && eslint src",
+    "code": "npm run madge && npm run check-deps && eslint src",
     "check-deps": "check-dependencies --only-specified",
     "show-deps": "npm ls --depth=0",
     "test": "jest --coverage",
@@ -39,7 +39,8 @@
     "eslint-plugin-react": "^5.2.2",
     "eslint-plugin-react-native": "^1.1.0",
     "ghooks": "^1.3.0",
-    "jest-cli": "^13.0.0"
+    "jest-cli": "^13.0.0",
+    "madge": "^0.5.3"
   },
   "config": {
     "ghooks": {

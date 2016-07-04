@@ -66,5 +66,29 @@ describe('sheet', function () {
       button: 0,
     });
   });
-
+  // todo
+  /*
+  it('should clean media-queried props on re-calc', function () {
+    const source = {
+      $b: 2,
+      '@media ios': {
+        $b: 3
+      },
+      button: {
+        prop: 2,
+        '@media ios': {
+          prop: '$b'
+        },
+      }
+    };
+    const result = new Sheet(source).calc();
+    expect(result).toEqual({
+      $b: 3,
+      _button: {
+        prop: 3,
+      },
+      button: 0,
+    });
+  });
+  */
 });

@@ -10,7 +10,7 @@
  * @param {Number} count
  */
 export default function (styles, styleName, index, count) {
-  if (!isNumber(index) || !isNumber(count)) {
+  if (typeof index !== 'number' || typeof count !== 'number') {
     return styles[styleName];
   }
 
@@ -28,8 +28,4 @@ function addStyle(result, styles, styleName, condition) {
   if (styles[styleName] && condition) {
     result.push(styles[styleName]);
   }
-}
-
-function isNumber(value) {
-  return typeof value === 'number';
 }

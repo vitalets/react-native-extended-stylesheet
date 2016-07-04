@@ -2,26 +2,23 @@
  * Calculation of percent strings
  */
 
-import {Dimensions} from 'react-native';
+import layout from '../layout';
 
-const {width, height} = Dimensions.get('window');
 const V_PROPS = [
   'height',
   'top',
   'bottom',
   'vertical',
 ];
+
 const H_PROPS = [
   'width',
   'left',
   'right',
   'horizontal',
 ];
+
 const SUFFIX = '%';
-const invalidPropMsg = [
-  `Name of variable or property with percent value should contain `,
-  `(${V_PROPS.concat(H_PROPS).join()}) to define base for percent calculation`
-  ].join('');
 
 export default {
   isPercent,
@@ -44,8 +41,8 @@ function isPercent(str) {
  * @returns {number}
  */
 function calc(str, prop) {
-  let percent = parseInt(str.substring(0, str.length - 1), 10);
-  let base = isVertical(prop) ? height : width;
+  const percent = parseInt(str.substring(0, str.length - 1), 10);
+  const base = isVertical(prop) ? layout.height : layout.width;
   return base * percent / 100;
 }
 
@@ -57,5 +54,9 @@ function isVertical(prop) {
   if (H_PROPS.some(p => prop.indexOf(p) >= 0)) {
     return false;
   }
+  const invalidPropMsg = [
+    `Name of variable or property with percent value should contain `,
+    `(${V_PROPS.concat(H_PROPS).join()}) to define base for percent calculation`
+  ].join('');
   throw new Error(invalidPropMsg);
 }

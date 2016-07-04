@@ -1,5 +1,10 @@
+/**
+ * Class for particular stylesheet
+ */
+
 import {StyleSheet} from 'react-native';
 import Style from './style';
+import layout from './layout';
 import utils from './utils';
 import vars from './replacers/vars';
 import mediaQueries from './replacers/media-queries';
@@ -13,6 +18,7 @@ export default class {
     this.source = source;
     this.result = Object.create(null);
     this.nativeSheet = {};
+    this.cache = new Map(); // cache styles for `landscape|portrait` orientation
     this.varsArr = [];
     this.extractedVars = null;
     this.processedSource = null;
@@ -21,20 +27,37 @@ export default class {
   /**
    * Calculates sheet and update result
    * @param {Object} inVars
+   * @param {Object} [params]
+   * @param {Boolean} params.force bypass cache (otherwise we try to use cache)
    */
-  calc(inVars) {
-    this.processSource();
-    this.calcVars(inVars);
-    this.calcStyles();
-    this.calcNative();
+  calc(inVars, params = {}) {
+    utils.clearObject(this.result);
+    if (params.force) {
+      this.cache.clear();
+    } else if (this._tryUseCache()) {
+      return this.getResult();
+    }
+    this._processMediaQueries();
+    this._calcVars(inVars);
+    this._calcStyles();
+    this._calcNative();
+    this._saveToCache();
     return this.getResult();
   }
 
-  processSource() {
+  /**
+   * Returns current result
+   * @returns {Object}
+   */
+  getResult() {
+    return this.result;
+  }
+
+  _processMediaQueries() {
     this.processedSource = mediaQueries.process(this.source);
   }
 
-  calcVars(inVars) {
+  _calcVars(inVars) {
     this.varsArr = inVars ? [inVars] : [];
     this.extractedVars = vars.extract(this.processedSource);
     if (this.extractedVars) {
@@ -45,7 +68,7 @@ export default class {
     }
   }
 
-  calcStyles() {
+  _calcStyles() {
     const extractedStyles = utils.excludeKeys(this.processedSource, this.extractedVars);
     Object.keys(extractedStyles).forEach(key => {
       const {calculatedProps, calculatedVars} = new Style(extractedStyles[key], this.varsArr).calc();
@@ -59,14 +82,30 @@ export default class {
     });
   }
 
-  calcNative() {
+  _calcNative() {
     if (Object.keys(this.nativeSheet).length) {
-      let rnStyleSheet = StyleSheet.create(this.nativeSheet);
+      const rnStyleSheet = StyleSheet.create(this.nativeSheet);
       Object.assign(this.result, rnStyleSheet);
     }
   }
 
-  getResult() {
-    return this.result;
+  /**
+   * Try use cache for current orientation
+   */
+  _tryUseCache() {
+    if (this.cache.has[layout.orientation]) {
+      Object.assign(this.result, this.cache.get[layout.orientation]);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Saves current result to cache
+   */
+  _saveToCache() {
+    // todo: deep copy?
+    this.cache.set[layout.orientation] = Object.assign({}, this.result);
   }
 }
