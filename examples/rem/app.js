@@ -1,4 +1,5 @@
-import React, {Dimensions} from 'react-native';
+import React from 'react';
+import {Dimensions} from 'react-native';
 import EStyleSheet from '../../src';
 import MyComponent from './component';
 

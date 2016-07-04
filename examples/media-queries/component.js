@@ -1,4 +1,5 @@
-import React, {View, Text} from 'react-native';
+import React from 'react';
+import {View, Text} from 'react-native';
 import EStyleSheet from '../../src';
 
 export default class extends React.Component {

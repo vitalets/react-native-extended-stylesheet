@@ -1,4 +1,5 @@
-import React, {View, Text, TouchableHighlight} from 'react-native';
+import React from 'react';
+import {View, Text, TouchableHighlight} from 'react-native';
 import EStyleSheet from '../../src';
 
 const items = [

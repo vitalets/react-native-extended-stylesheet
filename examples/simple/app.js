@@ -1,4 +1,4 @@
-import React from 'react-native';
+import React from 'react';
 import EStyleSheet from '../../src';
 import MyComponent from './component';
 
