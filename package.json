@@ -8,12 +8,13 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "code": "eslint src",
+    "code": "npm run check-deps && eslint src",
+    "check-deps": "check-dependencies --only-specified",
+    "show-deps": "npm ls --depth=0",
     "test": "jest --coverage",
     "coveralls": "coveralls < coverage/lcov.info",
     "release-patch": "npm run code && npm test && npm version patch && npm publish && git push --follow-tags",
-    "release-minor": "npm run code && npm test && npm version minor && npm publish && git push --follow-tags",
-    "deps": "npm ls --depth=0"
+    "release-minor": "npm run code && npm test && npm version minor && npm publish && git push --follow-tags"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "babel-eslint": "^6.1.0",
     "babel-jest": "^13.0.0",
     "babel-preset-react-native": "^1.5.7",
+    "check-dependencies": "^0.12.0",
     "coveralls": "^2.11.9",
     "eslint": "^3.0.0",
     "eslint-plugin-react": "^5.2.2",

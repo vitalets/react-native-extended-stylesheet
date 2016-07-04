@@ -6,6 +6,7 @@ modified_files=$( (git diff --name-only --diff-filter=ACM --ignore-submodules --
 
 if [[ -n "$modified_files" ]]
 then
+    set -e # exit with error code if subcommand fails
     eslint ${modified_files}
 else
     echo "There is no staged js files."
