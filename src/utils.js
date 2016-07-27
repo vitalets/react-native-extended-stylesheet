@@ -1,10 +1,12 @@
 /**
  * Utils
  */
+import {Dimensions} from 'react-native';
 
 export default {
   excludeKeys,
   isObject,
+  calcOrientation
 };
 
 /**
@@ -30,4 +32,34 @@ function excludeKeys(obj, keys) {
  */
 function isObject(obj) {
   return typeof obj === 'object' && obj !== null;
+}
+
+function calcOrientation(orientation){
+  var {width, height} = Dimensions.get('window');
+
+  if(orientation){
+    orientation = orientation.toLowerCase();
+  }else{
+    
+  }
+
+  var newWidth = width;
+  var newHeight = height;
+
+  if (orientation == 'landscape') {
+    if(height > width){
+      var newWidth = height;
+      var newHeight = width;
+    }
+  }else if (orientation == 'portrait') {
+    if(width > height){
+      var newWidth = height;
+      var newHeight = width;
+    }
+  }
+
+  if(!orientation){
+    orientation = newWidth > newHeight ? 'landscape' : 'portrait'
+  }
+  return {width: newWidth, height: newHeight, orientation: orientation};
 }

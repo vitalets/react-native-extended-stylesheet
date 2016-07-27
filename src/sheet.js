@@ -32,6 +32,7 @@ export default class {
 
   processSource() {
     this.processedSource = mediaQueries.process(this.source);
+    this.result.source = this.source;
   }
 
   calcVars(inVars) {

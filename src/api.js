@@ -41,6 +41,19 @@ export default class {
   }
 
   /**
+   * Updates a specific stylesheet when the orientation changes
+   * @param {orientation} string
+   * @param {originalObj} obj
+   * @returns {Object}
+   */
+  orientationUpdate(orientation, originalObj) {
+    window.orientation = orientation;
+    let sheet = new Sheet(originalObj.source);
+    sheet.calc(this.globalVars);
+    return sheet.getResult();
+  }
+
+  /**
    * Builds all created stylesheets with passed variables
    * @param {Object} [gVars]
    */

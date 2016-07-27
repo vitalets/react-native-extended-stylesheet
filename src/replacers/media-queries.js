@@ -64,11 +64,11 @@ function process(obj) {
  * @returns {Object}
  */
 function getMatchObject() {
-  const win = Dimensions.get('window');
+  const win = utils.calcOrientation(window.orientation);
   return {
     width: win.width,
     height: win.height,
-    orientation: win.width > win.height ? 'landscape' : 'portrait',
+    orientation: win.orientation,
     'aspect-ratio': win.width / win.height,
     type: Platform.OS,
   };

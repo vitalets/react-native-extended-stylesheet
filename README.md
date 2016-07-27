@@ -263,6 +263,13 @@ const styles = EStyleSheet.create({
   }
 });
 ```
+
+For the orientation change:
+```
+styles = EStyleSheet.orientationUpdate(orientation, styles); 
+this.forceUpdate();
+```
+
 See full example [here](examples/media-queries).  
 \[[top](#)\]
 

@@ -1,10 +1,8 @@
 /**
  * Calculation of percent strings
  */
+import utils from '../utils';
 
-import {Dimensions} from 'react-native';
-
-const {width, height} = Dimensions.get('window');
 const V_PROPS = [
   'height',
   'top',
@@ -44,8 +42,10 @@ function isPercent(str) {
  * @returns {number}
  */
 function calc(str, prop) {
+  const win = utils.calcOrientation(window.orientation);;
+
   let percent = parseInt(str.substring(0, str.length - 1), 10);
-  let base = isVertical(prop) ? height : width;
+  let base = isVertical(prop) ? win.height : win.width;
   return base * percent / 100;
 }
 
