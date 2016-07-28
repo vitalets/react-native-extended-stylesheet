@@ -37,6 +37,8 @@ export default class {
     } else {
       this.sheets.push(sheet);
     }
+    this._cacheSheetSource(sheet.getResult(), sheet);
+
     return sheet.getResult();
   }
 
@@ -48,7 +50,8 @@ export default class {
    */
   orientationUpdate(orientation, originalObj) {
     window.orientation = orientation;
-    let sheet = new Sheet(originalObj.source);
+    var source =  this._cacheSheetSource(originalObj);
+    let sheet = new Sheet(source);
     sheet.calc(this.globalVars);
     return sheet.getResult();
   }
@@ -111,5 +114,18 @@ export default class {
     if (Array.isArray(this.listeners[event])) {
       this.listeners[event].forEach(listener => listener());
     }
+  }
+
+  _cacheSheetSource(key, sheet){
+    key = JSON.stringify(Object.keys(key));
+    if (!memoize.cache) {
+      memoize.cache = {};
+    }
+    if (!memoize.cache[key]) {
+      if(sheet){
+        memoize.cache[key] = sheet.source;
+      }
+    }
+    return memoize.cache[key];
   }
 }
