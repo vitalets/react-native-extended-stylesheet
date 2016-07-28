@@ -36,13 +36,9 @@ function isObject(obj) {
 
 function calcOrientation(orientation){
   var {width, height} = Dimensions.get('window');
-
   if(orientation){
     orientation = orientation.toLowerCase();
-  }else{
-    
   }
-
   var newWidth = width;
   var newHeight = height;
 
@@ -57,7 +53,6 @@ function calcOrientation(orientation){
       var newHeight = width;
     }
   }
-
   if(!orientation){
     orientation = newWidth > newHeight ? 'landscape' : 'portrait'
   }

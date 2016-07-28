@@ -264,10 +264,40 @@ const styles = EStyleSheet.create({
 });
 ```
 
-For the orientation change:
+An idea for the orientation change support, it requires using another package for detecting the orientation change event, like react-native-orientation
+
+```js
+var Orientation = require('react-native-orientation');
+var styles = EStyleSheet.create({
+    card: {
+      height: 200,
+    },
+    '@media all and (orientation: portrait)': {
+      card: {
+        width: '42%'
+      }
+    },
+    '@media all and (orientation: landscape)': {
+      card: {
+        width: '23%'
+      }
+    }
+});
 ```
-styles = EStyleSheet.orientationUpdate(orientation, styles); 
-this.forceUpdate();
+inside your component use:
+```js
+componentDidMount() {
+  Orientation.addOrientationListener(this._orientationDidChange.bind(this));
+}
+
+componentWillUnmount() {
+  Orientation.removeOrientationListener(this._orientationDidChange);
+}
+
+_orientationDidChange(orientation) {
+  styles = EStyleSheet.orientationUpdate(orientation, styles); 
+  this.forceUpdate();
+}
 ```
 
 See full example [here](examples/media-queries).  
