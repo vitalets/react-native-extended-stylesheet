@@ -44,13 +44,13 @@ function calcOrientation(orientation){
 
   if (orientation == 'landscape') {
     if(height > width){
-      var newWidth = height;
-      var newHeight = width;
+      newWidth = height;
+      newHeight = width;
     }
   }else if (orientation == 'portrait') {
     if(width > height){
-      var newWidth = height;
-      var newHeight = width;
+      newWidth = height;
+      newHeight = width;
     }
   }
   if(!orientation){

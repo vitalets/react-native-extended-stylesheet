@@ -8,7 +8,7 @@
  * - aspect-ratio
  */
 
-import {Dimensions, Platform} from 'react-native';
+import {Platform} from 'react-native';
 import mediaQuery from 'css-mediaquery';
 import utils from '../utils';
 

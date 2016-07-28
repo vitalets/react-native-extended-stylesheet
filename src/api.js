@@ -50,7 +50,7 @@ export default class {
    */
   orientationUpdate(orientation, originalObj) {
     window.orientation = orientation;
-    var source =  this._cacheSheetSource(originalObj);
+    var source = this._cacheSheetSource(originalObj);
     let sheet = new Sheet(source);
     sheet.calc(this.globalVars);
     return sheet.getResult();

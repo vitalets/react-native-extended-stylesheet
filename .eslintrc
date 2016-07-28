@@ -14,6 +14,10 @@
     "node": true,
     "jest": true
   },
+  
+  "globals": {
+    "window": true
+  },
 
   "plugins": [
     "react",
