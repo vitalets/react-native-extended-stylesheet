@@ -264,13 +264,13 @@ const styles = EStyleSheet.create({
 });
 ```
 
-An idea for the orientation change support, it requires using another package for detecting the orientation change event, like react-native-orientation
+Here is an example of the orientation change:
 
 ```js
-var Orientation = require('react-native-orientation');
 var styles = EStyleSheet.create({
     card: {
       height: 200,
+	  backgroundColor: 'green'
     },
     '@media all and (orientation: portrait)': {
       card: {
@@ -283,20 +283,22 @@ var styles = EStyleSheet.create({
       }
     }
 });
-```
-inside your component use:
-```js
-componentDidMount() {
-  Orientation.addOrientationListener(this._orientationDidChange.bind(this));
-}
 
-componentWillUnmount() {
-  Orientation.removeOrientationListener(this._orientationDidChange);
-}
-
-_orientationDidChange(orientation) {
-  styles = EStyleSheet.orientationUpdate(orientation, styles); 
-  this.forceUpdate();
+class example extends React.Component {
+	onLayoutChange(event){
+      var updatedStyles = EStyleSheet.orientationUpdate(event, styles); 
+      if(updatedStyles){
+        styles = updatedStyles;
+        this.forceUpdate();
+      }
+    }
+	
+	render() {
+      console.warn('render');
+      return (
+		<View onLayout={ this.onLayoutChange.bind(this) } style={styles.card}>...</View>
+	  )
+	}
 }
 ```
 
