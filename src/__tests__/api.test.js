@@ -129,10 +129,15 @@ describe('EStyleSheet API', function () {
       }
     });
 	
-	let portraitStyles = api.orientationUpdate('portrait', defaultStyles); 
+	var layout = {nativeEvent:{layout:{width:50, height: 100}}};
+	let landscapeStyles = api.orientationUpdate(layout, defaultStyles); 
+	expect(defaultStyles).not.toEqual(landscapeStyles);
+	
+	layout = {nativeEvent:{layout:{width:100, height: 50}}};
+	let portraitStyles = api.orientationUpdate(layout, defaultStyles); 
     expect(defaultStyles).toEqual(portraitStyles);
 	
-	let landscapeStyles = api.orientationUpdate('landscape', defaultStyles); 
-	expect(defaultStyles).not.toEqual(landscapeStyles);
+	let portraitStyles2 = api.orientationUpdate(layout, landscapeStyles); 
+    expect(portraitStyles2).toEqual(false);
   });
 });

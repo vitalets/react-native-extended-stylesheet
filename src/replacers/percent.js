@@ -42,8 +42,7 @@ function isPercent(str) {
  * @returns {number}
  */
 function calc(str, prop) {
-  const win = utils.calcOrientation(window.orientation);
-
+  const win = utils.getDimensions();
   let percent = parseInt(str.substring(0, str.length - 1), 10);
   let base = isVertical(prop) ? win.height : win.width;
   return base * percent / 100;

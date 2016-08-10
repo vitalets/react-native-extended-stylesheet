@@ -64,7 +64,7 @@ function process(obj) {
  * @returns {Object}
  */
 function getMatchObject() {
-  const win = utils.calcOrientation(window.orientation);
+  const win = utils.getDimensions();
   return {
     width: win.width,
     height: win.height,

@@ -8,6 +8,8 @@ import Value from './value';
 import vars from './replacers/vars';
 import memoize from './memoize';
 import child from './child';
+import utils from './utils';
+
 
 const BUILD_EVENT = 'build';
 
@@ -48,14 +50,16 @@ export default class {
    * @param {originalObj} obj
    * @returns {Object}
    */
-  orientationUpdate(orientation, originalObj) {
-    window.orientation = orientation;
+  orientationUpdate(event, originalObj) {
+    var dimensions = utils.setDimensions(event.nativeEvent.layout);
+    if(dimensions.updated == false){
+      return false;
+    }
     var source = this._cacheSheetSource(originalObj);
     let sheet = new Sheet(source);
     sheet.calc(this.globalVars);
     return sheet.getResult();
   }
-
   /**
    * Builds all created stylesheets with passed variables
    * @param {Object} [gVars]

@@ -6,7 +6,8 @@ import {Dimensions} from 'react-native';
 export default {
   excludeKeys,
   isObject,
-  calcOrientation
+  setDimensions,
+  getDimensions
 };
 
 /**
@@ -34,27 +35,26 @@ function isObject(obj) {
   return typeof obj === 'object' && obj !== null;
 }
 
-function calcOrientation(orientation){
-  var {width, height} = Dimensions.get('window');
-  if(orientation){
-    orientation = orientation.toLowerCase();
+function setDimensions(layout, defaultLayout){
+  defaultLayout = defaultLayout || false;
+  var updated = false;
+  if(!defaultLayout){
+    if(window.dimensions.width !== layout.width){
+      updated = true;
+    }
   }
-  var newWidth = width;
-  var newHeight = height;
+  return window.dimensions = {
+    orientation: (layout.width < layout.height ? 'portrait' : 'landscape'),
+    width: layout.width,
+    height: layout.height,
+    default: defaultLayout,
+    updated: updated
+  }
+}
 
-  if (orientation == 'landscape') {
-    if(height > width){
-      newWidth = height;
-      newHeight = width;
-    }
-  }else if (orientation == 'portrait') {
-    if(width > height){
-      newWidth = height;
-      newHeight = width;
-    }
+function getDimensions(){
+  if(!window.dimensions){
+    setDimensions(Dimensions.get('window'), true);
   }
-  if(!orientation){
-    orientation = newWidth > newHeight ? 'landscape' : 'portrait'
-  }
-  return {width: newWidth, height: newHeight, orientation: orientation};
+  return window.dimensions;
 }
