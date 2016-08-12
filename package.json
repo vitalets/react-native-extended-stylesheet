@@ -11,6 +11,7 @@
     "code": "npm run madge && npm run check-deps && eslint src",
     "check-deps": "check-dependencies --only-specified",
     "show-deps": "npm ls --depth=0",
+    "madge": "madge --format=es6 --circular src",
     "test": "jest --coverage",
     "coveralls": "coveralls < coverage/lcov.info",
     "release-patch": "npm run code && npm test && npm version patch && npm publish && git push --follow-tags",
