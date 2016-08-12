@@ -46,7 +46,7 @@
   "config": {
     "ghooks": {
       "pre-commit": "bash hooks/pre-commit.sh",
-      "pre-push": "npm run code && npm test"
+      "pre-push": "npm run code"
     }
   },
   "jest": {
