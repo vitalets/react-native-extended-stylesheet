@@ -13,6 +13,7 @@ relative units, percents, math operations, scaling and other styling stuff.
 - [Usage](#usage)
 - [Features](#features)
   - [global variables](#global-variables)
+  - [theming](#theming)
   - [local variables](#local-variables)
   - [math operations](#math-operations)
   - [rem units](#rem-units)
@@ -98,19 +99,6 @@ const styles = EStyleSheet.create({
   }
 });
 ```
-You can put all global variables to separate file to control app theme:
-```js
-// theme.js
-export default {
-  textColor: '#0275d8',
-  buttonColor: 'green',
-  ...
-}
-
-// app entry
-import theme from './theme';
-EStyleSheet.build(theme);
-```
 
 You can define nested variables and access them via dot path:
 ```js
@@ -130,6 +118,31 @@ const styles = EStyleSheet.create({
 ```
 
 \[[top](#)\]
+### Theming
+To use theme just put all global variables to separate files to control app theme:
+```js
+// light.js
+export default {
+  textColor: 'white',
+}
+
+// dark.js
+export default {
+  textColor: 'black',
+}
+
+// app entry
+import lightTheme from './light';
+import darkTheme from './dark';
+
+// here we can read selected theme from storage
+const selectedTheme = lightTheme;
+
+EStyleSheet.build(selectedTheme);
+```
+Note this theme will be static: app reload required to change it.  
+To support dynamic theme change you should pre-build both themes and ensure component re-render after theme change.  
+Please have a look on [this discussion](https://github.com/vitalets/react-native-extended-stylesheet/issues/22#issuecomment-249350489). Currently it is good point for pull request.
 
 ### Local variables
 Local variables can be defined directly in sylesheet and have priority over global variables.
