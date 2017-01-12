@@ -3,7 +3,7 @@ import memoize from '../memoize';
 describe('memoize', function () {
 
   it('should cache calls with the same args', function () {
-    let f = jest.genMockFn().mockImpl((a, b) => a + b);
+    let f = jest.fn().mockImplementation((a, b) => a + b);
     let mf = memoize(f);
     let res = mf(1, 2);
     let res2 = mf(1, 2);

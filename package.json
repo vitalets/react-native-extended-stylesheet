@@ -29,16 +29,16 @@
     "object-resolve-path": "^1.1.0"
   },
   "devDependencies": {
-    "babel-eslint": "^6.1.0",
-    "babel-jest": "^13.0.0",
-    "babel-preset-react-native": "^1.5.7",
-    "check-dependencies": "^0.12.0",
-    "coveralls": "^2.11.9",
-    "eslint": "^3.0.0",
-    "eslint-plugin-react": "^5.2.2",
-    "eslint-plugin-react-native": "^1.1.0",
-    "ghooks": "^1.3.0",
-    "jest-cli": "^13.0.0"
+    "babel-eslint": "^7.1.1",
+    "babel-jest": "^18.0.0",
+    "babel-preset-react-native": "^1.9.1",
+    "check-dependencies": "^1.0.1",
+    "coveralls": "^2.11.15",
+    "eslint": "^3.13.1",
+    "eslint-plugin-react": "^6.9.0",
+    "eslint-plugin-react-native": "^2.2.1",
+    "ghooks": "^2.0.0",
+    "jest-cli": "^18.1.0"
   },
   "config": {
     "ghooks": {
@@ -51,10 +51,9 @@
     "testPathDirs": [
       "src"
     ],
-    "scriptPreprocessor": "node_modules/babel-jest",
-    "testFileExtensions": [
-      "test.js"
-    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    },
     "verbose": true,
     "collectCoverage": false
   },
