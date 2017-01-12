@@ -8,8 +8,7 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "code": "npm run check-deps && eslint src",
-    "check-deps": "check-dependencies --only-specified",
+    "code": "check-dependencies && eslint src",
     "show-deps": "npm ls --depth=0",
     "test": "jest --coverage",
     "coveralls": "coveralls < coverage/lcov.info",
@@ -35,6 +34,7 @@
     "check-dependencies": "^1.0.1",
     "coveralls": "^2.11.15",
     "eslint": "^3.13.1",
+    "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^6.9.0",
     "eslint-plugin-react-native": "^2.2.1",
     "ghooks": "^2.0.0",

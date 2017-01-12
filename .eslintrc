@@ -17,7 +17,8 @@
 
   "plugins": [
     "react",
-    "react-native"
+    "react-native",
+    "import"
   ],
 
   "rules": {
@@ -57,10 +58,10 @@
     "react/prefer-es6-class": 1,
     "react/prop-types": [1, {"ignore": ["children"]}],
     "react/react-in-jsx-scope": 1,
-    "react/require-extension": 1,
+    "import/extensions": 1,
     "react/self-closing-comp": 1,
     "react/sort-comp": 0,
-    "react/wrap-multilines": 1,
+    "react/jsx-wrap-multilines": 1,
     "react-native/no-unused-styles": 2,
     "react-native/split-platform-components": 2
   }
