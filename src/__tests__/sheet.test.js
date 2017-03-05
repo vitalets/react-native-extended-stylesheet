@@ -67,4 +67,14 @@ describe('sheet', function () {
     });
   });
 
+  it('should not break on non-object styles', function () {
+    const source = {
+      x: null,
+    };
+    const result = new Sheet(source).calc();
+    expect(result).toEqual({
+      x: null
+    });
+  });
+
 });

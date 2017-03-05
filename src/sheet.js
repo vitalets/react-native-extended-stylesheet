@@ -48,15 +48,24 @@ export default class {
   calcStyles() {
     const extractedStyles = utils.excludeKeys(this.processedSource, this.extractedVars);
     Object.keys(extractedStyles).forEach(key => {
-      const {calculatedProps, calculatedVars} = new Style(extractedStyles[key], this.varsArr).calc();
-      const merged = Object.assign({}, calculatedVars, calculatedProps);
-      if (key.charAt(0) === '_') {
-        this.result[key] = merged;
+      if (extractedStyles[key]) {
+        this.calcStyle(key, extractedStyles[key]);
       } else {
-        this.result['_' + key] = merged;
-        this.nativeSheet[key] = calculatedProps;
+        this.result[key] = extractedStyles[key];
       }
     });
+  }
+
+  calcStyle(key, styleProps) {
+    const style = new Style(styleProps, this.varsArr);
+    const {calculatedProps, calculatedVars} = style.calc();
+    const merged = Object.assign({}, calculatedVars, calculatedProps);
+    if (key.charAt(0) === '_') {
+      this.result[key] = merged;
+    } else {
+      this.result['_' + key] = merged;
+      this.nativeSheet[key] = calculatedProps;
+    }
   }
 
   calcNative() {
