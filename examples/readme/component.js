@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableHighlight} from 'react-native';
-import EStyleSheet from '../../src';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const items = [
   'first-child',

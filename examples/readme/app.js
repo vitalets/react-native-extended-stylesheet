@@ -1,5 +1,5 @@
 import React from 'react';
-import EStyleSheet from '../../src';
+import EStyleSheet from 'react-native-extended-stylesheet';
 import MyComponent from './component';
 
 EStyleSheet.build({

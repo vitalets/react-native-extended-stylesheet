@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dimensions} from 'react-native';
-import EStyleSheet from '../../src';
+import EStyleSheet from 'react-native-extended-stylesheet';
 import MyComponent from './component';
 
 // define REM depending on screen width
