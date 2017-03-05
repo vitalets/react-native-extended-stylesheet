@@ -2,8 +2,8 @@
  * Exports method to create styles in all specified themes
  */
 import EStyleSheet from 'react-native-extended-stylesheet';
-import themeLight from './light.js';
-import themeDark from './dark.js';
+import themeLight from './light';
+import themeDark from './dark';
 
 export default {
   createStyleSheet
