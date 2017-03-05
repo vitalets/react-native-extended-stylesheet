@@ -9,12 +9,13 @@
   "main": "src/index.js",
   "scripts": {
     "code": "check-dependencies && eslint src",
+    "lint-staged": "lint-staged",
     "show-deps": "npm ls --depth=0",
     "test": "jest --coverage",
     "coveralls": "coveralls < coverage/lcov.info",
     "release-patch": "npm run code && npm test && npm version patch && npm publish && git push --follow-tags",
     "release-minor": "npm run code && npm test && npm version minor && npm publish && git push --follow-tags",
-    "precommit": "bash hooks/pre-commit.sh",
+    "precommit": "npm run lint-staged",
     "prepush": "npm run code && npm test"
   },
   "repository": {
@@ -40,7 +41,11 @@
     "eslint-plugin-react": "^6.9.0",
     "eslint-plugin-react-native": "^2.2.1",
     "husky": "^0.13.2",
-    "jest-cli": "^18.1.0"
+    "jest-cli": "^18.1.0",
+    "lint-staged": "^3.3.1"
+  },
+  "lint-staged": {
+    "*.js": "eslint"
   },
   "jest": {
     "automock": false,
