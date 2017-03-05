@@ -32,6 +32,7 @@ relative units, percents, math operations, scaling and other styling stuff.
   - [.memoize()](#memoize)
   - [.child()](#child)
   - [.subscribe()](#subscribe)
+- [FAQ](#faq)
 - [Feedback](#feedback)
 - [License](#license)
 
@@ -100,7 +101,6 @@ const styles = EStyleSheet.create({
   }
 });
 ```
-
 \[[top](#react-native-extended-stylesheet)\]
 
 ### Theming
@@ -108,7 +108,8 @@ There can be two types of themes:
   * *static* (app reload needed to theme change)
   * *dynamic* (theme can be changed in runtime)
 
-Please see examples of [static themes](examples/static-themes) and [dynamic themes](examples/dynamic-themes).
+Please see examples of [static themes](examples/themes-static) and [dynamic themes](examples/themes-dynamic).  
+\[[top](#react-native-extended-stylesheet)\]
 
 ### Local variables
 Local variables can be defined directly in sylesheet and have priority over global variables.
@@ -545,8 +546,15 @@ EStyleSheet.subscribe('build', () => {
 ```
 \[[top](#react-native-extended-stylesheet)\]
 
+## FAQ
+**What about orientation change?**  
+Currently orientation change is not properly supported. Please see 
+[this issue](https://github.com/vitalets/react-native-extended-stylesheet/issues/9) for more details.
+
 ## Feedback
-If you have any ideas or something goes wrong feel free to [open issue](https://github.com/vitalets/react-native-extended-stylesheet/issues/new) or pull request.
+If you have any ideas or something goes wrong feel free to 
+[open issue](https://github.com/vitalets/react-native-extended-stylesheet/issues/new) or pull request.
 
 ## License
-MIT
+MIT  
+\[[top](#react-native-extended-stylesheet)\]
