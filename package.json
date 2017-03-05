@@ -13,7 +13,9 @@
     "test": "jest --coverage",
     "coveralls": "coveralls < coverage/lcov.info",
     "release-patch": "npm run code && npm test && npm version patch && npm publish && git push --follow-tags",
-    "release-minor": "npm run code && npm test && npm version minor && npm publish && git push --follow-tags"
+    "release-minor": "npm run code && npm test && npm version minor && npm publish && git push --follow-tags",
+    "precommit": "bash hooks/pre-commit.sh",
+    "prepush": "npm run code && npm test"
   },
   "repository": {
     "type": "git",
@@ -37,14 +39,8 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^6.9.0",
     "eslint-plugin-react-native": "^2.2.1",
-    "ghooks": "^2.0.0",
+    "husky": "^0.13.2",
     "jest-cli": "^18.1.0"
-  },
-  "config": {
-    "ghooks": {
-      "pre-commit": "bash hooks/pre-commit.sh",
-      "pre-push": "npm run code && npm test"
-    }
   },
   "jest": {
     "automock": false,
