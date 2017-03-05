@@ -9,7 +9,7 @@ const rem = width > 340 ? 18 : 17;
 
 // calc styles
 EStyleSheet.build({
-  rem: rem,
+  $rem: rem,
 });
 
 export default class extends React.Component {

@@ -41,7 +41,19 @@ npm i react-native-extended-stylesheet --save
 ```
 
 ## Usage
-1. Define styles using `EStyleSheet.create()`:
+
+2. Import `EStyleSheet` and call `EStyleSheet.build()` in entry point of your app:
+
+  ```js
+  // app.js
+  import EStyleSheet from 'react-native-extended-stylesheet';
+  
+  EStyleSheet.build({
+    $textColor: 'green' // variable 
+  });
+  ```
+
+1. Define styles using `EStyleSheet.create()` in components:
 
   ```js
   // component.js
@@ -60,23 +72,13 @@ npm i react-native-extended-stylesheet --save
   class MyComponent extends React.Component {
     render() {
       return (
-        // use styles as usual
+        // use styles as normal react-native StyleSheet
         <View style={styles.column}>
           <Text style={styles.text}>Hello</Text>
         </View>
       );
     }
   }  
-  ```
-
-2. Call `EStyleSheet.build()` in entry point of your app to actually calculate styles:
-
-  ```js
-  // app.js
-  import EStyleSheet from 'react-native-extended-stylesheet';
-  
-  // calculate styles
-  EStyleSheet.build();
   ```
   
 \[[top](#)\]
@@ -85,11 +87,10 @@ npm i react-native-extended-stylesheet --save
 ### Global variables
 Global variables are useful for global theming or A/B testing of your app. 
 They are passed to `EStyleSheet.build()` and available in any stylesheet.  
-To use global variable just reference it's name with `$` prefix:
 ```js
-// app entry: set global variables
+// app entry: set global variables and calc styles
 EStyleSheet.build({
-  textColor: '#0275d8'
+  $textColor: '#0275d8'
 });
 
 // component: use global variables
@@ -100,49 +101,13 @@ const styles = EStyleSheet.create({
 });
 ```
 
-You can define nested variables and access them via dot path:
-```js
-// entry
-EStyleSheet.build({
-  button: {
-    size: 10
-  }
-});
-
-// component
-const styles = EStyleSheet.create({
-  text: {
-    color: '$button.size'
-  }
-});
-```
-
 \[[top](#)\]
 ### Theming
-To use theme just put all global variables to separate files to control app theme:
-```js
-// light.js
-export default {
-  textColor: 'white',
-}
+There can be two types of themes:
+  * *static* (app reload needed to theme change)
+  * *dynamic* (theme can be changed in runtime)
 
-// dark.js
-export default {
-  textColor: 'black',
-}
-
-// app entry
-import lightTheme from './light';
-import darkTheme from './dark';
-
-// here we can read selected theme from storage
-const selectedTheme = lightTheme;
-
-EStyleSheet.build(selectedTheme);
-```
-Note this theme will be static: app reload required to change it.  
-To support dynamic theme change you should pre-build both themes and ensure component re-render after theme change.  
-Please have a look on [this discussion](https://github.com/vitalets/react-native-extended-stylesheet/issues/22#issuecomment-249350489). Currently it is good point for pull request.
+Please see examples of [static themes](examples/static-themes) and [dynamic themes](examples/dynamic-themes).
 
 ### Local variables
 Local variables can be defined directly in sylesheet and have priority over global variables.

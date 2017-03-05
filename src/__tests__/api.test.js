@@ -26,7 +26,7 @@ describe('EStyleSheet API', function () {
     expect(res1).toEqual({});
     expect(res2).toEqual({});
 
-    api.build({c: 3});
+    api.build({$c: 3});
 
     expect(res1).toEqual({
       $a: 1,
@@ -46,7 +46,7 @@ describe('EStyleSheet API', function () {
   });
 
   it('should create calculated stylesheets after build', function () {
-    api.build({c: 3});
+    api.build({$c: 3});
     let res = api.create({
       $b: '$c',
       button: {
@@ -63,7 +63,7 @@ describe('EStyleSheet API', function () {
   });
 
   it('should calculate global vars after build', function () {
-    api.build({c: '$d+1', d: 2});
+    api.build({$c: '$d+1', $d: 2});
     let res = api.create({
       $b: '$c',
     });
@@ -74,17 +74,17 @@ describe('EStyleSheet API', function () {
 
   it('should work correctly with several `build()` calls', function () {
     const res1 = api.create({$b: '$a'});
-    api.build({a: 1});
+    api.build({$a: 1});
     const res2 = api.create({$b: '$a'});
     expect(res1).toEqual({$b: 1});
     expect(res2).toEqual({$b: 1});
-    api.build({a: 1});
+    api.build({$a: 1});
     expect(res1).toEqual({$b: 1});
     expect(res2).toEqual({$b: 1});
   });
 
   it('should calculate value', function () {
-    api.build({d: 1});
+    api.build({$d: 1});
     let res1 = api.value('$d+1');
     let res2 = api.value('100% - 10', 'width');
     expect(res1).toBe(2);
