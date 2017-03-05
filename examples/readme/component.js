@@ -3,11 +3,11 @@ import {View, Text, TouchableHighlight} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const items = [
-  'first-child',
-  'nth-child-odd',
-  'nth-child-even',
-  'nth-child-odd',
-  'last-child',
+  ':first-child',
+  ':nth-child-odd',
+  ':nth-child-even',
+  ':nth-child-odd',
+  ':last-child',
 ];
 
 export default class extends React.Component {
@@ -25,8 +25,9 @@ export default class extends React.Component {
 
         <Text style={styles.label}>Stripped rows via <Text style={styles.bold}>pseudo-classes</Text></Text>
         {items.map((item, index) => {
+          const itemStyle = EStyleSheet.child(styles, 'row', index, items.length);
           return (
-            <View key={index} style={EStyleSheet.child(styles, 'row', index, items.length)}>
+            <View key={index} style={itemStyle}>
               <Text style={styles.rowText}>{item}</Text>
             </View>
           );
@@ -81,11 +82,19 @@ const styles = EStyleSheet.create({
     width: 120,
     alignItems: 'center',
   },
+  'row:first-child': {
+    borderColor: 'blue',
+    borderTopWidth: 3,
+  },
+  'row:nth-child-odd': {
+    backgroundColor: 'gray'
+  },
   'row:nth-child-even': {
-    backgroundColor: '#aeaeae' // make stripped
+    backgroundColor: 'white'
   },
   'row:last-child': {
-    borderBottomWidth: 1 // render bottom edge for last row
+    backgroundColor: 'yellow',
+    borderBottomWidth: 1
   },
   rowText: {
     fontSize: '.8rem',
