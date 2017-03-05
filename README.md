@@ -81,7 +81,7 @@ npm i react-native-extended-stylesheet --save
   }  
   ```
   
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ## Features
 ### Global variables
@@ -101,7 +101,8 @@ const styles = EStyleSheet.create({
 });
 ```
 
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
+
 ### Theming
 There can be two types of themes:
   * *static* (app reload needed to theme change)
@@ -124,7 +125,7 @@ const styles = EStyleSheet.create({
 });
 ```
 Local variables are also available in result style: `styles.$textColor`.  
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ### Math operations
 Any value can contain one of following math operations: `*`, `+`, `-`. Operands can be numbers, variables and percents.  
@@ -139,7 +140,7 @@ const styles = EStyleSheet.create({
   }
 });
 ```
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ### REM units
 Similar to [CSS3 rem unit](http://snook.ca/archives/html_and_css/font-size-with-rem) it allows to define any integer value as relative to the root element. In our case root value is special `rem` global variable that can be set in `EStyleSheet.build()`. It makes easy to scale app depending on screen size and other conditions. Default rem is `16`.
@@ -157,7 +158,7 @@ EStyleSheet.build({
   rem: width > 340 ? 18 : 16
 });
 ```
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ### Percents
 Percent values are useful for **single-orientation apps** because calculation is performed on app start only.
@@ -204,7 +205,7 @@ render() {
 }
 
 ```
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ### Media queries
 Media queries are supported in standard format (thanks for idea to [@grabbou](https://github.com/grabbou), 
@@ -242,7 +243,7 @@ const styles = EStyleSheet.create({
 });
 ```
 See full example [here](examples/media-queries).  
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ### Scaling
 You can apply scale to components by setting special `$scale` variable. 
@@ -283,7 +284,7 @@ let getStyle = function (scale = 1) {
 }
 ```
 To cache calculated styles please have a look on [caching](#caching) section.  
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ### Underscored styles
 Original react-native stylesheets are calculated to integer numbers and original values are unavailable. 
@@ -325,7 +326,7 @@ return (
   </View>
 );
 ```
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ### Pseudo classes (:nth-child)
 Extended stylesheet supports 4 pseudo classes: `:first-child`, `:nth-child-even`, `:nth-child-odd`, `:last-child`. As well as in traditional CSS it allows to apply special styling for first/last items or render stripped rows.  
@@ -357,7 +358,7 @@ render() {
   );
 }
 ```
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ### Value as a function
 For the deepest customization you can specify any value as a function that will be executed on EStyleSheet build. 
@@ -382,7 +383,7 @@ render() {
 }
 
 ```
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ### Caching
 If you use dynamic styles depending on runtime prop or you are making reusable component with dynamic styling
@@ -427,7 +428,7 @@ let getStyle = EStyleSheet.memoize(function (scale = 1) {
 ```
 Now if you call `getStyle(1.5)` 3 times actually style will be created on the first call 
 and two other calls will get it from cache.  
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ### Outline for debug
 To outline all components for debug purpuses just set special `$outline` variable:
@@ -445,7 +446,7 @@ const styles = EStyleSheet.create({
   ...
 });
 ```
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ## EStyleSheet API
 ### .create()
@@ -458,7 +459,7 @@ const styles = EStyleSheet.create({
  */
  create (source) {...}
 ```
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ### .build()
 ```js
@@ -469,7 +470,7 @@ const styles = EStyleSheet.create({
  */
  build (globalVars) {...}
 ```
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ### .value()
 ```js
@@ -482,7 +483,7 @@ const styles = EStyleSheet.create({
  */
  value (value, prop) {...}
 ```
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ### .memoize()
 ```js
@@ -494,7 +495,7 @@ const styles = EStyleSheet.create({
  */
  memoize (fn) {...}
 ```
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ### .child()
 ```js
@@ -509,7 +510,7 @@ const styles = EStyleSheet.create({
  */
  child (styles, styleName, index, count) {...}
 ```
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ### .subscribe()
 ```js
@@ -542,7 +543,7 @@ EStyleSheet.subscribe('build', () => {
   Button = <View style={styles.button}></View>;
 });
 ```
-\[[top](#)\]
+\[[top](#react-native-extended-stylesheet)\]
 
 ## Feedback
 If you have any ideas or something goes wrong feel free to [open issue](https://github.com/vitalets/react-native-extended-stylesheet/issues/new) or pull request.
