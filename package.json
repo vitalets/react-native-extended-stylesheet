@@ -31,25 +31,25 @@
     "object-resolve-path": "^1.1.0"
   },
   "devDependencies": {
-    "babel-eslint": "^7.1.1",
-    "babel-jest": "^18.0.0",
+    "babel-eslint": "^7.2.1",
+    "babel-jest": "^19.0.0",
     "babel-preset-react-native": "^1.9.1",
     "check-dependencies": "^1.0.1",
-    "coveralls": "^2.11.15",
-    "eslint": "^3.13.1",
+    "coveralls": "^2.13.0",
+    "eslint": "^3.19.0",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-react": "^6.9.0",
-    "eslint-plugin-react-native": "^2.2.1",
-    "husky": "^0.13.2",
-    "jest-cli": "^18.1.0",
-    "lint-staged": "^3.3.1"
+    "eslint-plugin-react": "^6.10.3",
+    "eslint-plugin-react-native": "^2.3.1",
+    "husky": "^0.13.3",
+    "jest-cli": "^19.0.2",
+    "lint-staged": "^3.4.0"
   },
   "lint-staged": {
     "*.js": "eslint"
   },
   "jest": {
     "automock": false,
-    "testPathDirs": [
+    "roots": [
       "src"
     ],
     "transform": {
