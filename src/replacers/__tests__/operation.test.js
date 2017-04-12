@@ -38,6 +38,10 @@ describe('operation', function () {
     expect(operation.exec({operator: '-', v1: 10, v2: 0.5})).toBe(9.5);
   });
 
+  it('should exec /', function () {
+    expect(operation.exec({operator: '/', v1: 10, v2: 0.5})).toBe(20);
+  });
+
   it('should throw on invalid data', function () {
     expect(() => operation.exec({operator: 'a', v1: 10, v2: 0.5}))
       .toThrowError('Unknown operator: a');
