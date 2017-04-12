@@ -47,6 +47,8 @@ describe('operation', function () {
       .toThrowError('Unknown operator: a');
     expect(() => operation.exec({operator: '+', v1: '10', v2: 0.5}))
       .toThrowError('Operation value should be number, you try: 10');
+    expect(() => operation.exec({operator: '/', v1: 10, v2: 0}))
+      .toThrowError('Operation divisor should not be zero');
     expect(() => operation.exec({operator: '+', v1: 10, v2: null}))
       .toThrowError('Operation value should be number, you try: null');
   });
