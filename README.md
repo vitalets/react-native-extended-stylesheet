@@ -43,7 +43,7 @@ npm i react-native-extended-stylesheet --save
 
 ## Usage
 
-2. Import `EStyleSheet` and call `EStyleSheet.build()` in entry point of your app:
+1. Import `EStyleSheet` and call `EStyleSheet.build()` in entry point of your app:
 
   ```js
   // app.js
@@ -54,7 +54,7 @@ npm i react-native-extended-stylesheet --save
   });
   ```
 
-1. Define styles using `EStyleSheet.create()` in components:
+2. Define styles using `EStyleSheet.create()` in components:
 
   ```js
   // component.js
