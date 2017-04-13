@@ -129,7 +129,7 @@ Local variables are also available in result style: `styles.$textColor`.
 \[[top](#react-native-extended-stylesheet)\]
 
 ### Math operations
-Any value can contain one of following math operations: `*`, `+`, `-`. Operands can be numbers, variables and percents.  
+Any value can contain **one** of following math operations: `*`, `/`, `+`, `-`. Operands can be numbers, variables and percents.  
 For example, to render circle you may create style:
 ```js
 const styles = EStyleSheet.create({
