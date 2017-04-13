@@ -13,8 +13,8 @@
     "show-deps": "npm ls --depth=0",
     "test": "jest --coverage",
     "coveralls": "coveralls < coverage/lcov.info",
-    "release-patch": "npm run code && npm test && npm version patch && npm publish && git push --follow-tags",
-    "release-minor": "npm run code && npm test && npm version minor && npm publish && git push --follow-tags",
+    "release-patch": "npm run code && npm test && npm version patch && npm publish && git push --follow-tags --no-verify",
+    "release-minor": "npm run code && npm test && npm version minor && npm publish && git push --follow-tags --no-verify",
     "precommit": "npm run lint-staged",
     "prepush": "npm run code && npm test"
   },
