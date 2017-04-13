@@ -65,4 +65,7 @@ describe('value', function () {
     expect(new Value(() => '$a', 'prop', [{$a: 1}]).calc()).toEqual(1);
   });
 
+  it('should throw for complex operations', function () {
+    expect(() => new Value('$c - $a + 1', 'prop', varsArr).calc()).toThrow('Unresolved variable: $c - $a');
+  });
 });
