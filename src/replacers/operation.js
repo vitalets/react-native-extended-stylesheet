@@ -7,6 +7,7 @@ const operators = {
   '*': (v1, v2) => v1 * v2,
   '+': (v1, v2) => v1 + v2,
   '-': (v1, v2) => v1 - v2,
+  '/': (v1, v2) => v1 / v2,
 };
 
 export default {
@@ -38,6 +39,9 @@ function exec(opInfo) {
   assertOperator(opInfo.operator);
   assertValue(opInfo.v1);
   assertValue(opInfo.v2);
+  if (opInfo.operator === '/') {
+    assertDivisor(opInfo.v2);
+  }
   let fn = operators[opInfo.operator];
   return fn(opInfo.v1, opInfo.v2);
 }
@@ -60,5 +64,11 @@ function assertOperator(operator) {
 function assertValue(value) {
   if (typeof value !== 'number') {
     throw new Error('Operation value should be number, you try: ' + value);
+  }
+}
+
+function assertDivisor(divisor) {
+  if (divisor === 0) {
+    throw new Error('Operation divisor should not be zero');
   }
 }
