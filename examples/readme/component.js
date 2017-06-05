@@ -18,9 +18,10 @@ export default class extends React.Component {
       <View style={styles.column}>
         <Text style={styles.header}>Extended StyleSheets</Text>
         <Text style={styles.label}>
-          <Text style={styles.bold}>Percent</Text> values:
-          width=<Text style={styles.bold}>80%</Text>,
-          margin=<Text style={styles.bold}>10%</Text>
+          <Text style={styles.bold}>Percent values</Text>,{' '}
+          <Text style={styles.bold}>variables</Text> and <Text style={styles.bold}>operations</Text>:
+          width=<Text style={styles.bold}>100% - 20</Text>,
+          margin=<Text style={styles.bold}>10% * $width</Text>
         </Text>
 
         <Text style={[styles.label, styles.bold]}>CSS pseudo-classes:</Text>
@@ -34,10 +35,10 @@ export default class extends React.Component {
         })}
 
         <Text style={styles.label}>
-          <Text style={styles.bold}>Variables: </Text>
-          width=<Text style={styles.bold}>$size</Text>,
-          height=<Text style={styles.bold}>$size * 2</Text>,
-          </Text>
+          <Text style={styles.bold}>Media queries</Text>,{' '}
+          <Text style={styles.bold}>REMs</Text> and <Text style={styles.bold}>scaling: </Text>
+          <Text>@media (max-width: 350): {'{'} width: 20% {'}'}</Text>
+        </Text>
         <TouchableHighlight style={btnStyles.button} underlayColor={btnStyles._button.$underlayColor}>
           <Text style={btnStyles.buttonText}>Like it!</Text>
         </TouchableHighlight>
@@ -73,7 +74,7 @@ const styles = EStyleSheet.create({
     fontWeight: 'bold',
   },
   label: {
-    textAlign: 'left',
+    textAlign: 'center',
     fontSize: '0.8rem',
     color: '$textColor',
     marginTop: 10,

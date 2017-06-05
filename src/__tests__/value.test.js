@@ -33,9 +33,8 @@ describe('value', function () {
     expect(() => new Value('$xxx', 'prop', varsArr).calc()).toThrowError('Unresolved variable: $xxx');
   });
 
-  it('should calc percent', function () {
-    expect(new Value('50%', 'width', varsArr).calc()).toEqual(50);
-    expect(new Value('100%', 'height', varsArr).calc()).toEqual(200);
+  it('should not calc percent value (when it contains only percent, as it supported natively)', function () {
+    expect(new Value('50%', 'width', varsArr).calc()).toEqual('50%');
   });
 
   it('should calc rem', function () {

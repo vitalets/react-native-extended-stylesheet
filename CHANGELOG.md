@@ -1,6 +1,7 @@
 ## 0.5.0 (Jun 5, 2017)
 
 * Add [babel-plugin-runtyper](https://github.com/vitalets/babel-plugin-runtyper)
+* Use native percents when possible ([#32])
 
 ## 0.4.0 (Apr 13, 2017)
 
@@ -31,3 +32,4 @@
 [#14]: https://github.com/vitalets/react-native-extended-stylesheet/pull/14
 [#18]: https://github.com/vitalets/react-native-extended-stylesheet/pull/18
 [#38]: https://github.com/vitalets/react-native-extended-stylesheet/pull/38
+[#32]: https://github.com/vitalets/react-native-extended-stylesheet/pull/32

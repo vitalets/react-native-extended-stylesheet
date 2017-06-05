@@ -7,7 +7,7 @@
 Extend [React Native](https://facebook.github.io/react-native/) stylesheets with media-queries, variables, dynamic themes,
 relative units, percents, math operations, scaling and other styling stuff.
 
-<img align="right" src="https://raw.githubusercontent.com/vitalets/react-native-extended-stylesheet/master/examples/screenshot.png">
+<img align="right" src="https://cloud.githubusercontent.com/assets/1473072/26778748/49c190be-49eb-11e7-83a1-b06372df8d85.png">
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -33,6 +33,7 @@ relative units, percents, math operations, scaling and other styling stuff.
   - [.child()](#child)
   - [.subscribe()](#subscribe)
 - [FAQ](#faq)
+- [Changelog](#changelog)
 - [Feedback](#feedback)
 - [License](#license)
 
@@ -162,24 +163,33 @@ EStyleSheet.build({
 \[[top](#react-native-extended-stylesheet)\]
 
 ### Percents
-Percent values are useful for **single-orientation apps** because calculation is performed on app start only.
-They are calculated relative to **screen width/height** (not parent component!).
+Percent values are supported natively since React Native 0.43.
+Style properties that contain *only* percent value (e.g. `"80%"`) are passed as is to the native code.
+The only case when JavaScript calculation is applied by this library - operations with percent values, e.g. `"100% - 20"`. 
+Percents are calculated relative to **screen width/height** on application launch.
 ```js
 const styles = EStyleSheet.create({
   column: {
-    width: '80%',
-    height: '50%',
-    marginLeft: '10%'
+    width: '100% - 20'
   }
 });
 ```
-Note: supporting orientation change is always design-decision but sometimes it's really unneeded and makes life much easier.
-How to lock orientaion for [IOS](http://stackoverflow.com/a/24205653/740245), [Android](http://stackoverflow.com/a/4675801/740245).  
 
 **Percents in nested components**  
-If you need sub-components with percentage props based on parent, you can achieve it with variables.  
+If you need sub-components with percent operations - you can use variables.  
 For example, to render 2 sub-columns with 30%/70% width of parent:
 ```js
+render() {
+  return (
+    <View style={styles.column}>
+      <View style={styles.subColumnLeft}></View>
+      <View style={styles.subColumnRight}></View>
+    </View>
+  );
+}
+
+...
+
 const styles = EStyleSheet.create({
   $columnWidth: '80%',
   column: {
@@ -193,27 +203,15 @@ const styles = EStyleSheet.create({
     width: '0.7 * $columnWidth'
   }
 });
-
-...
-
-render() {
-  return (
-    <View style={styles.column}>
-      <View style={styles.subColumnLeft}></View>
-      <View style={styles.subColumnRight}></View>
-    </View>
-  );
-}
-
 ```
 \[[top](#react-native-extended-stylesheet)\]
 
 ### Media queries
-Media queries are supported in standard format (thanks for idea to [@grabbou](https://github.com/grabbou), 
+Media queries allows to have different styles for different screens, platform and orienation.
+They are supported as properties with `@media` prefix (thanks for idea to [@grabbou](https://github.com/grabbou),
 [#5](https://github.com/vitalets/react-native-extended-stylesheet/issues/5)).
-They allows to have different styles for different screens, platform, orienation etc.  
 
-Supported values are:
+Media queries can operate with the following values:
 
 * media type: `ios|android`
 * `width`, `min-width`, `max-width`
@@ -221,20 +219,25 @@ Supported values are:
 * `orientation` (`landscape|portrait`)
 * `aspect-ratio`
 
-You can define media queries on sheet level or style level:
+Example:
 ```js
 const styles = EStyleSheet.create({
   column: {
     width: '80%',
   },
-  '@media (min-width: 350) and (max-width: 500)': { // media query on sheet level
+  '@media (min-width: 350) and (max-width: 500)': {
     column: {
       width: '90%',
     }
-  },
+  }
+});
+```
+Also you can use media queries on *style level*:
+```js
+const styles = EStyleSheet.create({
   header: {
     fontSize: 18,
-    '@media ios': { // media query on style level
+    '@media ios': {
       color: 'green',
     },
     '@media android': {
@@ -551,9 +554,12 @@ EStyleSheet.subscribe('build', () => {
 Currently orientation change is not properly supported. Please see 
 [this issue](https://github.com/vitalets/react-native-extended-stylesheet/issues/9) for more details.
 
+## Changelog
+[CHANGELOG.md](https://github.com/vitalets/react-native-extended-stylesheet/blob/master/CHANGELOG.md)
+
 ## Feedback
 If you have any ideas or something goes wrong feel free to 
-[open issue](https://github.com/vitalets/react-native-extended-stylesheet/issues/new) or pull request.
+[open new issue](https://github.com/vitalets/react-native-extended-stylesheet/issues/new).
 
 ## License
 MIT  

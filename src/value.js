@@ -50,12 +50,13 @@ export default class Value {
 
   /**
    * Calculates string
+   * Here we do not calc percent values as they supported natively (#32).
+   * But keep calculating percent for operands when value defined as operation.
    */
   calcString() {
     let actions = [
       this.tryCalcOperation,
       this.tryCalcVar,
-      this.tryCalcPercent,
       this.tryCalcRem,
     ];
     let value = this.tryActions(actions, this.value);
