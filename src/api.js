@@ -2,6 +2,7 @@
  * Extended StyleSheet API
  */
 
+import {StyleSheet} from 'react-native';
 import Sheet from './sheet';
 import Style from './style';
 import Value from './value';
@@ -23,6 +24,7 @@ export default class {
     this.sheets = [];
     this.globalVars = null;
     this.listeners = {};
+    this._proxyToOriginal();
   }
 
   /**
@@ -98,5 +100,22 @@ export default class {
     if (Array.isArray(this.listeners[event])) {
       this.listeners[event].forEach(listener => listener());
     }
+  }
+
+  _proxyToOriginal() {
+    // see: https://facebook.github.io/react-native/docs/stylesheet.html
+    const props = [
+      'setStyleAttributePreprocessor',
+      'hairlineWidth',
+      'absoluteFill',
+      'absoluteFillObject',
+      'flatten',
+    ];
+    props.forEach(prop => {
+      Object.defineProperty(this, prop, {
+        get: () => StyleSheet[prop],
+        enumerable: true,
+      });
+    });
   }
 }

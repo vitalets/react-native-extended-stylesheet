@@ -120,4 +120,14 @@ describe('EStyleSheet API', function () {
     const fn = () => api.subscribe('build', null);
     expect(fn).toThrowError('Listener should be a function.');
   });
+
+  it('should proxy calls to original StyleSheet', function () {
+    // real StyleSheet flatten() accepts style IDs, not objects
+    const obj = api.flatten([{x: 1}, {y: 2}]);
+    expect(obj).toEqual({x: 1, y: 2});
+  });
+
+  it('should return props of original StyleSheet', function () {
+    expect(api.hairlineWidth).toEqual(1);
+  });
 });

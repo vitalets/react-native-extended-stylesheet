@@ -13,12 +13,16 @@ export let Platform = {
 };
 
 export let StyleSheet = {
-  create: (obj) => {
+  create(obj) {
     return Object.keys(obj).reduce((res, key, index) => {
       res[key] = index;
       return res;
     }, {});
-  }
+  },
+  flatten(arr) {
+    return arr.reduce((res, item) => Object.assign(res, item), {});
+  },
+  hairlineWidth: 1
 };
 
 export default {
