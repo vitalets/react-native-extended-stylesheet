@@ -120,4 +120,24 @@ describe('EStyleSheet API', function () {
     const fn = () => api.subscribe('build', null);
     expect(fn).toThrowError('Listener should be a function.');
   });
+  
+  it('should update styles in orientation change', function () {
+	api.build({});
+    let defaultStyles = api.create({
+      card: {
+        width: '50%',
+      }
+    });
+	
+	var layout = {nativeEvent:{layout:{width:50, height: 100}}};
+	let landscapeStyles = api.orientationUpdate(layout, defaultStyles); 
+	expect(defaultStyles).not.toEqual(landscapeStyles);
+	
+	layout = {nativeEvent:{layout:{width:100, height: 50}}};
+	let portraitStyles = api.orientationUpdate(layout, defaultStyles); 
+    expect(defaultStyles).toEqual(portraitStyles);
+	
+	let portraitStyles2 = api.orientationUpdate(layout, landscapeStyles); 
+    expect(portraitStyles2).toEqual(false);
+  });
 });

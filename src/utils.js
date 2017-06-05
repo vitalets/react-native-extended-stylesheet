@@ -1,10 +1,13 @@
 /**
  * Utils
  */
+import {Dimensions} from 'react-native';
 
 export default {
   excludeKeys,
   isObject,
+  setDimensions,
+  getDimensions
 };
 
 /**
@@ -30,4 +33,28 @@ function excludeKeys(obj, keys) {
  */
 function isObject(obj) {
   return typeof obj === 'object' && obj !== null;
+}
+
+function setDimensions(layout, defaultLayout){
+  defaultLayout = defaultLayout || false;
+  var updated = false;
+  if(!defaultLayout){
+    if(window.dimensions.width !== layout.width){
+      updated = true;
+    }
+  }
+  return window.dimensions = {
+    orientation: (layout.width < layout.height ? 'portrait' : 'landscape'),
+    width: layout.width,
+    height: layout.height,
+    default: defaultLayout,
+    updated: updated
+  }
+}
+
+function getDimensions(){
+  if(!window.dimensions){
+    setDimensions(Dimensions.get('window'), true);
+  }
+  return window.dimensions;
 }

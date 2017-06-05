@@ -8,7 +8,7 @@
  * - aspect-ratio
  */
 
-import {Dimensions, Platform} from 'react-native';
+import {Platform} from 'react-native';
 import mediaQuery from 'css-mediaquery';
 import utils from '../utils';
 
@@ -64,11 +64,11 @@ function process(obj) {
  * @returns {Object}
  */
 function getMatchObject() {
-  const win = Dimensions.get('window');
+  const win = utils.getDimensions();
   return {
     width: win.width,
     height: win.height,
-    orientation: win.width > win.height ? 'landscape' : 'portrait',
+    orientation: win.orientation,
     'aspect-ratio': win.width / win.height,
     type: Platform.OS,
   };

@@ -246,6 +246,45 @@ const styles = EStyleSheet.create({
   }
 });
 ```
+
+Here is an example of the orientation change:
+
+```js
+var styles = EStyleSheet.create({
+    card: {
+      height: 200,
+	  backgroundColor: 'green'
+    },
+    '@media all and (orientation: portrait)': {
+      card: {
+        width: '42%'
+      }
+    },
+    '@media all and (orientation: landscape)': {
+      card: {
+        width: '23%'
+      }
+    }
+});
+
+class example extends React.Component {
+	onLayoutChange(event){
+      var updatedStyles = EStyleSheet.orientationUpdate(event, styles); 
+      if(updatedStyles){
+        styles = updatedStyles;
+        this.forceUpdate();
+      }
+    }
+	
+	render() {
+      console.warn('render');
+      return (
+		<View onLayout={ this.onLayoutChange.bind(this) } style={styles.card}>...</View>
+	  )
+	}
+}
+```
+
 See full example [here](examples/media-queries).  
 \[[top](#react-native-extended-stylesheet)\]
 
