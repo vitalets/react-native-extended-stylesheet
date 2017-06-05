@@ -1,0 +1,8 @@
+{
+  "presets": ["react-native"],
+  "env": {
+    "runtyper": {
+      "plugins": [["babel-plugin-runtyper", {"warnLevel": "break"}]]
+    }
+  }
+}

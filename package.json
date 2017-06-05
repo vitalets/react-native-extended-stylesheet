@@ -11,7 +11,7 @@
     "code": "check-dependencies && eslint src",
     "lint-staged": "lint-staged",
     "show-deps": "npm ls --depth=0",
-    "test": "jest --coverage",
+    "test": "BABEL_ENV=runtyper jest --coverage",
     "coveralls": "coveralls < coverage/lcov.info",
     "release-patch": "npm run code && npm test && npm version patch && npm publish && git push --follow-tags --no-verify",
     "release-minor": "npm run code && npm test && npm version minor && npm publish && git push --follow-tags --no-verify",
@@ -33,6 +33,7 @@
   "devDependencies": {
     "babel-eslint": "^7.2.1",
     "babel-jest": "^19.0.0",
+    "babel-plugin-runtyper": "^0.2.2",
     "babel-preset-react-native": "^1.9.1",
     "check-dependencies": "^1.0.1",
     "coveralls": "^2.13.0",

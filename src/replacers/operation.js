@@ -63,7 +63,7 @@ function assertOperator(operator) {
 
 function assertValue(value) {
   if (typeof value !== 'number') {
-    throw new Error('Operation value should be number, you try: ' + value);
+    throw new Error('Operation value should be number, you try: ' + String(value));
   }
 }
 
