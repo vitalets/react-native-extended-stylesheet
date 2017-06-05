@@ -1,3 +1,7 @@
+## 0.5.0 (Jun 5, 2017)
+
+* Add [babel-plugin-runtyper](https://github.com/vitalets/babel-plugin-runtyper)
+
 ## 0.4.0 (Apr 13, 2017)
 
 * Add division operator ([@joemckie] in [#38])
