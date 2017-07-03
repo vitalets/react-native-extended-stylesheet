@@ -7,13 +7,11 @@ import Sheet from './sheet';
 import Style from './style';
 import Value from './value';
 import vars from './replacers/vars';
-import memoize from './memoize';
 import child from './child';
 
 const BUILD_EVENT = 'build';
 
 export default class {
-  memoize = memoize;
   child = child;
 
   /**

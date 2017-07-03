@@ -91,10 +91,6 @@ describe('EStyleSheet API', function () {
     expect(res2).toBe(90);
   });
 
-  it('should export memoize method', function () {
-    expect(typeof api.memoize).toBe('function');
-  });
-
   it('should export child method', function () {
     expect(typeof api.child).toBe('function');
   });

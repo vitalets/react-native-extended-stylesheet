@@ -417,9 +417,13 @@ let getStyle = function (scale = 1) {
   });
 }
 ```
-To avoid creating styles on every render you can use `EStyleSheet.memoize()` wrapper method that works similar to [lodash.memoize](https://lodash.com/docs#memoize): store result for particular parameters and returns it from cache when called with the same parameters. Updated example:
+To avoid creating styles on every render you can use [lodash.memoize](https://www.npmjs.com/package/lodash.memoize): 
+store result for particular parameters and returns it from cache when called with the same parameters. 
+Updated example:
 ```js
-let getStyle = EStyleSheet.memoize(function (scale = 1) {
+import memoize from 'lodash.memoize';
+
+let getStyle = memoize(function (scale = 1) {
   return EStyleSheet.create({
     $scale: scale,
     button: {

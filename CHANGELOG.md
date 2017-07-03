@@ -1,3 +1,7 @@
+## 0.6.0 (tbd)
+
+* Remove `EStyleSheet.memoize()` in favor of [lodash.memoize](https://www.npmjs.com/package/lodash.memoize) ([#45])
+
 ## 0.5.0 (Jun 5, 2017)
 
 * Add [babel-plugin-runtyper](https://github.com/vitalets/babel-plugin-runtyper)
@@ -35,3 +39,4 @@
 [#38]: https://github.com/vitalets/react-native-extended-stylesheet/pull/38
 [#32]: https://github.com/vitalets/react-native-extended-stylesheet/pull/32
 [#33]: https://github.com/vitalets/react-native-extended-stylesheet/pull/33
+[#45]: https://github.com/vitalets/react-native-extended-stylesheet/pull/45
