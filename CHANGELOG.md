@@ -1,4 +1,4 @@
-## 0.6.0 (tbd)
+## 0.6.0 (Jun 3, 2017)
 
 * Remove `EStyleSheet.memoize()` in favor of [lodash.memoize](https://www.npmjs.com/package/lodash.memoize) ([#45])
 
