@@ -43,38 +43,28 @@ npm i react-native-extended-stylesheet --save
 ```
 
 ## Usage
-
-1. Import `EStyleSheet` and call `EStyleSheet.build()` in entry point of your app:
-
-  ```js
-  // app.js
-  import EStyleSheet from 'react-native-extended-stylesheet';
-  
-  EStyleSheet.build({
-    $textColor: 'green' // variable 
-  });
-  ```
-
-2. Define styles using `EStyleSheet.create()` in components:
+1. Define styles using `EStyleSheet.create()` instead of `StyleSheet.create()`:
 
   ```js
-  // component.js
+  /* component.js */
   import EStyleSheet from 'react-native-extended-stylesheet';
   
+  // define extended styles 
   const styles = EStyleSheet.create({
     column: {
       width: '80%'         // 80% of screen width
     },
+    $textColor: '#0275d8', // set variable
     text: {
       color: '$textColor', // use variable $textColor
-      fontSize: '1.5rem'   // use relative unit - CSS3 rem
+      fontSize: '1.5rem'   // use relative REM unit
     }
   });
   
+  // use styles as usual
   class MyComponent extends React.Component {
     render() {
       return (
-        // use styles as normal react-native StyleSheet
         <View style={styles.column}>
           <Text style={styles.text}>Hello</Text>
         </View>
@@ -82,6 +72,16 @@ npm i react-native-extended-stylesheet --save
     }
   }  
   ```
+
+2. In app entry point call `EStyleSheet.build()` to actually calculate styles:
+
+  ```js
+  /* app.js */
+  import EStyleSheet from 'react-native-extended-stylesheet';
+  
+  // calculate styles
+  EStyleSheet.build();
+  ```  
   
 \[[top](#react-native-extended-stylesheet)\]
 
