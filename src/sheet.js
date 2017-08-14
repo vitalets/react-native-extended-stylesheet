@@ -10,6 +10,7 @@ export default class {
    * @param {Object} source
    */
   constructor(source) {
+    this.flattenSource(source);
     this.source = source;
     this.result = Object.create(null);
     this.nativeSheet = {};
@@ -28,6 +29,66 @@ export default class {
     this.calcStyles();
     this.calcNative();
     return this.getResult();
+  }
+  
+  /**
+  * Flatten the source (inline!)
+  *
+  * Example:
+  * source = {
+  *   container: {
+  *     title: {
+  *       color: 'red',
+  *       fontSize: 16
+  *     },
+  *     alert: {
+  *        header: {
+  *          color: 'blue',
+  *          dir: 'rtl'
+  *        },
+  *        at: 15
+  *     }
+  *   }
+  * }
+  * flattenSource(source) -> (source will be now as follows)
+  * source = {
+  *   container: {},
+  *   containerTitle: { color: 'red', fontSize: 16 },
+  *   containerAlertHeader: { color: 'blue', dir: 'rtl' },
+  *   containerAlert: { at: 15 }
+  * }
+  *
+  * flattenSource(source, false) -> (source will be now as follows)
+  * source = {
+  *   container: {},
+  *   containerTitle: { color: 'red', fontSize: 16 },
+  *   alertHeader: { color: 'blue', dir: 'rtl' },
+  *   containerAlert: { at: 15 }
+  * }
+  *
+  * Note the difference between containerAlertHeader and alertHeader
+  *
+  * @param {Object} source Source to be flattened
+  * @param {boolean} cumulateNames Indicates whether names will be collected cumulatively, 
+  *                                if not true, names will be only the itself and the parent
+  *                                together.
+  */
+  flattenSource(source, cumulateNames = true) {
+    (function _flat(obj, root, orgKey, newKey) {
+      for (let key in obj) {
+          const value = obj[key];
+          if (typeof value !== 'object' || value === source)
+              continue;
+          let newName = newKey || key;
+          if (orgKey)
+              newName = (cumulateNames ? newKey : orgKey) + key[0].toUpperCase() + key.substr(1);
+          _flat(value, obj, key, newName);
+      }
+      if (!root || root === source)
+          return;
+      delete root[orgKey];
+      source[newKey] = obj;
+    })(source);
   }
 
   processSource() {
