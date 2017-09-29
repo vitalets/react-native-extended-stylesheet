@@ -11,7 +11,8 @@
     "code": "check-dependencies && eslint src",
     "lint-staged": "lint-staged",
     "test": "jest --coverage",
-    "test-runtyper": "BABEL_ENV=runtyper jest --coverage",
+    "test-runtyper": "BABEL_ENV=runtyper jest --no-cache",
+    "ci": "run-s code test test-runtyper",
     "coveralls": "coveralls < coverage/lcov.info",
     "prerelease": "run-s code test test-runtyper",
     "postrelease": "git push --follow-tags --no-verify",
@@ -20,7 +21,7 @@
     "release-minor": "VER=minor npm run release",
     "diff": "git diff -- . ':!package-lock.json'",
     "deps": "npm ls --depth=0",
-    "precommit": "npm run lint-staged",
+    "precommit": "run-s lint-staged",
     "prepush": "run-s code test-runtyper"
   },
   "repository": {
@@ -60,7 +61,7 @@
       "src"
     ],
     "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+      "^.+\\.js$": "babel-jest"
     },
     "verbose": true,
     "collectCoverage": false
