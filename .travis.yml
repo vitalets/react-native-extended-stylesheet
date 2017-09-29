@@ -8,4 +8,5 @@ node_js:
 script: npm run ci
 
 after_success:
+  # send coverage for badge
   - npm run coveralls
