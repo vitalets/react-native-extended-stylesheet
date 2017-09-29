@@ -1,13 +1,6 @@
 {
   "extends": "eslint:recommended",
-
   "parser": "babel-eslint",
-
-  "ecmaFeatures": {
-    "jsx": true,
-    "modules": true,
-    "impliedStrict": true
-  },
 
   "env": {
     "es6": true,
