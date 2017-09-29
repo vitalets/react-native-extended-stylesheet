@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableHighlight} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import memoize from 'lodash.memoize';
 
 const items = [
   ':first-child',
@@ -13,7 +14,7 @@ const items = [
 export default class extends React.Component {
   render() {
     let btnStyles = getButtonStyles(1);
-    let btnStylesScaled = getButtonStyles(2);
+    let btnStyles2x = getButtonStyles(2);
     return (
       <View style={styles.column}>
         <Text style={styles.header}>Extended StyleSheets</Text>
@@ -44,8 +45,8 @@ export default class extends React.Component {
         </TouchableHighlight>
 
         <Text style={styles.label}><Text style={styles.bold}>Scale </Text>(2x):</Text>
-        <TouchableHighlight style={btnStylesScaled.button} underlayColor={btnStylesScaled._button.$underlayColor}>
-          <Text style={btnStylesScaled.buttonText}>Like it!</Text>
+        <TouchableHighlight style={btnStyles2x.button} underlayColor={btnStyles2x._button.$underlayColor}>
+          <Text style={btnStyles2x.buttonText}>Like it!</Text>
         </TouchableHighlight>
 
         <Text style={styles.label}>View docs for all features...</Text>
@@ -105,7 +106,7 @@ const styles = EStyleSheet.create({
   }
 });
 
-const getButtonStyles = EStyleSheet.memoize(scale => {
+const getButtonStyles = memoize(scale => {
   return EStyleSheet.create({
     $scale: scale,
     $size: '5rem',
@@ -116,7 +117,7 @@ const getButtonStyles = EStyleSheet.memoize(scale => {
       backgroundColor: '$buttonColor',
       justifyContent: 'center',
       alignItems: 'center',
-      $underlayColor: 'red',  // put underlayColor to variable, access via styles._button.$underlayColor
+      $underlayColor: 'red', // put underlayColor to variable, access via styles._button.$underlayColor
     },
     buttonText: {
       fontSize: '1.1rem',
