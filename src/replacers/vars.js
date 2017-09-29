@@ -60,7 +60,7 @@ function get(name, varsArr) {
     throw new Error('You should pass vars array to vars.get()');
   }
 
-  const rootVar = name.match(/[^\.\[]*/)[0];
+  const rootVar = name.match(/[^.[]*/)[0];
   const isSimpleVar = rootVar === name;
 
   // todo: use for.. of after https://github.com/facebook/react-native/issues/4676
