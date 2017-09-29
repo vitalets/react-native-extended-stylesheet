@@ -30,7 +30,6 @@ relative units, percents, math operations, scaling and other styling stuff.
   - [.create()](#create)
   - [.build()](#build)
   - [.value()](#value)
-  - [.memoize()](#memoize)
   - [.child()](#child)
   - [.subscribe()](#subscribe)
 - [FAQ](#faq)
@@ -491,18 +490,6 @@ const styles = EStyleSheet.create({
  * @returns {*} calculated result
  */
  value (value, prop) {...}
-```
-\[[top](#react-native-extended-stylesheet)\]
-
-### .memoize()
-```js
-/**
- * Wraps function to cache calls with the same parameters
- *
- * @param {Function} fn
- * @returns {Function} wrapped function
- */
- memoize (fn) {...}
 ```
 \[[top](#react-native-extended-stylesheet)\]
 
