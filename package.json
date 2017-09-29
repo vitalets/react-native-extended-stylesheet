@@ -10,14 +10,18 @@
   "scripts": {
     "code": "check-dependencies && eslint src",
     "lint-staged": "lint-staged",
-    "show-deps": "npm ls --depth=0",
     "test": "jest --coverage",
     "test-runtyper": "BABEL_ENV=runtyper jest --coverage",
     "coveralls": "coveralls < coverage/lcov.info",
-    "release-patch": "npm run code && npm test && npm version patch && npm publish && git push --follow-tags --no-verify",
-    "release-minor": "npm run code && npm test && npm version minor && npm publish && git push --follow-tags --no-verify",
+    "prerelease": "run-s code test test-runtyper",
+    "postrelease": "git push --follow-tags --no-verify",
+    "release": "npm version $VER && npm publish",
+    "release-patch": "VER=patch npm run release",
+    "release-minor": "VER=minor npm run release",
+    "diff": "git diff -- . ':!package-lock.json'",
+    "deps": "npm ls --depth=0",
     "precommit": "npm run lint-staged",
-    "prepush": "npm run code && npm test"
+    "prepush": "run-s code test-runtyper"
   },
   "repository": {
     "type": "git",
@@ -44,7 +48,8 @@
     "eslint-plugin-react-native": "^3.1.0",
     "husky": "^0.14.3",
     "jest-cli": "^21.2.1",
-    "lint-staged": "^4.2.3"
+    "lint-staged": "^4.2.3",
+    "npm-run-all": "^4.1.1"
   },
   "lint-staged": {
     "*.js": "eslint"
