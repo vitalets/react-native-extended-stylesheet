@@ -440,12 +440,12 @@ and two other calls will get it from cache.
 \[[top](#react-native-extended-stylesheet)\]
 
 ### Outline for debug
-To outline all components for debug purpuses just set special `$outline` variable:
+To outline all components for debug purposes set global `$outline` variable:
 ```js
-// outline all stylesheets
-EStyleSheet.build({outline: 1}); 
-
-// outline particular stylesheet
+EStyleSheet.build({$outline: 1});
+```
+To outline particular component set local `$outline` variable:
+```js
 const styles = EStyleSheet.create({
   $outline: 1,
   column: {
