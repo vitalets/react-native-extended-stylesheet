@@ -8,21 +8,21 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "code": "check-dependencies && eslint src",
-    "lint-staged": "lint-staged",
+    "code": "check-dependencies && npm run lint",
+    "lint": "eslint src",
     "test": "jest --coverage",
-    "test-runtyper": "BABEL_ENV=runtyper jest --no-cache",
-    "ci": "run-s code test test-runtyper",
+    "test-runtyper": "BABEL_ENV=runtyper jest",
+    "ci": "run-s code test",
     "coveralls": "coveralls < coverage/lcov.info",
-    "prerelease": "run-s code test test-runtyper",
+    "prerelease": "run-s code test",
     "postrelease": "git push --follow-tags --no-verify",
     "release": "npm version $VER && npm publish",
     "release-patch": "VER=patch npm run release",
     "release-minor": "VER=minor npm run release",
     "diff": "git diff -- . ':!package-lock.json'",
     "deps": "npm ls --depth=0",
-    "precommit": "run-s lint-staged",
-    "prepush": "run-s code test-runtyper"
+    "precommit": "lint-staged",
+    "prepush": "run-s code test"
   },
   "repository": {
     "type": "git",
@@ -31,7 +31,6 @@
   "bugs": {
     "url": "https://github.com/vitalets/react-native-extended-stylesheet/issues"
   },
-  "license": "MIT",
   "dependencies": {
     "css-mediaquery": "^0.1.2",
     "object-resolve-path": "^1.1.0"
@@ -74,5 +73,6 @@
     "mobile",
     "ios",
     "android"
-  ]
+  ],
+  "license": "MIT"
 }
