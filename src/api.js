@@ -11,7 +11,7 @@ import child from './child';
 
 const BUILD_EVENT = 'build';
 
-export default class {
+export default class EStyleSheet {
   /**
    * Constructor
    */
@@ -25,16 +25,16 @@ export default class {
   }
 
   /**
-   * Creates stylesheet prototype that will be calculated after build
+   * Creates stylesheet that will be calculated after build
    * @param {Object} obj
    * @returns {Object}
    */
   create(obj) {
-    let sheet = new Sheet(obj);
+    const sheet = new Sheet(obj);
+    // todo: add options param to allow create dynamic stylesheets that should not be stored
+    this.sheets.push(sheet);
     if (this.builded) {
       sheet.calc(this.globalVars);
-    } else {
-      this.sheets.push(sheet);
     }
     return sheet.getResult();
   }
@@ -81,16 +81,24 @@ export default class {
     }
   }
 
+  /**
+   * Clears all cached styles.
+   */
+  clearCache() {
+    this.sheets.forEach(sheet => sheet.clearCache());
+  }
+
   _calcVars(gVars) {
     if (gVars) {
       gVars = vars.addPrefix(gVars);
+      // $theme is system variable used for caching
+      gVars.$theme = gVars.$theme || 'default';
       this.globalVars = new Style(gVars, [gVars]).calc().calculatedVars;
     }
   }
 
   _calcSheets() {
     this.sheets.forEach(sheet => sheet.calc(this.globalVars));
-    this.sheets.length = 0;
   }
 
   _callListeners(event) {

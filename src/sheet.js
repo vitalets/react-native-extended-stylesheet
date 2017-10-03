@@ -12,52 +12,62 @@ export default class {
   constructor(source) {
     this.source = source;
     this.result = Object.create(null);
+    this.cache = new Map(); // cache result for each theme
     this.nativeSheet = {};
-    this.varsArr = [];
-    this.extractedVars = null;
+    this.globalVars = null;
+    this.localVars = null;
+    this.allVars = null;
     this.processedSource = null;
   }
 
   /**
    * Calculates sheet and update result
-   * @param {Object} inVars
+   * @param {Object} globalVars
    */
-  calc(inVars) {
-    this.processSource();
-    this.calcVars(inVars);
-    this.calcStyles();
-    this.calcNative();
+  calc(globalVars) {
+    this.globalVars = globalVars;
+    this.clearResult();
+    if (this.hasCache()) {
+      this.applyCache();
+    } else {
+      this.processMediaQueries();
+      this.calcVars();
+      this.calcStyles();
+      this.calcNative();
+      this.storeCache();
+    }
     return this.getResult();
   }
 
-  processSource() {
+  processMediaQueries() {
     this.processedSource = mediaQueries.process(this.source);
   }
 
-  calcVars(inVars) {
-    this.varsArr = inVars ? [inVars] : [];
-    this.extractedVars = vars.extract(this.processedSource);
-    if (this.extractedVars) {
-      let varsArrForVars = [this.extractedVars].concat(this.varsArr);
-      let {calculatedVars} = new Style(this.extractedVars, varsArrForVars).calc();
-      Object.assign(this.result, calculatedVars);
-      this.varsArr = [calculatedVars].concat(this.varsArr);
+  calcVars() {
+    const rawLocalVars = vars.extract(this.processedSource);
+    if (rawLocalVars) {
+      this.localVars = new Style(rawLocalVars, [rawLocalVars, this.globalVars]).calc().calculatedVars;
+      Object.assign(this.result, this.localVars);
+    } else {
+      this.localVars = null;
     }
+    this.allVars = [this.localVars, this.globalVars].filter(Boolean);
   }
 
   calcStyles() {
-    const extractedStyles = utils.excludeKeys(this.processedSource, this.extractedVars);
+    const extractedStyles = utils.excludeKeys(this.processedSource, this.localVars);
     Object.keys(extractedStyles).forEach(key => {
       if (extractedStyles[key]) {
         this.calcStyle(key, extractedStyles[key]);
       } else {
+        // copy falsy values to result as-is
         this.result[key] = extractedStyles[key];
       }
     });
   }
 
   calcStyle(key, styleProps) {
-    const style = new Style(styleProps, this.varsArr);
+    const style = new Style(styleProps, this.allVars);
     const {calculatedProps, calculatedVars} = style.calc();
     const merged = Object.assign({}, calculatedVars, calculatedProps);
     if (key.charAt(0) === '_') {
@@ -70,12 +80,41 @@ export default class {
 
   calcNative() {
     if (Object.keys(this.nativeSheet).length) {
-      let rnStyleSheet = StyleSheet.create(this.nativeSheet);
+      const rnStyleSheet = StyleSheet.create(this.nativeSheet);
       Object.assign(this.result, rnStyleSheet);
     }
   }
 
   getResult() {
     return this.result;
+  }
+
+  clearResult() {
+    Object.keys(this.result).forEach(key => delete this.result[key]);
+  }
+
+  hasCache() {
+    const key = this.getCacheKey();
+    return key && this.cache.has(key);
+  }
+
+  applyCache() {
+    const cachedResult = this.cache.get(this.getCacheKey());
+    Object.assign(this.result, cachedResult);
+  }
+
+  storeCache() {
+    const key = this.getCacheKey();
+    if (key) {
+      this.cache.set(key, Object.assign({}, this.result));
+    }
+  }
+
+  clearCache() {
+    this.cache.clear();
+  }
+
+  getCacheKey() {
+    return this.globalVars && this.globalVars.$theme;
   }
 }

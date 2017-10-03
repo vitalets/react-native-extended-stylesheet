@@ -14,8 +14,8 @@ relative units, percents, math operations, scaling and other styling stuff.
 - [Usage](#usage)
 - [Features](#features)
   - [global variables](#global-variables)
-  - [theming](#theming)
   - [local variables](#local-variables)
+  - [theming](#theming)
   - [math operations](#math-operations)
   - [rem units](#rem-units)
   - [percents](#percents)
@@ -52,12 +52,16 @@ npm i react-native-extended-stylesheet --save
   // define extended styles 
   const styles = EStyleSheet.create({
     column: {
-      width: '80%'         // 80% of screen width
+      width: '80%'                                    // 80% of screen width
     },
-    $textColor: '#0275d8', // set variable
     text: {
-      color: '$textColor', // use variable $textColor
-      fontSize: '1.5rem'   // use relative REM unit
+      color: '$textColor',                            // global variable $textColor
+      fontSize: '1.5rem'                              // relative REM unit
+    },
+    '@media (min-width: 350) and (max-width: 500)': { // media queries
+      text: {
+        fontSize: '2rem',
+      }
     }
   });
   
@@ -79,16 +83,16 @@ npm i react-native-extended-stylesheet --save
   /* app.js */
   import EStyleSheet from 'react-native-extended-stylesheet';
   
-  // calculate styles
-  EStyleSheet.build();
+  EStyleSheet.build({ // always call EStyleSheet.build() even if you don't use global variables!
+    $textColor: '#0275d8'
+  });
   ```  
   
 \[[top](#react-native-extended-stylesheet)\]
 
 ## Features
 ### Global variables
-Global variables are useful for global theming or A/B testing of your app. 
-They are passed to `EStyleSheet.build()` and available in any stylesheet.  
+Global variables are passed to `EStyleSheet.build()` and available in all stylesheets.
 ```js
 // app entry: set global variables and calc styles
 EStyleSheet.build({
@@ -102,14 +106,6 @@ const styles = EStyleSheet.create({
   }
 });
 ```
-\[[top](#react-native-extended-stylesheet)\]
-
-### Theming
-There can be two types of themes:
-  * *static* (app reload needed to theme change)
-  * *dynamic* (theme can be changed in runtime)
-
-Please see examples of [static themes](examples/themes-static) and [dynamic themes](examples/themes-dynamic).  
 \[[top](#react-native-extended-stylesheet)\]
 
 ### Local variables
@@ -127,6 +123,40 @@ const styles = EStyleSheet.create({
 });
 ```
 Local variables are also available in result style: `styles.$textColor`.  
+\[[top](#react-native-extended-stylesheet)\]
+
+### Theming
+Changing app theme contains two steps:
+1. re-build app styles
+2. re-render components tree with new styles
+
+To re-build app styles you can call `EStyleSheet.build()` with new set of global variables:
+```js
+EStyleSheet.build({
+  $theme: 'light',  // required variable for caching!
+  $bgColor: 'white',
+});
+```
+> Please note that special variable **`$theme` is required** for proper caching of calculated styles.
+
+Re-rendering whole component tree is currently a bit tricky in React.  
+One option is to wrap app into component and re-mount it on theme change:
+```js
+  toggleTheme() {
+    const theme = EStyleSheet.value('$theme') === 'light' ? darkTheme : lightTheme;
+    EStyleSheet.build(theme);
+    this.setState({render: false}, () => this.setState({render: true}));
+  }
+  render() {
+    return this.state.render ? <App/> : null;
+  }
+```
+The caveat is that all components loss their state. 
+In the future it may be possible with `forceDeepUpdate()` method (see [facebook/react#7759](https://github.com/facebook/react/issues/7759)).  
+The approach is open for discusison, feel free to share your ideas in [#22](https://github.com/vitalets/react-native-extended-stylesheet/issues/22), 
+[#47](https://github.com/vitalets/react-native-extended-stylesheet/issues/47).
+
+Full theming example is [here](examples/theming).  
 \[[top](#react-native-extended-stylesheet)\]
 
 ### Math operations
@@ -164,9 +194,8 @@ EStyleSheet.build({
 
 ### Percents
 Percent values are supported natively since React Native 0.43.
-Style properties that contain *only* percent value (e.g. `"80%"`) are passed as is to the native code.
-The only case when JavaScript calculation is applied by this library - operations with percent values, e.g. `"100% - 20"`. 
-Percents are calculated relative to **screen width/height** on application launch.
+EStyleSheet passes them through to original StyleSheet except cases, when you use calculations with percents,
+e.g. `"100% - 20"`. Percents are calculated relative to **screen width/height** on application launch.
 ```js
 const styles = EStyleSheet.create({
   column: {
@@ -176,8 +205,8 @@ const styles = EStyleSheet.create({
 ```
 
 **Percents in nested components**  
-If you need sub-components with percent operations - you can use variables.  
-For example, to render 2 sub-columns with 30%/70% width of parent:
+If you need sub-component with percent operations relative to parent component - you can achieve that with variables.  
+For example, to render 2 sub-columns with 30%/70% width of parent column:
 ```js
 render() {
   return (
@@ -546,7 +575,7 @@ EStyleSheet.subscribe('build', () => {
 
 ## FAQ
 **What about orientation change?**  
-Currently orientation change is not properly supported. Please see 
+Currently orientation change is not supported. Please see
 [this issue](https://github.com/vitalets/react-native-extended-stylesheet/issues/9) for more details.
 
 ## Changelog

@@ -8,122 +8,186 @@ describe('EStyleSheet API', function () {
     api = new Api();
   });
 
-  it('should create stylesheets and fill after build', function () {
-    let res1 = api.create({
+  describe('build', function () {
+    it('should calc stylesheet, created before build()', function () {
+      const styles = api.create({
+        $a: 1,
+        $d: '$c',
+        text: {
+          $b: '1',
+          fontSize: '$a',
+          color: '$c',
+        }
+      });
+
+      expect(styles).toEqual({});
+
+      api.build({$c: 3});
+
+      expect(styles).toEqual({
+        $a: 1,
+        $d: 3,
+        _text: {
+          $b: '1',
+          fontSize: 1,
+          color: 3,
+        },
+        text: 0,
+      });
+    });
+
+    it('should calc stylesheet, created after build()', function () {
+      api.build({$c: 3});
+      const styles = api.create({
+        $b: '$c',
+        button: {
+          color: '$c',
+        }
+      });
+      expect(styles).toEqual({
+        $b: 3,
+        _button: {
+          color: 3,
+        },
+        button: 0,
+      });
+    });
+
+    it('should calculate global vars', function () {
+      api.build({$c: '$d+1', $d: 2});
+      const styles = api.create({$b: '$c'});
+      expect(styles).toEqual({$b: 3});
+    });
+  });
+
+  describe('re-build', function () {
+
+    const rawStyles = {
       $a: 1,
+      $d: '$c',
       text: {
         $b: '1',
         fontSize: '$a',
-      }
-    });
-    let res2 = api.create({
-      $b: '$c',
-      button: {
         color: '$c',
       }
-    });
+    };
 
-    expect(res1).toEqual({});
-    expect(res2).toEqual({});
-
-    api.build({$c: 3});
-
-    expect(res1).toEqual({
+    const resultStyles = {
       $a: 1,
+      $d: 3,
       _text: {
         $b: '1',
         fontSize: 1,
+        color: 3,
       },
       text: 0,
+    };
+
+    it('should re-calculate styles, created before rebuild', function () {
+      const styles = api.create(rawStyles);
+      api.build({$c: 1, $theme: 'foo'});
+      api.build({$c: 3, $theme: 'bar'});
+      expect(styles).toEqual(resultStyles);
     });
-    expect(res2).toEqual({
-      $b: 3,
-      _button: {
-        color: 3,
-      },
-      button: 0,
+
+    it('should re-calculate styles, created between rebuild', function () {
+      api.build({$c: 1, $theme: 'foo'});
+      const styles = api.create(rawStyles);
+      api.build({$c: 3, $theme: 'bar'});
+      expect(styles).toEqual(resultStyles);
+    });
+
+    it('should re-calculate styles, created after rebuild', function () {
+      api.build({$c: 1, $theme: 'foo'});
+      api.build({$c: 3, $theme: 'bar'});
+      const styles = api.create(rawStyles);
+      expect(styles).toEqual(resultStyles);
+    });
+
+    it('should not re-calculate styles for the same theme', function () {
+      const styles = api.create(rawStyles);
+      api.build({$c: 3, $theme: 'foo'});
+      api.build({$c: 1, $theme: 'foo'});
+      expect(styles).toEqual(resultStyles);
+    });
+
+    it('should not re-calculate styles for default theme', function () {
+      const styles = api.create(rawStyles);
+      api.build({$c: 3});
+      api.build({$c: 1});
+      expect(styles).toEqual(resultStyles);
+    });
+
+    it('should re-calculate styles after clearCache', function () {
+      const styles = api.create(rawStyles);
+      api.build({$c: 1});
+      api.clearCache();
+      api.build({$c: 3});
+      expect(styles).toEqual(resultStyles);
     });
   });
 
-  it('should create calculated stylesheets after build', function () {
-    api.build({$c: 3});
-    let res = api.create({
-      $b: '$c',
-      button: {
-        color: '$c',
-      }
-    });
-    expect(res).toEqual({
-      $b: 3,
-      _button: {
-        color: 3,
-      },
-      button: 0,
+  describe('value', function () {
+    it('should calculate', function () {
+      api.build({$d: 1});
+      const res1 = api.value('$d+1');
+      const res2 = api.value('100% - 10', 'width');
+      expect(res1).toBe(2);
+      expect(res2).toBe(90);
     });
   });
 
-  it('should calculate global vars after build', function () {
-    api.build({$c: '$d+1', $d: 2});
-    let res = api.create({
-      $b: '$c',
-    });
-    expect(res).toEqual({
-      $b: 3,
+  describe('child', function () {
+    it('should export child method', function () {
+      expect(typeof api.child).toBe('function');
     });
   });
 
-  it('should work correctly with several `build()` calls', function () {
-    const res1 = api.create({$b: '$a'});
-    api.build({$a: 1});
-    const res2 = api.create({$b: '$a'});
-    expect(res1).toEqual({$b: 1});
-    expect(res2).toEqual({$b: 1});
-    api.build({$a: 1});
-    expect(res1).toEqual({$b: 1});
-    expect(res2).toEqual({$b: 1});
+  describe('subscribe', function () {
+    it('should call listener, created before build', function () {
+      const listener = jest.genMockFn();
+      api.subscribe('build', listener);
+      api.build();
+      expect(listener.mock.calls.length).toBe(1);
+    });
+
+    it('should call listener, created after build', function () {
+      const listener = jest.genMockFn();
+      api.build();
+      api.subscribe('build', listener);
+      expect(listener.mock.calls.length).toBe(1);
+    });
+
+    it('should call listener on every build', function () {
+      const listener = jest.genMockFn();
+      api.subscribe('build', listener);
+      api.build();
+      api.build();
+      expect(listener.mock.calls.length).toBe(2);
+    });
+
+    it('should throw error when subscribe to incorrect event', function () {
+      const fn = () => api.subscribe('abc', () => {
+      });
+      expect(fn).toThrowError('Only \'build\' event is currently supported.');
+    });
+
+    it('should throw error when subscribe with non-function listener', function () {
+      const fn = () => api.subscribe('build', null);
+      expect(fn).toThrowError('Listener should be a function.');
+    });
   });
 
-  it('should calculate value', function () {
-    api.build({$d: 1});
-    let res1 = api.value('$d+1');
-    let res2 = api.value('100% - 10', 'width');
-    expect(res1).toBe(2);
-    expect(res2).toBe(90);
+  describe('original StyleSheet', function () {
+    it('should proxy calls to original StyleSheet', function () {
+      // real StyleSheet flatten() accepts style IDs, not objects
+      const obj = api.flatten([{x: 1}, {y: 2}]);
+      expect(obj).toEqual({x: 1, y: 2});
+    });
+
+    it('should return props of original StyleSheet', function () {
+      expect(api.hairlineWidth).toEqual(1);
+    });
   });
 
-  it('should export child method', function () {
-    expect(typeof api.child).toBe('function');
-  });
-
-  it('should subscribe to build and call listeners', function () {
-    let listener1 = jest.genMockFn();
-    let listener2 = jest.genMockFn();
-
-    api.subscribe('build', listener1);
-    api.build();
-    api.subscribe('build', listener2);
-
-    expect(listener1.mock.calls.length).toBe(1);
-    expect(listener2.mock.calls.length).toBe(1);
-  });
-
-  it('should throw error when subscribe to incorrect event', function () {
-    const fn = () => api.subscribe('abc', () => {});
-    expect(fn).toThrowError('Only \'build\' event is currently supported.');
-  });
-
-  it('should throw error when subscribe with non-function listener', function () {
-    const fn = () => api.subscribe('build', null);
-    expect(fn).toThrowError('Listener should be a function.');
-  });
-
-  it('should proxy calls to original StyleSheet', function () {
-    // real StyleSheet flatten() accepts style IDs, not objects
-    const obj = api.flatten([{x: 1}, {y: 2}]);
-    expect(obj).toEqual({x: 1, y: 2});
-  });
-
-  it('should return props of original StyleSheet', function () {
-    expect(api.hairlineWidth).toEqual(1);
-  });
 });

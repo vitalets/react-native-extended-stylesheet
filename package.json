@@ -10,11 +10,12 @@
   "scripts": {
     "code": "check-dependencies && npm run lint",
     "lint": "eslint src",
-    "test": "jest --coverage",
+    "test": "jest --onlyChanged",
+    "tt": "jest --coverage",
     "test-runtyper": "BABEL_ENV=runtyper jest",
-    "ci": "run-s code test",
+    "ci": "run-s code tt",
     "coveralls": "coveralls < coverage/lcov.info",
-    "prerelease": "run-s code test",
+    "prerelease": "run-s code tt",
     "postrelease": "git push --follow-tags --no-verify",
     "release": "npm version $VER && npm publish",
     "release-patch": "VER=patch npm run release",
@@ -22,7 +23,7 @@
     "diff": "git diff -- . ':!package-lock.json'",
     "deps": "npm ls --depth=0",
     "precommit": "lint-staged",
-    "prepush": "run-s code test"
+    "prepush": "run-s code tt"
   },
   "repository": {
     "type": "git",

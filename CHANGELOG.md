@@ -1,6 +1,7 @@
 ## 0.7.0
 
 * Allow create-react-app compile without plugins ([@grantbi] in [#54])
+* Allow dynamic theme change ([#47], [#53])
 
 ## 0.6.0 (Jun 3, 2017)
 
@@ -45,4 +46,7 @@
 [#32]: https://github.com/vitalets/react-native-extended-stylesheet/pull/32
 [#33]: https://github.com/vitalets/react-native-extended-stylesheet/pull/33
 [#45]: https://github.com/vitalets/react-native-extended-stylesheet/pull/45
+[#47]: https://github.com/vitalets/react-native-extended-stylesheet/pull/47
+[#53]: https://github.com/vitalets/react-native-extended-stylesheet/pull/53
 [#54]: https://github.com/vitalets/react-native-extended-stylesheet/pull/54
+
