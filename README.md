@@ -439,10 +439,13 @@ and two other calls will get it from cache.
 \[[top](#react-native-extended-stylesheet)\]
 
 ### Outline for debug
-To outline all components for debug purposes set global `$outline` variable:
+It is possible to outline all components that are using EStyleSheet. For that set global `$outline` variable:
 ```js
 EStyleSheet.build({$outline: 1});
 ```
+> Note that components without styles will not be outlined, 
+because RN [does not support](https://github.com/facebook/react-native/issues/1768) default component styling yet.
+
 To outline particular component set local `$outline` variable:
 ```js
 const styles = EStyleSheet.create({
