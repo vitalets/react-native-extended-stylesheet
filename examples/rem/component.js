@@ -5,7 +5,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 export default class extends React.Component {
   render() {
     return (
-      <Text style={styles.text}>Font size via REM</Text>
+      <Text style={styles.text}>Font size 1.5rem</Text>
     );
   }
 }
@@ -13,6 +13,7 @@ export default class extends React.Component {
 const styles = EStyleSheet.create({
   text: {
     padding: '0.5rem',
-    fontSize: '1rem',
+    fontSize: '1.5rem',
+    marginTop: 20,
   }
 });
