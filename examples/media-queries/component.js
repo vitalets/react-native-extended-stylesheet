@@ -6,10 +6,10 @@ export default class extends React.Component {
   render() {
     return (
       <View style={styles.column}>
-        <Text style={styles.header}>
-          Width: <Text>{styles._column.width}</Text>,
-          margin: <Text>{styles._column.marginHorizontal}</Text>
+        <Text>
+          Column width depends on device width: {'\n'}- 70% for {'<'}350{'\n'}- 80% for 350-500{'\n'}- 90% for {'>'}500
         </Text>
+        <Text style={styles.text}>Text size/color depends on platform.</Text>
       </View>
     );
   }
@@ -17,35 +17,33 @@ export default class extends React.Component {
 
 const styles = EStyleSheet.create({
   column: {
-    alignItems: 'center',
+    alignSelf: 'center',
     borderWidth: 1,
     marginTop: '10%',
+    padding: 5,
   },
   '@media (max-width: 350)': { // media query on sheet level
     column: {
       width: '70%',
-      marginHorizontal: '15%',
     }
   },
-  '@media (min-width: 350) and (max-width: 500)': { // media query on sheet level
+  '@media (min-width: 350) and (max-width: 500)': {
     column: {
       width: '80%',
-      marginHorizontal: '10%',
     }
   },
-  '@media (min-width: 500)': { // media query on sheet level
+  '@media (min-width: 500)': {
     column: {
       width: '90%',
-      marginHorizontal: '5%',
     }
   },
-  header: {
-    fontSize: 18,
+  text: {
+    fontSize: '$fontSize',
     '@media ios': { // media query on style level
       color: 'green',
     },
-    '@media android': { // media query on style level
+    '@media android': {
       color: 'blue',
     },
-  }
+  },
 });

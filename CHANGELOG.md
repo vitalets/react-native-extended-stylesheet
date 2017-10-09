@@ -1,7 +1,8 @@
 ## 0.7.0
 
 * Allow create-react-app compile without plugins ([@grantbi] in [#54])
-* Allow dynamic theme change ([#47], [#53])
+* Support dynamic theme change ([#47], [#53])
+* Support media queries for global variables ([#25])
 
 ## 0.6.0 (Jun 3, 2017)
 
@@ -42,6 +43,7 @@
 [#8]: https://github.com/vitalets/react-native-extended-stylesheet/pull/8
 [#14]: https://github.com/vitalets/react-native-extended-stylesheet/pull/14
 [#18]: https://github.com/vitalets/react-native-extended-stylesheet/pull/18
+[#25]: https://github.com/vitalets/react-native-extended-stylesheet/pull/25
 [#38]: https://github.com/vitalets/react-native-extended-stylesheet/pull/38
 [#32]: https://github.com/vitalets/react-native-extended-stylesheet/pull/32
 [#33]: https://github.com/vitalets/react-native-extended-stylesheet/pull/33

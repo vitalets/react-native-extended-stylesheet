@@ -16,10 +16,10 @@ relative units, percents, math operations, scaling and other styling stuff.
   - [global variables](#global-variables)
   - [local variables](#local-variables)
   - [theming](#theming)
+  - [media queries](#media-queries)
   - [math operations](#math-operations)
   - [rem units](#rem-units)
   - [percents](#percents)
-  - [media queries](#media-queries)
   - [scaling](#scaling)
   - [underscored styles](#underscored-styles)
   - [pseudo classes (:nth-child)](#pseudo-classes-nth-child)
@@ -159,6 +159,63 @@ The approach is open for discusison, feel free to share your ideas in [#22](http
 Full theming example is [here](examples/theming).  
 \[[top](#react-native-extended-stylesheet)\]
 
+### Media queries
+Media queries allows to have different styles for different screens, platform and orienation.
+They are supported as properties with `@media` prefix (thanks for idea to [@grabbou](https://github.com/grabbou),
+[#5](https://github.com/vitalets/react-native-extended-stylesheet/issues/5)).
+
+Media queries can operate with the following values:
+
+* media type: `ios|android`
+* `width`, `min-width`, `max-width`
+* `height`, `min-height`, `max-height`
+* `orientation` (`landscape|portrait`)
+* `aspect-ratio`
+
+You can use media queries on:
+* global level
+* sheet level
+* style level
+
+Examples:
+```js
+// global level
+EStyleSheet.build({
+  '@media ios': {
+    $fontSize: 12,
+  },
+  '@media android': {
+    $fontSize: 16,
+  },
+});
+
+// sheet level
+const styles = EStyleSheet.create({
+  column: {
+    width: '80%',
+  },
+  '@media (min-width: 350) and (max-width: 500)': {
+    column: {
+      width: '90%',
+    }
+  }
+});
+
+// style level
+const styles = EStyleSheet.create({
+  header: {
+    '@media ios': {
+      color: 'green',
+    },
+    '@media android': {
+      color: 'blue',
+    },
+  }
+});
+```
+See full example [here](examples/media-queries).  
+\[[top](#react-native-extended-stylesheet)\]
+
 ### Math operations
 Any value can contain **one** of following math operations: `*`, `/`, `+`, `-`. Operands can be numbers, variables and percents.  
 For example, to render circle you may create style:
@@ -233,49 +290,6 @@ const styles = EStyleSheet.create({
   }
 });
 ```
-\[[top](#react-native-extended-stylesheet)\]
-
-### Media queries
-Media queries allows to have different styles for different screens, platform and orienation.
-They are supported as properties with `@media` prefix (thanks for idea to [@grabbou](https://github.com/grabbou),
-[#5](https://github.com/vitalets/react-native-extended-stylesheet/issues/5)).
-
-Media queries can operate with the following values:
-
-* media type: `ios|android`
-* `width`, `min-width`, `max-width`
-* `height`, `min-height`, `max-height`
-* `orientation` (`landscape|portrait`)
-* `aspect-ratio`
-
-Example:
-```js
-const styles = EStyleSheet.create({
-  column: {
-    width: '80%',
-  },
-  '@media (min-width: 350) and (max-width: 500)': {
-    column: {
-      width: '90%',
-    }
-  }
-});
-```
-Also you can use media queries on *style level*:
-```js
-const styles = EStyleSheet.create({
-  header: {
-    fontSize: 18,
-    '@media ios': {
-      color: 'green',
-    },
-    '@media android': {
-      color: 'blue',
-    },
-  }
-});
-```
-See full example [here](examples/media-queries).  
 \[[top](#react-native-extended-stylesheet)\]
 
 ### Scaling

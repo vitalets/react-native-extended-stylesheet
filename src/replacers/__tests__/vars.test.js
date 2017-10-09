@@ -65,22 +65,4 @@ describe('vars', function () {
     expect(vars.get('$abc.foo[20]', [obj])).toBe(undefined);
     expect(vars.get('$abc.unk[10]', [obj])).toBe(undefined);
   });
-
-  it('should add prefix', function () {
-    let obj = {
-      a: 1,
-      $b: '2',
-      d: {
-        e: 1,
-      }
-    };
-    expect(vars.addPrefix(obj)).toEqual({
-      $a: 1,
-      $b: '2',
-      $d: {
-        e: 1,
-      }
-    });
-  });
-
 });

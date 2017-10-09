@@ -3,7 +3,14 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import MyComponent from './component';
 
 // calc styles
-EStyleSheet.build();
+EStyleSheet.build({
+  '@media ios': { // media queries for global variables
+    $fontSize: 12,
+  },
+  '@media android': {
+    $fontSize: 16,
+  },
+});
 
 export default class extends React.Component {
   render() {

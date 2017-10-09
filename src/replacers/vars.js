@@ -11,7 +11,6 @@ export default {
   calc,
   extract,
   get,
-  addPrefix,
 };
 
 /**
@@ -78,17 +77,4 @@ function get(name, varsArr) {
       return undefined;
     }
   }
-}
-
-/**
- * Adds $ to object keys
- * @param {Object} obj
- * @returns {Object}
- */
-function addPrefix(obj) {
-  return Object.keys(obj).reduce((res, key) => {
-    const resKey = key.charAt(0) !== PREFIX ? PREFIX + key : key;
-    res[resKey] = obj[key];
-    return res;
-  }, {});
 }

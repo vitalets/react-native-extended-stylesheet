@@ -7,6 +7,7 @@ import Sheet from './sheet';
 import Style from './style';
 import Value from './value';
 import vars from './replacers/vars';
+import mq from './replacers/media-queries';
 import child from './child';
 
 const BUILD_EVENT = 'build';
@@ -41,11 +42,11 @@ export default class EStyleSheet {
 
   /**
    * Builds all created stylesheets with passed variables
-   * @param {Object} [gVars]
+   * @param {Object} [rawGlobalVars]
    */
-  build(gVars) {
+  build(rawGlobalVars) {
     this.builded = true;
-    this._calcVars(gVars);
+    this._calcGlobalVars(rawGlobalVars);
     this._calcSheets();
     this._callListeners(BUILD_EVENT);
   }
@@ -88,12 +89,13 @@ export default class EStyleSheet {
     this.sheets.forEach(sheet => sheet.clearCache());
   }
 
-  _calcVars(gVars) {
-    if (gVars) {
-      gVars = vars.addPrefix(gVars);
+  // todo: move global vars stuff to separate module
+  _calcGlobalVars(rawGlobalVars) {
+    if (rawGlobalVars) {
+      this._checkGlobalVars(rawGlobalVars);
       // $theme is system variable used for caching
-      gVars.$theme = gVars.$theme || 'default';
-      this.globalVars = new Style(gVars, [gVars]).calc().calculatedVars;
+      rawGlobalVars.$theme = rawGlobalVars.$theme || 'default';
+      this.globalVars = new Style(rawGlobalVars, [rawGlobalVars]).calc().calculatedVars;
     }
   }
 
@@ -121,6 +123,17 @@ export default class EStyleSheet {
         get: () => StyleSheet[prop],
         enumerable: true,
       });
+    });
+  }
+
+  _checkGlobalVars(rawGlobalVars) {
+    Object.keys(rawGlobalVars).forEach(key => {
+      if (!vars.isVar(key) && !mq.isMediaQuery(key)) {
+        throw new Error(
+          `EStyleSheet.build() params should contain global variables (start with $) ` +
+          `or media queries (start with @media). Got '${key}'.`
+        );
+      }
     });
   }
 }

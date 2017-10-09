@@ -15,6 +15,7 @@ import utils from '../utils';
 const PREFIX = '@media';
 
 export default {
+  isMediaQuery,
   process
 };
 

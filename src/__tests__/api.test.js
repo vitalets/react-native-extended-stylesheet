@@ -58,6 +58,33 @@ describe('EStyleSheet API', function () {
       const styles = api.create({$b: '$c'});
       expect(styles).toEqual({$b: 3});
     });
+
+    it('should throw for incorrect global vars', function () {
+      const fn = () => api.build({a: 1});
+      expect(fn).toThrowError(
+        `EStyleSheet.build() params should contain global variables (start with $) ` +
+        `or media queries (start with @media). Got 'a'.`
+      );
+    });
+
+    it('should use media-queries on global vars', function () {
+      jest.setMock('react-native', {
+        Platform: {
+          OS: 'ios'
+        }
+      });
+      api.build({
+        $a: 1,
+        '@media ios': {
+          $a: 2,
+        },
+        '@media android': {
+          $a: 3,
+        }
+      });
+      const styles = api.create({$b: '$a'});
+      expect(styles).toEqual({$b: 2});
+    });
   });
 
   describe('re-build', function () {
