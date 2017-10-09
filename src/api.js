@@ -12,8 +12,6 @@ import child from './child';
 const BUILD_EVENT = 'build';
 
 export default class {
-  child = child;
-
   /**
    * Constructor
    */
@@ -23,6 +21,7 @@ export default class {
     this.globalVars = null;
     this.listeners = {};
     this._proxyToOriginal();
+    this.child = child;
   }
 
   /**
