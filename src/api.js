@@ -16,12 +16,12 @@ export default class {
    * Constructor
    */
   constructor() {
+    this.child = child;
     this.builded = false;
     this.sheets = [];
     this.globalVars = null;
     this.listeners = {};
     this._proxyToOriginal();
-    this.child = child;
   }
 
   /**
