@@ -1,4 +1,4 @@
-## 0.7.0
+## 0.7.0 (Oct 9, 2017)
 
 * Allow create-react-app compile without plugins ([@grantbi] in [#54])
 * Support dynamic theme change ([#47], [#53])
