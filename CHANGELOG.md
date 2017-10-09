@@ -1,3 +1,7 @@
+## 0.7.0
+
+* Allow create-react-app compile without plugins ([@grantbi] in [#54])
+
 ## 0.6.0 (Jun 3, 2017)
 
 * Remove `EStyleSheet.memoize()` in favor of [lodash.memoize](https://www.npmjs.com/package/lodash.memoize) ([#45])
@@ -32,6 +36,7 @@
  
 [@joemckie]: https://github.com/joemckie
 [@Kerumen]: https://github.com/Kerumen
+[@grantbi]: https://github.com/grantbi
 
 [#8]: https://github.com/vitalets/react-native-extended-stylesheet/pull/8
 [#14]: https://github.com/vitalets/react-native-extended-stylesheet/pull/14
@@ -40,3 +45,4 @@
 [#32]: https://github.com/vitalets/react-native-extended-stylesheet/pull/32
 [#33]: https://github.com/vitalets/react-native-extended-stylesheet/pull/33
 [#45]: https://github.com/vitalets/react-native-extended-stylesheet/pull/45
+[#54]: https://github.com/vitalets/react-native-extended-stylesheet/pull/54
