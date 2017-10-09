@@ -1,5 +1,5 @@
 ## Theming
 
-Example of app changing theme dynamically.
+Changing app theme dynamically.
 
-![Demo](https://raw.githubusercontent.com/vitalets/react-native-extended-stylesheet/master/examples/theming/demo.gif)
+<kbd><img src="https://raw.githubusercontent.com/vitalets/react-native-extended-stylesheet/master/examples/theming/demo.gif"/></kbd>
