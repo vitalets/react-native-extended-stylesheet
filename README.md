@@ -32,7 +32,7 @@ relative units, percents, math operations, scaling and other styling stuff.
   - [.value()](#value)
   - [.child()](#child)
   - [.subscribe()](#subscribe)
-- [FAQ](#faq)
+- [Caveats](#caveats)
 - [Changelog](#changelog)
 - [Feedback](#feedback)
 - [License](#license)
@@ -587,13 +587,20 @@ EStyleSheet.subscribe('build', () => {
 ```
 \[[top](#react-native-extended-stylesheet)\]
 
-## FAQ
-**What about orientation change?**  
-Currently orientation change is not supported. Please see
-[this issue](https://github.com/vitalets/react-native-extended-stylesheet/issues/9) for more details.
+## Caveats
+1. *Hot module reload is not supported yet*  
+   Hot module reload requires all components to be re-rendered and keep local state. Please follow [#16] for updates.
+
+2. *Dynamic theme change is possible only with loosing components local state*  
+   When theme styles are re-calculated - all components should be re-rendered.
+   Currently it can be done via re-mounting components tree, please see [#47].
+   > Note: it is not issue if you are using state container like [Redux](https://github.com/reactjs/redux)
+
+3. *Dynamic orientation change is not processed*  
+   Please see [#9] for more details.
 
 ## Changelog
-[CHANGELOG.md](https://github.com/vitalets/react-native-extended-stylesheet/blob/master/CHANGELOG.md)
+Please see [CHANGELOG.md](https://github.com/vitalets/react-native-extended-stylesheet/blob/master/CHANGELOG.md)
 
 ## Feedback
 If you have any ideas or something goes wrong feel free to 
@@ -602,3 +609,7 @@ If you have any ideas or something goes wrong feel free to
 ## License
 MIT  
 \[[top](#react-native-extended-stylesheet)\]
+
+[#9]: https://github.com/vitalets/react-native-extended-stylesheet/issues/8
+[#16]: https://github.com/vitalets/react-native-extended-stylesheet/issues/16
+[#47]: https://github.com/vitalets/react-native-extended-stylesheet/issues/47
