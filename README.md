@@ -600,7 +600,7 @@ EStyleSheet.subscribe('build', () => {
    Please see [#9] for more details.
 
 ## Changelog
-Please see [CHANGELOG.md](https://github.com/vitalets/react-native-extended-stylesheet/blob/master/CHANGELOG.md)
+Please see [CHANGELOG.md](CHANGELOG.md)
 
 ## Feedback
 If you have any ideas or something goes wrong feel free to 
