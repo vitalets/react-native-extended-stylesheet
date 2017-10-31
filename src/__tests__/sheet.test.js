@@ -67,13 +67,42 @@ describe('sheet', function () {
     });
   });
 
-  it('should not break on non-object styles', function () {
+  it('should copy primitive values as is', function () {
     const source = {
-      x: null,
+      a: 0,
+      b: 1,
+      c: '',
+      d: 'abc',
+      e: null,
+      f: false,
+      g: undefined,
+      h: NaN
     };
     const result = new Sheet(source).calc();
     expect(result).toEqual({
-      x: null
+      a: 0,
+      b: 1,
+      c: '',
+      d: 'abc',
+      e: null,
+      f: false,
+      g: undefined,
+      h: NaN
+    });
+  });
+
+  it('should calc style as a function', function () {
+    const source = {
+      $b: 2,
+      text: () => {return {fontSize: '$b'}}
+    };
+    const result = new Sheet(source).calc();
+    expect(result).toEqual({
+      $b: 2,
+      _text: {
+        fontSize: 2,
+      },
+      text: 0,
     });
   });
 

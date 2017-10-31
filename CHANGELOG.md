@@ -1,3 +1,7 @@
+## 0.8.0 (tbd)
+
+* Style as a function ([#62])
+
 ## 0.7.0 (Oct 9, 2017)
 
 * Allow create-react-app compile without plugins ([@grantbi] in [#54])
@@ -51,4 +55,5 @@
 [#47]: https://github.com/vitalets/react-native-extended-stylesheet/pull/47
 [#53]: https://github.com/vitalets/react-native-extended-stylesheet/pull/53
 [#54]: https://github.com/vitalets/react-native-extended-stylesheet/pull/54
+[#62]: https://github.com/vitalets/react-native-extended-stylesheet/pull/62
 

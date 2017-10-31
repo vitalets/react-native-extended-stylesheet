@@ -414,21 +414,23 @@ For example, you may *darken* or *lighten* color of variable via [npm color pack
 import Color from 'color';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
+EStyleSheet.build({
+  $buttonColor: 'green'
+});
+...
 const styles = EStyleSheet.create({
   button: {
-    backgroundColor: '$buttonColor',
-  },
-  $underlayColor: () => Color(EStyleSheet.value('$buttonColor')).darken(0.1).hexString();
+    backgroundColor: () => Color(EStyleSheet.value('$buttonColor')).darken(0.1).hexString()
+  }
 });
 ...
 render() {
   return (
-    <TouchableHighlight style={styles.button} underlayColor={styles.$underlayColor}>
+    <TouchableHighlight style={styles.button}>
       ...
     </TouchableHighlight>
   );
 }
-
 ```
 \[[top](#react-native-extended-stylesheet)\]
 

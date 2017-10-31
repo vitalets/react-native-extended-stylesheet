@@ -155,12 +155,29 @@ describe('EStyleSheet API', function () {
   });
 
   describe('value', function () {
-    it('should calculate', function () {
+    it('should calculate values as string', function () {
       api.build({$d: 1});
       const res1 = api.value('$d+1');
       const res2 = api.value('100% - 10', 'width');
       expect(res1).toBe(2);
       expect(res2).toBe(90);
+    });
+
+    it('should calc value inside style as a function', function () {
+      api.build({
+        $defaultText: {
+          fontSize: 1
+        }
+      });
+      const styles = api.create({
+        text: () => api.value('$defaultText')
+      });
+      expect(styles).toEqual({
+        _text: {
+          fontSize: 1
+        },
+        text: 0
+      });
     });
   });
 

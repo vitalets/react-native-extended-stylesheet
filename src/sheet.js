@@ -57,11 +57,15 @@ export default class {
   calcStyles() {
     const extractedStyles = utils.excludeKeys(this.processedSource, this.localVars);
     Object.keys(extractedStyles).forEach(key => {
-      if (extractedStyles[key]) {
-        this.calcStyle(key, extractedStyles[key]);
+      let styles = extractedStyles[key];
+      if (typeof styles === 'function') {
+        styles = styles();
+      }
+      if (styles && typeof styles === 'object') {
+        this.calcStyle(key, styles);
       } else {
-        // copy falsy values to result as-is
-        this.result[key] = extractedStyles[key];
+        // copy primitive values to result as-is
+        this.result[key] = styles;
       }
     });
   }
