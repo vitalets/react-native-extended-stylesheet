@@ -26,6 +26,7 @@ relative units, percents, math operations, scaling and other styling stuff.
   - [value as a function](#value-as-a-function)
   - [caching](#caching)
   - [outline for debug](#outline-for-debug)
+  - [hot module reload](#hot-module-reload)
 - [API](#api)
   - [.create()](#create)
   - [.build()](#build)
@@ -502,6 +503,30 @@ const styles = EStyleSheet.create({
   ...
 });
 ```
+\[[top](#react-native-extended-stylesheet)\]
+
+### Hot module reload
+[Hot module reload (HMR)](https://facebook.github.io/react-native/blog/2016/03/24/introducing-hot-reloading.html) 
+allows you to change code and see live updates without loosing app state. It is very handy for tuning styles. 
+EStyleSheet supports HMR with the following options:
+
+1. When you change style of component - the component is updated by HMR automatically without any affort from your side. 
+2. When you change global variable or theme - you should use [HMR API](https://facebook.github.io/react-native/releases/next/#hmr-api) 
+   to force style re-calculation:
+    ```js
+    // app.js
+    EStyleSheet.build({
+      $fontColor: 'black'
+    });
+    
+    ...
+    
+    module.hot.accept(() => {
+      EStyleSheet.clearCache();
+      EStyleSheet.build(); // force style re-calculation
+    });
+    ```
+See full example of HMR [here](examples/hmr).  
 \[[top](#react-native-extended-stylesheet)\]
 
 ## EStyleSheet API

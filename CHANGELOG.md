@@ -1,6 +1,7 @@
 ## 0.8.0 (tbd)
 
 * Style as a function ([#62])
+* Support [hot module reload] ([#16])
 
 ## 0.7.0 (Oct 9, 2017)
 
@@ -44,8 +45,11 @@
 [@Kerumen]: https://github.com/Kerumen
 [@grantbi]: https://github.com/grantbi
 
+[hot module reload]: https://facebook.github.io/react-native/blog/2016/03/24/introducing-hot-reloading.html
+
 [#8]: https://github.com/vitalets/react-native-extended-stylesheet/pull/8
 [#14]: https://github.com/vitalets/react-native-extended-stylesheet/pull/14
+[#16]: https://github.com/vitalets/react-native-extended-stylesheet/pull/16
 [#18]: https://github.com/vitalets/react-native-extended-stylesheet/pull/18
 [#25]: https://github.com/vitalets/react-native-extended-stylesheet/pull/25
 [#38]: https://github.com/vitalets/react-native-extended-stylesheet/pull/38
