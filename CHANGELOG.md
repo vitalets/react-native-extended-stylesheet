@@ -1,4 +1,4 @@
-## 0.8.0 (tbd)
+## 0.8.0 (Nov 1, 2017)
 
 * Style as a function ([#62])
 * Support [hot module reload] ([#16])
