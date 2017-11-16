@@ -634,8 +634,12 @@ If you have any ideas or something goes wrong feel free to
 [open new issue](https://github.com/vitalets/react-native-extended-stylesheet/issues/new).
 
 ## License
-MIT  
+MIT @ [Vitaliy Potapov](https://github.com/vitalets)
+
 \[[top](#react-native-extended-stylesheet)\]
+
+<div align="center"><i>Stay notified about new trending JavaScript projects via GitHub notifications!<br>
+Have a look on <a href="https://github.com/vitalets/github-trending-repos">vitalets/github-trending-repos</a>.</i></div>
 
 [#9]: https://github.com/vitalets/react-native-extended-stylesheet/issues/8
 [#16]: https://github.com/vitalets/react-native-extended-stylesheet/issues/16
