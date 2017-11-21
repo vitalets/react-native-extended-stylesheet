@@ -245,7 +245,7 @@ const styles = EStyleSheet.create({
 // app entry
 let {height, width} = Dimensions.get('window');
 EStyleSheet.build({
-  rem: width > 340 ? 18 : 16
+  $rem: width > 340 ? 18 : 16
 });
 ```
 \[[top](#react-native-extended-stylesheet)\]
