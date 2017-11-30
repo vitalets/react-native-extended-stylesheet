@@ -638,8 +638,11 @@ MIT @ [Vitaliy Potapov](https://github.com/vitalets)
 
 \[[top](#react-native-extended-stylesheet)\]
 
-<div align="center"><i>Stay notified about new trending JavaScript projects via GitHub notifications!<br>
-Have a look on <a href="https://github.com/vitalets/github-trending-repos">vitalets/github-trending-repos</a>.</i></div>
+<div align="center">
+* * *<br>
+<i>If you love :heart: JavaScript and would like to track new trending repositories, <br>
+have a look on <a href="https://github.com/vitalets/github-trending-repos">vitalets/github-trending-repos</a>.</i>
+</div>
 
 [#9]: https://github.com/vitalets/react-native-extended-stylesheet/issues/8
 [#16]: https://github.com/vitalets/react-native-extended-stylesheet/issues/16
