@@ -2,9 +2,12 @@
  * Utils
  */
 
+const SHORTHAND_LIST = [ 'margin', 'padding', 'borderRadius', 'shadowOffset' ];
+
 export default {
   excludeKeys,
   isObject,
+  isShorthand
 };
 
 /**
@@ -31,3 +34,12 @@ function excludeKeys(obj, keys) {
 function isObject(obj) {
   return typeof obj === 'object' && obj !== null;
 }
+
+/**
+ * Is shorthand syntax
+ * @param {string} style 
+ */
+function isShorthand(style) {
+  return SHORTHAND_LIST.indexOf(style) > -1
+}
+

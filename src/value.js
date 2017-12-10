@@ -7,6 +7,7 @@ import vars from './replacers/vars';
 import percent from './replacers/percent';
 import operation from './replacers/operation';
 import scale from './replacers/scale';
+import shorthand from './replacers/shorthand';
 
 export default class Value {
   /**
@@ -65,6 +66,21 @@ export default class Value {
     } else {
       this.proxyValue();
     }
+  }
+
+  /**
+   * Returns the calculated styles from shorthand syntax
+   * first, check if passed values have already unit (px)
+   * if not, add it and then calculate outcome
+   */
+  calcShorthand() {
+
+    const cssValue = shorthand.hasUnitPostfix(this.value) 
+      ? this.value
+      : shorthand.addUnit(this.value) 
+
+    return shorthand.calc(this.prop, cssValue)
+
   }
 
   /**

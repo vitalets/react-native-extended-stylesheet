@@ -75,6 +75,14 @@ export default class {
  */
 function calcPlainObject(obj, varsArr) {
   return Object.keys(obj).reduce((res, prop) => {
+
+    if(utils.isShorthand(prop)) {
+      const style = new Value(obj[prop], prop, varsArr).calcShorthand();
+      Object.assign(res, style);
+
+      return res;
+    }
+
     res[prop] = new Value(obj[prop], prop, varsArr).calc();
     return res;
   }, {});
