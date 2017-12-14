@@ -106,6 +106,13 @@ const styles = EStyleSheet.create({
     color: '$textColor'
   }
 });
+
+// global variable as inline style or as props to components
+<View style = {{
+  backgroundColor: EStyleSheet.value('$textColor')
+}}>
+...
+</View>
 ```
 \[[top](#react-native-extended-stylesheet)\]
 
