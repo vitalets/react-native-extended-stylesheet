@@ -571,6 +571,20 @@ See full example of HMR [here](examples/hmr).
  */
  value (value, prop) {...}
 ```
+**Please note** that in most cases `EStyleSheet.value()` should be used inside function, not directly:
+```js
+// OK!
+const styles = EStyleSheet.create({
+   color: () => EStyleSheet.value('$primaryFontColor'),
+});
+
+// NOT OK!
+const styles = EStyleSheet.create({
+   color: EStyleSheet.value('$primaryFontColor'),
+});
+```
+Otherwise you may get `Unresolved variable: ...` error because of accessing to variable before the styles are built.
+See [#50](https://github.com/vitalets/react-native-extended-stylesheet/issues/50) for details.    
 \[[top](#react-native-extended-stylesheet)\]
 
 ### .child()
