@@ -1,3 +1,7 @@
+## 0.8.1 (Jan 27, 2018)
+
+* Calc percents for variable inside operation ([#77])
+
 ## 0.8.0 (Nov 1, 2017)
 
 * Style as a function ([#62])
@@ -60,4 +64,4 @@
 [#53]: https://github.com/vitalets/react-native-extended-stylesheet/pull/53
 [#54]: https://github.com/vitalets/react-native-extended-stylesheet/pull/54
 [#62]: https://github.com/vitalets/react-native-extended-stylesheet/pull/62
-
+[#77]: https://github.com/vitalets/react-native-extended-stylesheet/pull/77
