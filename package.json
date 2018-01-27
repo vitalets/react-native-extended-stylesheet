@@ -12,10 +12,10 @@
     "lint": "eslint src",
     "test": "jest --onlyChanged",
     "tt": "jest --coverage",
-    "test-runtyper": "BABEL_ENV=runtyper jest --no-cache",
-    "ci": "run-s code tt",
+    "tr": "BABEL_ENV=runtyper jest --no-cache",
+    "ci": "run-s code tt tr",
     "coveralls": "coveralls < coverage/lcov.info",
-    "prerelease": "run-s code tt",
+    "prerelease": "run-s code tt tr",
     "postrelease": "git push --follow-tags --no-verify",
     "release": "npm version $VER && npm publish",
     "release-patch": "VER=patch npm run release",
@@ -23,7 +23,7 @@
     "diff": "git diff -- . ':!package-lock.json'",
     "deps": "npm ls --depth=0",
     "precommit": "lint-staged",
-    "prepush": "run-s code tt"
+    "prepush": "run-s code tt tr"
   },
   "repository": {
     "type": "git",
