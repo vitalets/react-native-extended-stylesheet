@@ -8,9 +8,12 @@ describe('vars', function () {
 
   it('should calc var', function () {
     expect(vars.calc('$abc', [{$abc: 1}])).toBe(1);
-    expect(vars.calc('$abc', [{$abc: 1}, {$abc: 2}])).toBe(1);
     expect(() => vars.calc('$abc', [])).toThrowError('Unresolved variable: $abc');
     expect(() => vars.calc('abc', [{$abc: 1}])).toThrowError('Unresolved variable: abc');
+  });
+
+  it('should take first var from varsArr', function () {
+    expect(vars.calc('$abc', [{$abc: 1}, {$abc: 2}])).toBe(1);
   });
 
   it('should extract vars', function () {

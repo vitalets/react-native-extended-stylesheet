@@ -13,17 +13,19 @@ export default class Value {
    * Constructor
    *
    * @param {*} value
-   * @param {String} prop
-   * @param {Array} varsArr array of var sets to search into
-   * @param {Object} [stack] stack of recursion calls when resolve variable
+   * @param {String} prop property for which valye is calculated
+   * @param {Array} varsArr array of objects with vars
+   * @param {Object} [options]
+   * @param {Array} [options.stack] stack of calls when resolving variable
+   * @param {Boolean} [options.isOperation] is value calculated inside operation
    */
-  constructor(value, prop, varsArr = [], stack = []) {
+  constructor(value, prop, varsArr = [], options = {}) {
     this.value = value;
-    // output value
     this.outValue = null;
     this.prop = prop;
     this.varsArr = varsArr;
-    this.stack = stack;
+    this.stack = options.stack || [];
+    this.isOperation = options.isOperation !== undefined ? options.isOperation : false;
   }
 
   /**
@@ -50,15 +52,16 @@ export default class Value {
 
   /**
    * Calculates string
-   * Here we do not calc percent values as they supported natively (#32).
+   * Here we do not calc direct percent values as they supported natively since RN 43 (#32).
    * But keep calculating percent for operands when value defined as operation.
    */
   calcString() {
     let actions = [
       this.tryCalcOperation,
+      this.isOperation ? this.tryCalcPercent : null,
       this.tryCalcVar,
       this.tryCalcRem,
-    ];
+    ].filter(Boolean);
     let value = this.tryActions(actions, this.value);
     if (value !== null) {
       this.outValue = value;
@@ -88,6 +91,7 @@ export default class Value {
     if (!opInfo) {
       return null;
     }
+    this.isOperation = true;
     // todo: use for.. of after https://github.com/facebook/react-native/issues/4676
     const operands = ['v1', 'v2'];
     for (let i = 0; i < operands.length; i++) {
@@ -119,9 +123,12 @@ export default class Value {
       if (this.stack.indexOf(str) >= 0) {
         throw new Error('Cyclic reference: ' + this.stack.concat([str]).join(' -> '));
       }
-      let stack = this.stack.concat([str]);
-      // recursion
-      return new Value(val, str, this.varsArr, stack).calc();
+      const options = {
+        stack: this.stack.concat([str]),
+        isOperation: this.isOperation,
+      };
+      // recursive call because var can link to another var or percent/rem
+      return new Value(val, str, this.varsArr, options).calc();
     } else {
       return null;
     }
