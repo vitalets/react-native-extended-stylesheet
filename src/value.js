@@ -2,6 +2,7 @@
  * Calculates particular value
  */
 
+import {StyleSheet} from 'react-native';
 import rem from './replacers/rem';
 import vars from './replacers/vars';
 import percent from './replacers/percent';
@@ -56,9 +57,10 @@ export default class Value {
    * But keep calculating percent for operands when value defined as operation.
    */
   calcString() {
+    const shouldCalcPercent = !isNativePercentSupported() || this.isOperation;
     let actions = [
       this.tryCalcOperation,
-      this.isOperation ? this.tryCalcPercent : null,
+      shouldCalcPercent ? this.tryCalcPercent : null,
       this.tryCalcVar,
       this.tryCalcRem,
     ].filter(Boolean);
@@ -192,4 +194,19 @@ export default class Value {
       this.outValue = scale.calc(this.outValue, scaleFactor);
     }
   }
+}
+
+// Check native support of percent values.
+// See: https://github.com/vitalets/react-native-extended-stylesheet/issues/77
+function isNativePercentSupported() {
+  const cache = isNativePercentSupported; // store result inside the function object
+  if (cache.isSupported === undefined) {
+    try {
+      StyleSheet.create({foo: {width: '50%'}});
+      cache.isSupported = true;
+    } catch(e) {
+      cache.isSupported = false;
+    }
+  }
+  return cache.isSupported;
 }
