@@ -646,6 +646,10 @@ EStyleSheet.subscribe('build', () => {
 
 3. *Dynamic orientation change is not processed*  
    Please see [#9] for more details.
+   
+4. *App crashes when using percentage style*  
+   Please check what version of React Native you are using. RN >= 0.43 supports percents natively ([#32])
+   and EStyleSheet since 0.5.0 proxies percentage values to RN as is. More details in [#77].   
 
 ## Changelog
 Please see [CHANGELOG.md](CHANGELOG.md)
@@ -668,3 +672,5 @@ have a look on <a href="https://github.com/vitalets/github-trending-repos">vital
 [#9]: https://github.com/vitalets/react-native-extended-stylesheet/issues/8
 [#16]: https://github.com/vitalets/react-native-extended-stylesheet/issues/16
 [#47]: https://github.com/vitalets/react-native-extended-stylesheet/issues/47
+[#32]: https://github.com/vitalets/react-native-extended-stylesheet/issues/32
+[#77]: https://github.com/vitalets/react-native-extended-stylesheet/issues/77
