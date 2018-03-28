@@ -11,17 +11,17 @@ export default class extends React.Component {
   constructor() {
     super();
     this.state = {
-      render: true
+      shouldRender: true
     };
   }
   toggleTheme() {
     const theme = EStyleSheet.value('$theme') === 'light' ? darkTheme : lightTheme;
     EStyleSheet.build(theme);
     // setState() called twice to re-render whole component tree
-    this.setState({render: false}, () => this.setState({render: true}));
+    this.setState({shouldRender: false}, () => this.setState({shouldRender: true}));
   }
   render() {
-    if (this.state.render) {
+    if (this.state.shouldRender) {
       const buttonTitle = EStyleSheet.value('$theme') === 'light' ? 'Set dark theme' : 'Set light theme';
       return (
         <View style={{flex: 1}}>
@@ -30,7 +30,7 @@ export default class extends React.Component {
         </View>
       );
     } else {
-      return null;
+      return null; // returning null is important to re-render component tree
     }
   }
 }

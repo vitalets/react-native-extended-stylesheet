@@ -164,7 +164,7 @@ In the future it may be possible with `forceDeepUpdate()` method (see [facebook/
 The approach is open for discusison, feel free to share your ideas in [#22](https://github.com/vitalets/react-native-extended-stylesheet/issues/22), 
 [#47](https://github.com/vitalets/react-native-extended-stylesheet/issues/47).
 
-Full theming example is [here](examples/theming).  
+You can check out full theming code in [examples/theming](examples/theming) or in [Expo snack](https://snack.expo.io/HyujGlKcf).  
 \[[top](#react-native-extended-stylesheet)\]
 
 ### Media queries
