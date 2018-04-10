@@ -10,6 +10,7 @@ relative units, percents, math operations, scaling and other styling stuff.
 
 <img align="right" src="https://cloud.githubusercontent.com/assets/1473072/26778748/49c190be-49eb-11e7-83a1-b06372df8d85.png">
 
+- [Demo](#demo)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
@@ -37,6 +38,10 @@ relative units, percents, math operations, scaling and other styling stuff.
 - [Changelog](#changelog)
 - [Feedback](#feedback)
 - [License](#license)
+
+## Demo
+Use this [Expo snack](https://snack.expo.io/@vitalets/extended-stylesheet-simple) to play with Extended StyleSheets
+right in the browser or in [Expo app](https://expo.io/tools#client).
 
 ## Installation
 ```
