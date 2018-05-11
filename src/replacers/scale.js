@@ -9,6 +9,10 @@ const SCALABLE_PROPS = [
   'padding',
   'fontsize',
   'radius',
+  'left',
+  'right',
+  'bottom',
+  'top',
 ];
 
 export default {
