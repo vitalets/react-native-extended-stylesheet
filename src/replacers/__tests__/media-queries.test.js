@@ -98,6 +98,18 @@ describe('media-queries', function () {
     expect(mq.process(obj)).toEqual({a: 1});
   });
 
+  it('should process direction', function () {
+    const obj = {
+      '@media (direction: ltr)': {
+        a: 1,
+      },
+      '@media (direction: rtl)': {
+        a: 2,
+      }
+    };
+    expect(mq.process(obj)).toEqual({a: 1});
+  });
+
   it('should ignore invalid media queries', function () {
     const obj = {
       a: 0,
