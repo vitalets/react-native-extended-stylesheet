@@ -6,6 +6,9 @@ const rn = {
     get: () => {
       return {width: 110, height: 100};
     }
+  },
+  I18nManager: {
+    isRTL: false
   }
 };
 
