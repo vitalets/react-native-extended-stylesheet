@@ -1,3 +1,7 @@
+## 0.9.0 (Aug 10, 2018)
+
+* Add (text) direction support ([@achipa] in [#90])
+
 ## 0.8.1 (Jan 27, 2018)
 
 * Calc percents for variable inside operation ([#77])
@@ -48,6 +52,7 @@
 [@joemckie]: https://github.com/joemckie
 [@Kerumen]: https://github.com/Kerumen
 [@grantbi]: https://github.com/grantbi
+[@achipa]: https://github.com/achipa
 
 [hot module reload]: https://facebook.github.io/react-native/blog/2016/03/24/introducing-hot-reloading.html
 
@@ -65,3 +70,4 @@
 [#54]: https://github.com/vitalets/react-native-extended-stylesheet/pull/54
 [#62]: https://github.com/vitalets/react-native-extended-stylesheet/pull/62
 [#77]: https://github.com/vitalets/react-native-extended-stylesheet/pull/77
+[#90]: https://github.com/vitalets/react-native-extended-stylesheet/pull/90
