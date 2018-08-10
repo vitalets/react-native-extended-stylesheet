@@ -73,7 +73,7 @@ function getMatchObject() {
     orientation: win.width > win.height ? 'landscape' : 'portrait',
     'aspect-ratio': win.width / win.height,
     type: Platform.OS,
-    direction: isRTL ? "rtl" : "ltr"
+    direction: isRTL ? 'rtl' : 'ltr'
   };
 }
 

@@ -15,6 +15,7 @@
   ],
 
   "rules": {
+    "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
     "comma-dangle": ["error", "only-multiline"],
     "no-multi-spaces": 2,
     "space-before-function-paren": [2, {"anonymous": "always", "named": "never"}],
