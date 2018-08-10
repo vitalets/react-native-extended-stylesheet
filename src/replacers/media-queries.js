@@ -8,10 +8,10 @@
  * - aspect-ratio
  */
 
-import {Dimensions, Platform} from 'react-native';
+import {Dimensions, Platform, I18nManager} from 'react-native';
 import mediaQuery from 'css-mediaquery';
 import utils from '../utils';
-
+      
 const PREFIX = '@media';
 
 export default {
@@ -66,12 +66,14 @@ function process(obj) {
  */
 function getMatchObject() {
   const win = Dimensions.get('window');
+  const { isRTL } = I18nManager;
   return {
     width: win.width,
     height: win.height,
     orientation: win.width > win.height ? 'landscape' : 'portrait',
     'aspect-ratio': win.width / win.height,
     type: Platform.OS,
+    direction: isRTL ? "rtl" : "ltr"
   };
 }
 

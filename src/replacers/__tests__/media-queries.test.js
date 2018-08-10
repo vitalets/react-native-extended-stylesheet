@@ -6,6 +6,9 @@ const rn = {
     get: () => {
       return {width: 110, height: 100};
     }
+  },
+  I18nManager: {
+    isRTL: false
   }
 };
 
@@ -92,6 +95,18 @@ describe('media-queries', function () {
         a: 1,
       },
       '@media android': {
+        a: 2,
+      }
+    };
+    expect(mq.process(obj)).toEqual({a: 1});
+  });
+
+  it('should process direction', function () {
+    const obj = {
+      '@media (direction: ltr)': {
+        a: 1,
+      },
+      '@media (direction: rtl)': {
         a: 2,
       }
     };

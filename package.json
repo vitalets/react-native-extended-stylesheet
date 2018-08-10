@@ -64,7 +64,8 @@
       "^.+\\.js$": "babel-jest"
     },
     "verbose": true,
-    "collectCoverage": false
+    "collectCoverage": false,
+    "testURL": "http://localhost/"
   },
   "keywords": [
     "react",

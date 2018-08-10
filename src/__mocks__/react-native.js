@@ -12,6 +12,10 @@ export let Platform = {
   OS: 'ios'
 };
 
+export let I18nManager = {
+  isRTL: false
+};
+
 export let StyleSheet = {
   create(obj) {
     return Object.keys(obj).reduce((res, key, index) => {
@@ -29,4 +33,5 @@ export default {
   Dimensions,
   Platform,
   StyleSheet,
+  I18nManager
 };

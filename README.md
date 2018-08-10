@@ -173,7 +173,7 @@ You can check out full theming code in [examples/theming](examples/theming) or i
 \[[top](#react-native-extended-stylesheet)\]
 
 ### Media queries
-Media queries allows to have different styles for different screens, platform and orienation.
+Media queries allows to have different styles for different screens, platform, direction and orientation.
 They are supported as properties with `@media` prefix (thanks for idea to [@grabbou](https://github.com/grabbou),
 [#5](https://github.com/vitalets/react-native-extended-stylesheet/issues/5)).
 
@@ -184,6 +184,7 @@ Media queries can operate with the following values:
 * `height`, `min-height`, `max-height`
 * `orientation` (`landscape|portrait`)
 * `aspect-ratio`
+* `direction` (`ltr|rtl`)
 
 You can use media queries on:
 * global level
