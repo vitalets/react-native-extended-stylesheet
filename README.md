@@ -523,7 +523,7 @@ const styles = EStyleSheet.create({
 allows you to change code and see live updates without loosing app state. It is very handy for tuning styles. 
 EStyleSheet supports HMR with the following options:
 
-1. When you change style of component - the component is updated by HMR automatically without any affort from your side. 
+1. When you change style of component - the component is updated by HMR automatically without any effort from your side. 
 2. When you change global variable or theme - you should use [HMR API](https://facebook.github.io/react-native/releases/next/#hmr-api) 
    to force style re-calculation:
     ```js
