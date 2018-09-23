@@ -1,3 +1,7 @@
+## 0.10.0 (tbd)
+
+* Add Typescript declarations ([#56])
+
 ## 0.9.0 (Aug 10, 2018)
 
 * Add (text) direction support ([@achipa] in [#90])
@@ -71,3 +75,4 @@
 [#62]: https://github.com/vitalets/react-native-extended-stylesheet/pull/62
 [#77]: https://github.com/vitalets/react-native-extended-stylesheet/pull/77
 [#90]: https://github.com/vitalets/react-native-extended-stylesheet/pull/90
+[#56]: https://github.com/vitalets/react-native-extended-stylesheet/pull/56

@@ -7,23 +7,24 @@
     "email": "noginsk@rambler.ru"
   },
   "main": "src/index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "code": "check-dependencies && npm run lint",
     "lint": "eslint src",
     "test": "jest --onlyChanged",
     "tt": "jest --coverage",
     "tr": "BABEL_ENV=runtyper jest --no-cache",
-    "ci": "run-s code tt tr",
+    "test:types": "tsc",
+    "ci": "run-s code tt tr test:types",
     "coveralls": "coveralls < coverage/lcov.info",
-    "prerelease": "run-s code tt tr",
+    "prerelease": "run-s code tt tr test:types",
     "postrelease": "git push --follow-tags --no-verify",
     "release": "npm version $VER && npm publish",
     "release-patch": "VER=patch npm run release",
     "release-minor": "VER=minor npm run release",
-    "diff": "git diff -- . ':!package-lock.json'",
     "deps": "npm ls --depth=0",
     "precommit": "lint-staged",
-    "prepush": "run-s code tt tr"
+    "prepush": "run-s code tt tr test:types"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
     "object-resolve-path": "^1.1.0"
   },
   "devDependencies": {
+    "@types/react-native": "^0.56.23",
     "babel-eslint": "^8.2.1",
     "babel-jest": "^22.1.0",
     "babel-plugin-runtyper": "^0.2.2",
@@ -50,7 +52,8 @@
     "husky": "^0.14.3",
     "jest-cli": "^22.1.4",
     "lint-staged": "^6.1.0",
-    "npm-run-all": "^4.1.2"
+    "npm-run-all": "^4.1.2",
+    "typescript": "^3.0.3"
   },
   "lint-staged": {
     "*.js": "eslint"
