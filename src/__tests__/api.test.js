@@ -189,21 +189,21 @@ describe('EStyleSheet API', function () {
 
   describe('subscribe', function () {
     it('should call listener, created before build', function () {
-      const listener = jest.genMockFn();
+      const listener = jest.fn();
       api.subscribe('build', listener);
       api.build();
       expect(listener.mock.calls.length).toBe(1);
     });
 
     it('should call listener, created after build', function () {
-      const listener = jest.genMockFn();
+      const listener = jest.fn();
       api.build();
       api.subscribe('build', listener);
       expect(listener.mock.calls.length).toBe(1);
     });
 
     it('should call listener on every build', function () {
-      const listener = jest.genMockFn();
+      const listener = jest.fn();
       api.subscribe('build', listener);
       api.build();
       api.build();

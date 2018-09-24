@@ -95,7 +95,7 @@ describe('style', function () {
       prop: 10,
     };
     let varsArr = [{$outline: true}, {}];
-    Math.random = jest.genMockFn().mockReturnValue(0);
+    Math.random = jest.fn().mockReturnValue(0);
 
     let res = new Style(source, varsArr).calc();
 
