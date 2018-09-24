@@ -16,7 +16,7 @@ export = EStyleSheet;
 
 declare namespace EStyleSheet {
     type AnyObject = {[key: string]: any};
-    export type Event = 'build';
+    type Event = 'build';
 
     export function create(styles: AnyObject): AnyObject;
     export function build(rawGlobalVars?: AnyObject): void;
