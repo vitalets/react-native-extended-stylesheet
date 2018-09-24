@@ -35,6 +35,7 @@ relative units, percents, math operations, scaling and other styling stuff.
   - [.child()](#child)
   - [.subscribe()](#subscribe)
 - [Caveats](#caveats)
+- [FAQ](#faq)
 - [Changelog](#changelog)
 - [Feedback](#feedback)
 - [License](#license)
@@ -422,22 +423,18 @@ render() {
 \[[top](#react-native-extended-stylesheet)\]
 
 ### Value as a function
-For the deepest customization you can specify any value as a function that will be executed on EStyleSheet build. 
+For the deepest customization you can specify any value as a function that will be executed on EStyleSheet build.
 For example, you may *darken* or *lighten* color of variable via [npm color package](https://www.npmjs.com/package/color): 
 ```js
 import Color from 'color';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-EStyleSheet.build({
-  $buttonColor: 'green'
-});
-...
 const styles = EStyleSheet.create({
   button: {
-    backgroundColor: () => Color(EStyleSheet.value('$buttonColor')).darken(0.1).hexString()
+    backgroundColor: () => Color('green').darken(0.1).hexString() // <-- value as a function
   }
 });
-...
+
 render() {
   return (
     <TouchableHighlight style={styles.button}>
@@ -446,6 +443,21 @@ render() {
   );
 }
 ```
+
+The common pattern is to use [EStyleSheet.value()](#value) inside the function to get access to global variables:
+```js
+
+EStyleSheet.build({
+  $prmaryColor: 'green'
+});
+
+const styles = EStyleSheet.create({
+  button: {
+    backgroundColor: () => Color(EStyleSheet.value('$prmaryColor')).darken(0.1).hexString()
+  }
+});
+```
+
 \[[top](#react-native-extended-stylesheet)\]
 
 ### Caching
@@ -569,28 +581,26 @@ See full example of HMR [here](examples/hmr).
 ### .value()
 ```js
 /**
- * Calculates particular value
+ * Calculates particular expression.
  *
  * @param {*} value
- * @param {String} [prop] property for which value is calculated. Needed for example for percent values.
+ * @param {String} [prop] property for which value is calculated. For example, to calculate percent values 
+ * the function should know is it 'width' or 'height' to use proper reference value.
  * @returns {*} calculated result
  */
  value (value, prop) {...}
 ```
 **Please note** that in most cases `EStyleSheet.value()` should be used inside function, not directly:
 ```js
-// OK!
 const styles = EStyleSheet.create({
-   color: () => EStyleSheet.value('$primaryFontColor'),
-});
-
-// NOT OK!
-const styles = EStyleSheet.create({
-   color: EStyleSheet.value('$primaryFontColor'),
+    button1: {
+        width: () => EStyleSheet.value('$contentWidth') + 10 // <-- Correct!
+    },
+    button2: {
+        width: EStyleSheet.value('$contentWidth') + 10 // <-- Incorrect. Because EStyleSheet.build() may occur later and $contentWidth will be undefined at this moment.
+    }
 });
 ```
-Otherwise you may get `Unresolved variable: ...` error because of accessing to variable before the styles are built.
-See [#50](https://github.com/vitalets/react-native-extended-stylesheet/issues/50) for details.    
 \[[top](#react-native-extended-stylesheet)\]
 
 ### .child()
@@ -656,6 +666,11 @@ EStyleSheet.subscribe('build', () => {
 4. *App crashes when using percentage style*  
    Please check what version of React Native you are using. RN >= 0.43 supports percents natively ([#32])
    and EStyleSheet since 0.5.0 proxies percentage values to RN as is. More details in [#77].   
+
+## FAQ
+1. **I'm getting error: `"Unresolved variable: ..."`**
+   - You are trying to access variable that does not exist. Re-check for typos.
+   - You are trying to access variable before the styles are built. See [#50](https://github.com/vitalets/react-native-extended-stylesheet/issues/50) for details.
 
 ## Changelog
 Please see [CHANGELOG.md](CHANGELOG.md)
