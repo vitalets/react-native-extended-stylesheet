@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/vitalets/react-native-extended-stylesheet.svg?branch=master)](https://travis-ci.org/vitalets/react-native-extended-stylesheet)
 [![Coverage Status](https://coveralls.io/repos/github/vitalets/react-native-extended-stylesheet/badge.svg?branch=master)](https://coveralls.io/github/vitalets/react-native-extended-stylesheet?branch=master)
-[![npm version](https://badge.fury.io/js/react-native-extended-stylesheet.svg)](https://badge.fury.io/js/react-native-extended-stylesheet)
+[![npm version](https://img.shields.io/npm/v/react-native-extended-stylesheet.svg)](https://www.npmjs.com/package/react-native-extended-stylesheet)
 [![license](https://img.shields.io/npm/l/react-native-extended-stylesheet.svg)](https://www.npmjs.com/package/react-native-extended-stylesheet)
 
 Drop-in replacement of [React Native StyleSheet](https://facebook.github.io/react-native/docs/stylesheet.html) with media-queries, variables, dynamic themes,
