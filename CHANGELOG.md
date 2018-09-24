@@ -1,4 +1,4 @@
-## 0.10.0 (tbd)
+## 0.10.0 (Sep 24, 2018)
 
 * Add Typescript declarations ([#56])
 
