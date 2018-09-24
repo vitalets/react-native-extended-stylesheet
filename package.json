@@ -16,6 +16,7 @@
     "tr": "BABEL_ENV=runtyper jest --no-cache",
     "test:types": "tsc",
     "ci": "run-s code tt tr test:types",
+    "update-yarn-lock": "rm yarn.lock && yarn import",
     "coveralls": "coveralls < coverage/lcov.info",
     "prerelease": "run-s code tt tr test:types",
     "postrelease": "git push --follow-tags --no-verify",
