@@ -652,26 +652,24 @@ EStyleSheet.subscribe('build', () => {
 \[[top](#react-native-extended-stylesheet)\]
 
 ## Caveats
-1. *Hot module reload is not supported yet*  
-   Hot module reload requires all components to be re-rendered and keep local state. Please follow [#16] for updates.
-
-2. *Dynamic theme change is possible only with loosing components local state*  
+1. *Dynamic theme change is possible only with loosing components local state*  
    When theme styles are re-calculated - all components should be re-rendered.
    Currently it can be done via re-mounting components tree, please see [#47].
    > Note: it is not issue if you are using state container like [Redux](https://github.com/reactjs/redux)
 
-3. *Dynamic orientation change is not processed*  
+2. *Dynamic orientation change is not supported*  
    Please see [#9] for more details.
    
-4. *App crashes when using percentage style*  
-   Please check what version of React Native you are using. RN >= 0.43 supports percents natively ([#32])
-   and EStyleSheet since 0.5.0 proxies percentage values to RN as is. More details in [#77].   
+3. *Percent values can crash the app in RN < 0.43*  
+   RN >= 0.43 supports percent values natively ([#32]) and EStyleSheet since 0.5.0 just proxy percent values to RN as is ([#77]) without any processing.
+   If you are using RN < 0.43, you should stick to EStyleSheet@0.4.0.
 
 ## FAQ
 1. **I'm getting error: `"Unresolved variable: ..."`**
-   - You are trying to access variable that does not exist. Re-check for typos.
-   - You are trying to access variable before the styles are built. See [#50](https://github.com/vitalets/react-native-extended-stylesheet/issues/50) for details.
-
+   - Ensure that you call `EStyleSheet.build()` in entry point of your app.
+   - Ensure that `$variable` name without typos.
+   - Ensure that you are not using `EStyleSheet.value()` before the styles are built. See [#50](https://github.com/vitalets/react-native-extended-stylesheet/issues/50) for details.
+ 
 ## Changelog
 Please see [CHANGELOG.md](CHANGELOG.md)
 
