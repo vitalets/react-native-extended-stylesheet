@@ -262,6 +262,7 @@ EStyleSheet.build({
   $rem: width > 340 ? 18 : 16
 });
 ```
+You can check out full rem code in [examples/rem](examples/rem) or in [Expo snack](https://snack.expo.io/@gbhasha/using-rem-units-with-extended-stylesheet).  
 \[[top](#react-native-extended-stylesheet)\]
 
 ### Percents
