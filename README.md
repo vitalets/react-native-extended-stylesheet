@@ -228,7 +228,7 @@ const styles = EStyleSheet.create({
   }
 });
 ```
-See full example [here](examples/media-queries).  
+You can check out full example code in [examples/media-queries](examples/media-queries) or in [Expo snack](https://snack.expo.io/@gbhasha/media-queries-using-extended-stylesheets).  
 \[[top](#react-native-extended-stylesheet)\]
 
 ### Math operations
@@ -262,6 +262,7 @@ EStyleSheet.build({
   $rem: width > 340 ? 18 : 16
 });
 ```
+You can check out full example code in [examples/rem](examples/rem) or in [Expo snack](https://snack.expo.io/@gbhasha/using-rem-units-with-extended-stylesheet).  
 \[[top](#react-native-extended-stylesheet)\]
 
 ### Percents
