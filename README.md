@@ -653,15 +653,16 @@ EStyleSheet.subscribe('build', () => {
 \[[top](#react-native-extended-stylesheet)\]
 
 ## Caveats
-1. *Dynamic theme change is possible only with loosing components local state*  
+1. **Dynamic theme change is possible only with loosing components local state**    
    When theme styles are re-calculated - all components should be re-rendered.
    Currently it can be done via re-mounting components tree, please see [#47].
-   > Note: it is not issue if you are using state container like [Redux](https://github.com/reactjs/redux)
+   > Note: it is not issue if you are using state container like [Redux](https://github.com/reactjs/redux) 
+   and can easily re-render app in the same state
 
-2. *Dynamic orientation change is not supported*  
+2. **Dynamic orientation change is not supported**  
    Please see [#9] for more details.
    
-3. *Percent values can crash the app in RN < 0.43*  
+3. **Percent values can crash the app in RN < 0.43**  
    RN >= 0.43 supports percent values natively ([#32]) and EStyleSheet since 0.5.0 just proxy percent values to RN as is ([#77]) without any processing.
    If you are using RN < 0.43, you should stick to EStyleSheet@0.4.0.
 
@@ -689,7 +690,7 @@ MIT @ [Vitaliy Potapov](https://github.com/vitalets)
 have a look on <a href="https://github.com/vitalets/github-trending-repos">vitalets/github-trending-repos</a>.</i>
 </div>
 
-[#9]: https://github.com/vitalets/react-native-extended-stylesheet/issues/8
+[#9]: https://github.com/vitalets/react-native-extended-stylesheet/issues/9
 [#16]: https://github.com/vitalets/react-native-extended-stylesheet/issues/16
 [#47]: https://github.com/vitalets/react-native-extended-stylesheet/issues/47
 [#32]: https://github.com/vitalets/react-native-extended-stylesheet/issues/32
