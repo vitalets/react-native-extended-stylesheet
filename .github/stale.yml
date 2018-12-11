@@ -1,0 +1,3 @@
+# Configuration for probot-stale - https://github.com/probot/stale
+# A .github/stale.yml file is required to enable the plugin.
+# The file can be empty, or it can override any of these default settings
