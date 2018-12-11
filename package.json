@@ -16,16 +16,13 @@
     "tr": "BABEL_ENV=runtyper jest --no-cache",
     "test:types": "tsc",
     "ci": "run-s code tt tr test:types",
-    "update-yarn-lock": "rm yarn.lock && yarn import",
+    "sync-yarn-lock": "rm yarn.lock && yarn import && git add -A yarn.lock && (git diff-index --quiet HEAD -- yarn.lock || git commit -m'sync yarn.lock' --no-verify)",
     "coveralls": "coveralls < coverage/lcov.info",
-    "prerelease": "run-s code tt tr test:types",
+    "prerelease": "run-s code tt tr test:types sync-yarn-lock",
     "postrelease": "git push --follow-tags --no-verify",
     "release": "npm version $VER && npm publish",
     "release-patch": "VER=patch npm run release",
-    "release-minor": "VER=minor npm run release",
-    "deps": "npm ls --depth=0",
-    "precommit": "lint-staged",
-    "prepush": "run-s code tt tr test:types"
+    "release-minor": "VER=minor npm run release"
   },
   "husky": {
     "hooks": {
