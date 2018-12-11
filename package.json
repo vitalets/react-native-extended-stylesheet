@@ -9,7 +9,7 @@
   "main": "src/index.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "code": "check-dependencies && npm run lint",
+    "code": "npm run lint",
     "lint": "eslint src",
     "test": "jest --onlyChanged",
     "tt": "jest --coverage",
@@ -27,6 +27,12 @@
     "precommit": "lint-staged",
     "prepush": "run-s code tt tr test:types"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "run-s code tt tr test:types"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/vitalets/react-native-extended-stylesheet.git"
@@ -39,22 +45,21 @@
     "object-resolve-path": "^1.1.0"
   },
   "devDependencies": {
-    "@types/react-native": "^0.56.24",
-    "babel-eslint": "^9.0.0",
+    "@types/react-native": "^0.57.18",
+    "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-plugin-runtyper": "^0.4.0",
     "babel-preset-react-native": "^4.0.1",
-    "check-dependencies": "^1.1.0",
     "coveralls": "^3.0.2",
-    "eslint": "^5.6.0",
+    "eslint": "^5.10.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-react": "^7.11.1",
-    "eslint-plugin-react-native": "^3.3.0",
-    "husky": "^0.14.3",
+    "eslint-plugin-react-native": "^3.5.0",
+    "husky": "^1.2.0",
     "jest-cli": "^23.6.0",
-    "lint-staged": "^7.3.0",
-    "npm-run-all": "^4.1.3",
-    "typescript": "^3.0.3"
+    "lint-staged": "^8.1.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^3.2.2"
   },
   "lint-staged": {
     "*.js": "eslint"
