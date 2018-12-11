@@ -130,4 +130,60 @@ describe('style', function () {
     });
   });
 
+  describe('nested props (#99)', function () {
+    it('should calc nested style props (#99)', function () {
+      const source = {
+        shadowOffset: {
+          width: '$width',
+          foo: 'bar'
+        }
+      };
+
+      const varsArr = [{$width: 100, $height: 200}];
+
+      const styles = new Style(source, varsArr).calc();
+
+      expect(styles).toEqual({
+        calculatedVars: null,
+        calculatedProps: {
+          shadowOffset: {
+            width: 100,
+            foo: 'bar'
+          }
+        }
+      });
+    });
+
+    it('should support media queries', function () {
+      const source = {
+        shadowOffset: {
+          width: '$width',
+          foo: 'bar'
+        },
+        '@media ios': {
+          shadowOffset: {
+            width: 1,
+            height: '$height'
+          },
+        }
+      };
+
+      const varsArr = [{$width: 100, $height: 200}];
+
+      const styles = new Style(source, varsArr).calc();
+
+      expect(styles).toEqual({
+        calculatedVars: null,
+        calculatedProps: {
+          shadowOffset: {
+            width: 1,
+            foo: 'bar',
+            height: 200,
+          }
+        }
+      });
+    });
+
+  });
+
 });

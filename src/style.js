@@ -75,9 +75,22 @@ export default class {
  */
 function calcPlainObject(obj, varsArr) {
   return Object.keys(obj).reduce((res, prop) => {
-    res[prop] = new Value(obj[prop], prop, varsArr).calc();
+    res[prop] = calcStyleValue(prop, obj[prop], varsArr);
     return res;
   }, {});
+}
+
+/**
+ * Calculates single value
+ * @param {String} prop
+ * @param {*} value
+ * @param {Array} varsArr
+ */
+function calcStyleValue(prop, value, varsArr) {
+  const isNestedValue = value && typeof value === 'object';
+  return isNestedValue
+    ? calcPlainObject(value, varsArr)
+    : new Value(value, prop, varsArr).calc();
 }
 
 /**

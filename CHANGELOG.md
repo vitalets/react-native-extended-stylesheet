@@ -1,3 +1,8 @@
+## 0.11.0 (tbd)
+
+* Inherit styles from `Object` instead of `null` ([#101])
+* Support nested style props ([#99])
+
 ## 0.10.0 (Sep 24, 2018)
 
 * Add Typescript declarations ([#56])
@@ -76,3 +81,4 @@
 [#77]: https://github.com/vitalets/react-native-extended-stylesheet/pull/77
 [#90]: https://github.com/vitalets/react-native-extended-stylesheet/pull/90
 [#56]: https://github.com/vitalets/react-native-extended-stylesheet/pull/56
+[#99]: https://github.com/vitalets/react-native-extended-stylesheet/pull/99
