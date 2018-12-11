@@ -85,6 +85,12 @@ describe('EStyleSheet API', function () {
       const styles = api.create({$b: '$a'});
       expect(styles).toEqual({$b: 2});
     });
+
+    it('styles should have prototype chain (#101)', function () {
+      api.build();
+      const styles = api.create({foo: 'bar'});
+      expect(typeof styles.hasOwnProperty).toEqual('function');
+    });
   });
 
   describe('re-build', function () {

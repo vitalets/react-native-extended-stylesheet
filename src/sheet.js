@@ -11,7 +11,7 @@ export default class {
    */
   constructor(source) {
     this.source = source;
-    this.result = Object.create(null);
+    this.result = {};
     this.cache = new Map(); // cache result for each theme
     this.nativeSheet = {};
     this.globalVars = null;
