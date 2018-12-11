@@ -1,4 +1,4 @@
-## 0.11.0 (tbd)
+## 0.11.0 (Dec 11, 2018)
 
 * Inherit styles from `Object` instead of `null` ([#101])
 * Support nested style props ([#99])
