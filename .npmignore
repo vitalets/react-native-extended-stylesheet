@@ -5,5 +5,6 @@
 .jscsrc
 .idea
 .travis.yml
+.github
 /coverage
 /hooks
