@@ -1,3 +1,7 @@
+## 0.11.1 (Dec 17, 2018)
+
+* Fix array props ([#103])
+
 ## 0.11.0 (Dec 11, 2018)
 
 * Inherit styles from `Object` instead of `null` ([#101])
@@ -82,3 +86,4 @@
 [#90]: https://github.com/vitalets/react-native-extended-stylesheet/pull/90
 [#56]: https://github.com/vitalets/react-native-extended-stylesheet/pull/56
 [#99]: https://github.com/vitalets/react-native-extended-stylesheet/pull/99
+[#103]: https://github.com/vitalets/react-native-extended-stylesheet/pull/103

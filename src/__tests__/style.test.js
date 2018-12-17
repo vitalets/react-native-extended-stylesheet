@@ -28,6 +28,21 @@ describe('style', function () {
     });
   });
 
+  it('should passthough array props (#103)', function () {
+    const source = {
+      transform: [{ rotate: '45deg' }]
+    };
+
+    const res = new Style(source, []).calc();
+
+    expect(res).toEqual({
+      calculatedVars: null,
+      calculatedProps: {
+        transform: [{ rotate: '45deg' }]
+      }
+    });
+  });
+
   it('should throw error on cyclic refs', function () {
     let source = {
       $a: '$b',
