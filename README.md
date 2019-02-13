@@ -662,9 +662,10 @@ EStyleSheet.subscribe('build', () => {
 2. **Dynamic orientation change is not supported**  
    Please see [#9] for more details.
    
-3. **Percent values can crash the app in RN < 0.43**  
-   RN >= 0.43 supports percent values natively ([#32]) and EStyleSheet since 0.5.0 just proxy percent values to RN as is ([#77]) without any processing.
-   If you are using RN < 0.43, you should stick to EStyleSheet@0.4.0.
+3. **Old RN versions (< 0.43) can crash the app with percent values**  
+   RN >= 0.43 supports percent values natively ([#32]) and EStyleSheet since 0.5.0 just proxy percent values to RN as is ([#77]) to keep things simple.
+   Older RN versions (< 0.43) can't process percents and EStyleSheet process such values.
+   So if you are using RN < 0.43, you should stick to EStyleSheet@0.4.0.
 
 ## FAQ
 1. **I'm getting error: `"Unresolved variable: ..."`**
