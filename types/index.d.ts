@@ -21,6 +21,7 @@ declare namespace EStyleSheet {
     export function create(styles: AnyObject): AnyObject;
     export function build(rawGlobalVars?: AnyObject): void;
     export function value(expr: any, prop?: string): any;
+    export function child(styles: AnyObject, styleName: string, index: number, count: number): AnyObject;
     export function subscribe(event: Event, listener: () => any): void;
     export function clearCache(): void;
 
