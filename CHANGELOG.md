@@ -1,3 +1,7 @@
+## 0.12.0 (Jul 5, 2019)
+
+* Fix `.subscribe()` method and add `.unsubscribe()` ([#109])
+
 ## 0.11.1 (Dec 17, 2018)
 
 * Fix array props ([#103])
@@ -87,3 +91,4 @@
 [#56]: https://github.com/vitalets/react-native-extended-stylesheet/pull/56
 [#99]: https://github.com/vitalets/react-native-extended-stylesheet/pull/99
 [#103]: https://github.com/vitalets/react-native-extended-stylesheet/pull/103
+[#109]: https://github.com/vitalets/react-native-extended-stylesheet/pull/109
