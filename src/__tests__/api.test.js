@@ -208,10 +208,18 @@ describe('EStyleSheet API', function () {
       expect(listener.mock.calls.length).toBe(1);
     });
 
-    it('should call listener on every build', function () {
+    it('re-build: call listener attached before first build', function () {
       const listener = jest.fn();
       api.subscribe('build', listener);
       api.build();
+      api.build();
+      expect(listener.mock.calls.length).toBe(2);
+    });
+
+    it('re-build: call listener attached after first build (#109)', function () {
+      const listener = jest.fn();
+      api.build();
+      api.subscribe('build', listener);
       api.build();
       expect(listener.mock.calls.length).toBe(2);
     });
@@ -224,6 +232,21 @@ describe('EStyleSheet API', function () {
 
     it('should throw error when subscribe with non-function listener', function () {
       const fn = () => api.subscribe('build', null);
+      expect(fn).toThrowError('Listener should be a function.');
+    });
+  });
+
+  describe('unsubscribe', function () {
+    it('should not call listener after unsubscribe', function () {
+      const listener = jest.fn();
+      api.subscribe('build', listener);
+      api.unsubscribe('build', listener);
+      api.build();
+      expect(listener.mock.calls.length).toBe(0);
+    });
+
+    it('should throw error when unsubscribe with non-function listener', function () {
+      const fn = () => api.unsubscribe('build', null);
       expect(fn).toThrowError('Listener should be a function.');
     });
   });

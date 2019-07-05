@@ -34,6 +34,7 @@ relative units, percents, math operations, scaling and other styling stuff.
   - [.value()](#value)
   - [.child()](#child)
   - [.subscribe()](#subscribe)
+  - [.unsubscribe()](#unsubscribe)
 - [Caveats](#caveats)
 - [FAQ](#faq)
 - [Changelog](#changelog)
@@ -622,7 +623,7 @@ const styles = EStyleSheet.create({
 ### .subscribe()
 ```js
 /**
- * Subscribe to events. Currently only 'build' event is supported
+ * Subscribe to event. Currently only 'build' event is supported.
  *
  * @param {String} event
  * @param {Function} listener
@@ -650,6 +651,20 @@ EStyleSheet.subscribe('build', () => {
   Button = <View style={styles.button}></View>;
 });
 ```
+\[[top](#react-native-extended-stylesheet)\]
+
+### .unsubscribe()
+```js
+/**
+ * Unsubscribe from event. Currently only 'build' event is supported.
+ *
+ * @param {String} event
+ * @param {Function} listener
+ */
+ unsubscribe (event, listener) {...}
+
+```
+Unsubscribe from event.
 \[[top](#react-native-extended-stylesheet)\]
 
 ## Caveats

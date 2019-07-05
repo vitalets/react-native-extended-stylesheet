@@ -63,22 +63,28 @@ export default class EStyleSheet {
   }
 
   /**
-   * Subscribe to events. Currently only 'build' event is supported
+   * Subscribe to event. Currently only 'build' event is supported.
    * @param {String} event
    * @param {Function} listener
    */
   subscribe(event, listener) {
-    if (event !== BUILD_EVENT) {
-      throw new Error(`Only '${BUILD_EVENT}' event is currently supported.`);
-    }
-    if (typeof listener !== 'function') {
-      throw new Error('Listener should be a function.');
-    }
+    this._assertSubscriptionParams(event, listener);
+    this.listeners[BUILD_EVENT] = this.listeners[BUILD_EVENT] || [];
+    this.listeners[BUILD_EVENT].push(listener);
     if (this.builded) {
       listener();
-    } else {
-      this.listeners[BUILD_EVENT] = this.listeners[BUILD_EVENT] || [];
-      this.listeners[BUILD_EVENT].push(listener);
+    }
+  }
+
+  /**
+   * Unsubscribe from event. Currently only 'build' event is supported.
+   * @param {String} event
+   * @param {Function} listener
+   */
+  unsubscribe(event, listener) {
+    this._assertSubscriptionParams(event, listener);
+    if (this.listeners[BUILD_EVENT]) {
+      this.listeners[BUILD_EVENT] = this.listeners[BUILD_EVENT].filter(item => item !== listener);
     }
   }
 
@@ -135,5 +141,14 @@ export default class EStyleSheet {
         );
       }
     });
+  }
+
+  _assertSubscriptionParams(event, listener) {
+    if (event !== BUILD_EVENT) {
+      throw new Error(`Only '${BUILD_EVENT}' event is currently supported.`);
+    }
+    if (typeof listener !== 'function') {
+      throw new Error('Listener should be a function.');
+    }
   }
 }
