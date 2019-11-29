@@ -15,16 +15,17 @@ import {StyleSheet} from 'react-native';
 export = EStyleSheet;
 
 declare namespace EStyleSheet {
-    type AnyObject = {[key: string]: any};
+    type AnyObject<T = {}> = T & {[key: string]: any};
     type Event = 'build';
 
-    export function create(styles: AnyObject): AnyObject;
-    export function build(rawGlobalVars?: AnyObject): void;
-    export function value(expr: any, prop?: string): any;
-    export function child(styles: AnyObject, styleName: string, index: number, count: number): AnyObject;
+
+    export function create<T>(styles: AnyObject<T>): AnyObject<T>;
+    export function build<T>(rawGlobalVars?: T): void;
+    export function value<T>(expr: any, prop?: string): any;
+    export function child<T>(styles: T, styleName: string, index: number, count: number): T;
     export function subscribe(event: Event, listener: () => any): void;
     export function clearCache(): void;
-
+  
     // inherited from StyleSheet
     export const flatten: typeof StyleSheet.flatten;
     export const setStyleAttributePreprocessor: typeof StyleSheet.setStyleAttributePreprocessor;
