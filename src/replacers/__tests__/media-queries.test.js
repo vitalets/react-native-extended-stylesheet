@@ -65,6 +65,21 @@ describe('media-queries', function () {
     expect(mq.process(obj)).toEqual({a: 1});
   });
 
+  it('should allow screen and media queries', function () {
+    const obj = {
+      a: 0,
+      '@media screen and (min-width: 50) and (max-width: 150)': {
+        a: 1,
+      },
+      '@media screen and (min-width: 150) and (max-width: 200)': {
+        a: 2,
+      }
+    };
+    const processed = mq.process(obj);
+    console.log('processed', processed);
+    expect(processed).toEqual({a: 1});
+  });
+
   it('should process height', function () {
     const obj = {
       '@media (min-height: 50) and (max-height: 150)': {
@@ -125,5 +140,4 @@ describe('media-queries', function () {
     };
     expect(mq.process(obj)).toEqual({a: 0});
   });
-
 });

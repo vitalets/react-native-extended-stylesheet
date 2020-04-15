@@ -49,7 +49,7 @@ function process(obj) {
   if (mqKeys.length) {
     const matchObject = getMatchObject();
     mqKeys.forEach(key => {
-      const mqStr = key.replace(PREFIX, '');
+      const mqStr = key.replace(PREFIX, '').replace('screen', matchObject.type);
       const isMatch = mediaQuery.match(mqStr, matchObject);
       if (isMatch) {
         merge(res, obj[key]);
