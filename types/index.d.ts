@@ -24,6 +24,7 @@ declare namespace EStyleSheet {
     export function value<T>(expr: any, prop?: string): any;
     export function child<T>(styles: T, styleName: string, index: number, count: number): T;
     export function subscribe(event: Event, listener: () => any): void;
+    export function unsubscribe(event: Event, listener: () => any): void;
     export function clearCache(): void;
   
     // inherited from StyleSheet
