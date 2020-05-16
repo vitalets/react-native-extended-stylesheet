@@ -10,22 +10,45 @@
  * Adding key augmention is tracked here: https://github.com/Microsoft/TypeScript/issues/12754
  */
 
-import {StyleSheet} from 'react-native';
+import {StyleSheet, ImageStyle, TextStyle, ViewStyle} from 'react-native';
 
 export = EStyleSheet;
 
 declare namespace EStyleSheet {
-    type AnyObject<T = {}> = T & {[key: string]: any};
     type Event = 'build';
 
+    type Function<K> = () => K
+    type Value<T> = T | string & {}
+    type Variable<T> = Value<T> | Function<Value<T>>
+    type Extended<T> = { [K in keyof T]: Variable<T[K]> }
 
-    export function create<T>(styles: AnyObject<T>): AnyObject<T>;
+    type AnyStyle = ImageStyle & TextStyle & ViewStyle
+    type AnyStyleSet = { [key: string]: AnyStyle }
+
+    type EStyleSet<T = any> = { [K in keyof T]:
+      T[K] extends Variable<number> ? T[K] :
+      T[K] extends MediaQuery ? T[K] :
+      Extended<AnyStyle> & EStyleSet
+    }
+
+    type StyleSet<T = any> = { [K in keyof T]:
+      T[K] extends number ? T[K] :
+      T[K] extends string ? T[K] :
+      T[K] extends Function<number> ? number :
+      T[K] extends Function<string> ? string :
+      T[K] extends MediaQuery ? any :
+      AnyStyle
+    }
+
+    export type MediaQuery = { [key: string]: Extended<AnyStyle> }
+
+    export function create<T = EStyleSet>(styles: EStyleSet<T>): StyleSet<T>;
     export function build<T>(rawGlobalVars?: T): void;
-    export function value<T>(expr: any, prop?: string): any;
+    export function value(expr: any, prop?: string): any;
     export function child<T>(styles: T, styleName: string, index: number, count: number): T;
     export function subscribe(event: Event, listener: () => any): void;
     export function clearCache(): void;
-  
+
     // inherited from StyleSheet
     export const flatten: typeof StyleSheet.flatten;
     export const setStyleAttributePreprocessor: typeof StyleSheet.setStyleAttributePreprocessor;
@@ -33,5 +56,3 @@ declare namespace EStyleSheet {
     export const absoluteFillObject: typeof StyleSheet.absoluteFillObject;
     export const absoluteFill: typeof StyleSheet.absoluteFill;
 }
-
-

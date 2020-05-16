@@ -3,21 +3,25 @@
  */
 
 import {StyleSheet} from 'react-native';
-import EStyleSheet from '..';
+import EStyleSheet, {MediaQuery} from '..';
 
 const eStyles = EStyleSheet.create({
     $var: 10,
     button1: {
         width: () => '100%',
-        '@media (min-width: 350)': {
-            width: '$var'
-        }
+        height: 40,
+       '@media (min-width: 350)': {
+           width: '$var'
+        } as MediaQuery
+    },
+    button2: {
+        width: 200
     },
     '@media ios': {
-        button2: {
-            width: '100%',
+        button3: {
+            width: '100%'
         }
-    }
+    } as MediaQuery,
 });
 
 const styles = StyleSheet.create({
