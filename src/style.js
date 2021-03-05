@@ -88,15 +88,9 @@ function calcPlainObject(obj, varsArr) {
  */
 function calcStyleValue(prop, value, varsArr) {
   if (value && typeof value === 'object') {
-    if (Array.isArray(value)) {
-      let arr = []
-      value.forEach(function (member, index) {
-        arr.push(calcPlainObject(member, varsArr));
-      });
-      return arr;
-    } else {
-      return calcPlainObject(value, varsArr);
-    }
+    return Array.isArray(value)
+      ? value.map(obj => calcPlainObject(obj, varsArr))
+      : calcPlainObject(value, varsArr);
   } else {
     return new Value(value, prop, varsArr).calc();
   }
