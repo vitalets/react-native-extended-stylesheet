@@ -38,7 +38,6 @@ EStyleSheet.value('100%', 'width');
 EStyleSheet.subscribe('build', () => {});
 EStyleSheet.clearCache();
 const x = EStyleSheet.absoluteFill;
-EStyleSheet.flatten(eStyles.button1);
 EStyleSheet.flatten([eStyles.button1, eStyles.button2]);
 EStyleSheet.flatten(styles.button1);
 EStyleSheet.flatten([styles.button1, styles.button2]);
