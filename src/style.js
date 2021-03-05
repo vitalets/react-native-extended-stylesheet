@@ -87,10 +87,13 @@ function calcPlainObject(obj, varsArr) {
  * @param {Array} varsArr
  */
 function calcStyleValue(prop, value, varsArr) {
-  const isNestedValue = value && typeof value === 'object' && !Array.isArray(value);
-  return isNestedValue
-    ? calcPlainObject(value, varsArr)
-    : new Value(value, prop, varsArr).calc();
+  if (value && typeof value === 'object') {
+    return Array.isArray(value)
+      ? value.map(obj => calcPlainObject(obj, varsArr))
+      : calcPlainObject(value, varsArr);
+  } else {
+    return new Value(value, prop, varsArr).calc();
+  }
 }
 
 /**

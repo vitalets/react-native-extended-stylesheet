@@ -28,17 +28,28 @@ describe('style', function () {
     });
   });
 
-  it('should passthough array props (#103)', function () {
+  it('should calc array props (#130) instead of passthrough (#103)', function () {
     const source = {
-      transform: [{ rotate: '45deg' }]
+      $a: 5,
+      transform: [
+        { rotate: '45deg' },
+        { translateX: '$a' },
+        { translateY: '10 + $a' },
+      ]
     };
 
     const res = new Style(source, []).calc();
 
     expect(res).toEqual({
-      calculatedVars: null,
+      calculatedVars: {
+        $a: 5
+      },
       calculatedProps: {
-        transform: [{ rotate: '45deg' }]
+        transform: [
+          { rotate: '45deg' },
+          { translateX: 5 },
+          { translateY: 15 },
+        ]
       }
     });
   });
