@@ -27,7 +27,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
+      "pre-commit": "pretty-quick --staged && lint-staged",
       "pre-push": "run-s code tt tr test:types"
     }
   },
