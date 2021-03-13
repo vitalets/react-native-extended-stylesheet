@@ -57,6 +57,8 @@
     "lint-staged": "^9.0.2",
     "metro-react-native-babel-preset": "^0.55.0",
     "npm-run-all": "^4.1.5",
+    "prettier": "2.2.1",
+    "pretty-quick": "^3.1.0",
     "typescript": "^3.5.2"
   },
   "lint-staged": {
