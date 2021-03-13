@@ -1,0 +1,6 @@
+# node.js
+node_modules/
+.idea
+
+# coverage
+/coverage
