@@ -50,7 +50,7 @@ function findOperator(str) {
   for (let operator in operators) {
     let pos = str.indexOf(operator);
     if (pos >= 0) {
-      return {operator, pos};
+      return { operator, pos };
     }
   }
 }
@@ -63,7 +63,9 @@ function assertOperator(operator) {
 
 function assertValue(value) {
   if (typeof value !== 'number') {
-    throw new Error('Operation value should be number, you try: ' + String(value));
+    throw new Error(
+      'Operation value should be number, you try: ' + String(value)
+    );
   }
 }
 

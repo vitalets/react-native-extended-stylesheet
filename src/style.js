@@ -52,18 +52,21 @@ export default class {
   }
 
   calcProps() {
-    this.extractedProps = utils.excludeKeys(this.processedSource, this.extractedVars);
+    this.extractedProps = utils.excludeKeys(
+      this.processedSource,
+      this.extractedVars
+    );
     this.calculatedProps = calcPlainObject(this.extractedProps, this.varsArr);
   }
 
   tryOutline() {
     let outline = vars.get('$outline', this.varsArr);
     if (outline) {
-      this.calculatedProps.borderWidth = typeof outline === 'number' ? outline : 1;
+      this.calculatedProps.borderWidth =
+        typeof outline === 'number' ? outline : 1;
       this.calculatedProps.borderColor = getRandomColor();
     }
   }
-
 }
 
 /**
@@ -89,7 +92,7 @@ function calcPlainObject(obj, varsArr) {
 function calcStyleValue(prop, value, varsArr) {
   if (value && typeof value === 'object') {
     return Array.isArray(value)
-      ? value.map(obj => calcPlainObject(obj, varsArr))
+      ? value.map((obj) => calcPlainObject(obj, varsArr))
       : calcPlainObject(value, varsArr);
   } else {
     return new Value(value, prop, varsArr).calc();
@@ -101,12 +104,7 @@ function calcStyleValue(prop, value, varsArr) {
  * @returns {String}
  */
 function getRandomColor() {
-  let colors = [
-    'black',
-    'red',
-    'green',
-    'blue',
-  ];
+  let colors = ['black', 'red', 'green', 'blue'];
   let index = Math.round(Math.random() * (colors.length - 1));
   return colors[index];
 }

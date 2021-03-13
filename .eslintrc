@@ -8,17 +8,20 @@
     "jest": true
   },
 
-  "plugins": [
-    "react",
-    "react-native",
-    "import"
-  ],
+  "plugins": ["react", "react-native", "import"],
 
   "rules": {
-    "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
+    "quotes": [
+      "error",
+      "single",
+      { "avoidEscape": true, "allowTemplateLiterals": true }
+    ],
     "comma-dangle": ["error", "only-multiline"],
     "no-multi-spaces": 2,
-    "space-before-function-paren": [2, {"anonymous": "always", "named": "never"}],
+    "space-before-function-paren": [
+      2,
+      { "anonymous": "always", "named": "never" }
+    ],
     "react/display-name": 0,
     "react/forbid-prop-types": 1,
     "react/jsx-boolean-value": 1,
@@ -50,7 +53,7 @@
     "react/no-string-refs": 1,
     "react/no-unknown-property": 1,
     "react/prefer-es6-class": 1,
-    "react/prop-types": [0, {"ignore": ["children"]}],
+    "react/prop-types": [0, { "ignore": ["children"] }],
     "react/react-in-jsx-scope": 1,
     "import/extensions": 1,
     "react/self-closing-comp": 1,

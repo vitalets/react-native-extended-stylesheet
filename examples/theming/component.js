@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 export default class extends React.Component {
@@ -21,5 +21,5 @@ const styles = EStyleSheet.create({
   },
   text: {
     color: '$textColor',
-  }
+  },
 });

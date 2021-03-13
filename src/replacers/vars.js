@@ -72,7 +72,7 @@ function get(name, varsArr) {
       return vars[name];
     }
     try {
-      return resolvePath({[rootVar]: vars[rootVar]}, name);
+      return resolvePath({ [rootVar]: vars[rootVar] }, name);
     } catch (error) {
       return undefined;
     }

@@ -1,17 +1,20 @@
 import React from 'react';
-import {View, Text, Button} from 'react-native';
+import { View, Text, Button } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 export default class extends React.Component {
   constructor() {
     super();
-    this.state = {count: 0};
+    this.state = { count: 0 };
   }
   render() {
     return (
       <View style={styles.column}>
         <Text style={styles.header}>You clicked: {this.state.count}</Text>
-        <Button onPress={() => this.setState({count: this.state.count + 1})} title="Click me!"/>
+        <Button
+          onPress={() => this.setState({ count: this.state.count + 1 })}
+          title="Click me!"
+        />
       </View>
     );
   }
@@ -29,5 +32,5 @@ const styles = EStyleSheet.create({
   header: {
     fontSize: '1rem',
     color: '$fontColor',
-  }
+  },
 });

@@ -1,10 +1,9 @@
 // import utils from '../utils';
 
 describe('utils', function () {
-
-    it('should exclude by array', function () {
-      expect(2).toEqual(2);
-    });
+  it('should exclude by array', function () {
+    expect(2).toEqual(2);
+  });
 
   // describe('excludeKeys', function () {
   //
@@ -28,5 +27,4 @@ describe('utils', function () {
   //     expect(utils.excludeKeys(obj, [])).toEqual(obj);
   //   });
   // });
-
 });

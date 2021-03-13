@@ -7,7 +7,5 @@
     "esModuleInterop": true,
     "lib": ["es6"]
   },
-  "files": [
-    "types/test.ts"
-  ]
+  "files": ["types/test.ts"]
 }

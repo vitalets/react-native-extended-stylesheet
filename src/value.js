@@ -25,7 +25,8 @@ export default class Value {
     this.prop = prop;
     this.varsArr = varsArr;
     this.stack = options.stack || [];
-    this.isOperation = options.isOperation !== undefined ? options.isOperation : false;
+    this.isOperation =
+      options.isOperation !== undefined ? options.isOperation : false;
   }
 
   /**
@@ -121,7 +122,9 @@ export default class Value {
     if (vars.isVar(str)) {
       let val = vars.calc(str, this.varsArr);
       if (this.stack.indexOf(str) >= 0) {
-        throw new Error('Cyclic reference: ' + this.stack.concat([str]).join(' -> '));
+        throw new Error(
+          'Cyclic reference: ' + this.stack.concat([str]).join(' -> ')
+        );
       }
       const options = {
         stack: this.stack.concat([str]),

@@ -4,16 +4,16 @@
 
 export let Dimensions = {
   get: () => {
-    return {width: 100, height: 200};
-  }
+    return { width: 100, height: 200 };
+  },
 };
 
 export let Platform = {
-  OS: 'ios'
+  OS: 'ios',
 };
 
 export let I18nManager = {
-  isRTL: false
+  isRTL: false,
 };
 
 export let StyleSheet = {
@@ -26,12 +26,12 @@ export let StyleSheet = {
   flatten(arr) {
     return arr.reduce((res, item) => Object.assign(res, item), {});
   },
-  hairlineWidth: 1
+  hairlineWidth: 1,
 };
 
 export default {
   Dimensions,
   Platform,
   StyleSheet,
-  I18nManager
+  I18nManager,
 };

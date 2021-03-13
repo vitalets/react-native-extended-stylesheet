@@ -8,4 +8,3 @@ EStyleSheet.build({
 });
 
 AppRegistry.registerComponent('AwesomeProject', () => App);
-

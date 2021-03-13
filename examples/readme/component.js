@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableHighlight} from 'react-native';
+import { View, Text, TouchableHighlight } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import memoize from 'lodash.memoize';
 
@@ -20,14 +20,20 @@ export default class extends React.Component {
         <Text style={styles.header}>Extended StyleSheets</Text>
         <Text style={styles.label}>
           <Text style={styles.bold}>Percent values</Text>,{' '}
-          <Text style={styles.bold}>variables</Text> and <Text style={styles.bold}>operations</Text>:
-          width=<Text style={styles.bold}>100% - 20</Text>,
-          margin=<Text style={styles.bold}>10% * $width</Text>
+          <Text style={styles.bold}>variables</Text> and{' '}
+          <Text style={styles.bold}>operations</Text>: width=
+          <Text style={styles.bold}>100% - 20</Text>, margin=
+          <Text style={styles.bold}>10% * $width</Text>
         </Text>
 
         <Text style={[styles.label, styles.bold]}>CSS pseudo-classes:</Text>
         {items.map((item, index) => {
-          const itemStyle = EStyleSheet.child(styles, 'row', index, items.length);
+          const itemStyle = EStyleSheet.child(
+            styles,
+            'row',
+            index,
+            items.length
+          );
           return (
             <View key={index} style={itemStyle}>
               <Text style={styles.rowText}>{item}</Text>
@@ -37,15 +43,26 @@ export default class extends React.Component {
 
         <Text style={styles.label}>
           <Text style={styles.bold}>Media queries</Text>,{' '}
-          <Text style={styles.bold}>REMs</Text> and <Text style={styles.bold}>scaling: </Text>
-          <Text>@media (max-width: 350): {'{'} width: 20% {'}'}</Text>
+          <Text style={styles.bold}>REMs</Text> and{' '}
+          <Text style={styles.bold}>scaling: </Text>
+          <Text>
+            @media (max-width: 350): {'{'} width: 20% {'}'}
+          </Text>
         </Text>
-        <TouchableHighlight style={btnStyles.button} underlayColor={btnStyles._button.$underlayColor}>
+        <TouchableHighlight
+          style={btnStyles.button}
+          underlayColor={btnStyles._button.$underlayColor}
+        >
           <Text style={btnStyles.buttonText}>Like it!</Text>
         </TouchableHighlight>
 
-        <Text style={styles.label}><Text style={styles.bold}>Scale </Text>(2x):</Text>
-        <TouchableHighlight style={btnStyles2x.button} underlayColor={btnStyles2x._button.$underlayColor}>
+        <Text style={styles.label}>
+          <Text style={styles.bold}>Scale </Text>(2x):
+        </Text>
+        <TouchableHighlight
+          style={btnStyles2x.button}
+          underlayColor={btnStyles2x._button.$underlayColor}
+        >
           <Text style={btnStyles2x.buttonText}>Like it!</Text>
         </TouchableHighlight>
 
@@ -92,21 +109,21 @@ const styles = EStyleSheet.create({
     borderTopWidth: 3,
   },
   'row:nth-child-odd': {
-    backgroundColor: 'gray'
+    backgroundColor: 'gray',
   },
   'row:nth-child-even': {
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   'row:last-child': {
     backgroundColor: 'yellow',
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
   },
   rowText: {
     fontSize: '.8rem',
-  }
+  },
 });
 
-const getButtonStyles = memoize(scale => {
+const getButtonStyles = memoize((scale) => {
   return EStyleSheet.create({
     $scale: scale,
     $size: '5rem',

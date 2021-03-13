@@ -1,8 +1,6 @@
-
 import Style from '../style';
 
 describe('style', function () {
-
   it('should calc style', function () {
     let source = {
       $a: 1,
@@ -11,7 +9,7 @@ describe('style', function () {
       borderWidth: '$b',
       color: '$e',
     };
-    let varsArr = [{$a: 3, $d: 3, $e: 'abc'}];
+    let varsArr = [{ $a: 3, $d: 3, $e: 'abc' }];
 
     let res = new Style(source, varsArr).calc();
 
@@ -24,7 +22,7 @@ describe('style', function () {
         fontSize: 1,
         borderWidth: 3,
         color: 'abc',
-      }
+      },
     });
   });
 
@@ -35,22 +33,18 @@ describe('style', function () {
         { rotate: '45deg' },
         { translateX: '$a' },
         { translateY: '10 + $a' },
-      ]
+      ],
     };
 
     const res = new Style(source, []).calc();
 
     expect(res).toEqual({
       calculatedVars: {
-        $a: 5
+        $a: 5,
       },
       calculatedProps: {
-        transform: [
-          { rotate: '45deg' },
-          { translateX: 5 },
-          { translateY: 15 },
-        ]
-      }
+        transform: [{ rotate: '45deg' }, { translateX: 5 }, { translateY: 15 }],
+      },
     });
   });
 
@@ -59,7 +53,9 @@ describe('style', function () {
       $a: '$b',
       $b: '$a',
     };
-    expect(() => new Style(source).calc()).toThrowError('Cyclic reference: $b -> $a -> $b');
+    expect(() => new Style(source).calc()).toThrowError(
+      'Cyclic reference: $b -> $a -> $b'
+    );
   });
 
   it('should apply scale inlined', function () {
@@ -71,7 +67,7 @@ describe('style', function () {
       prop: 1,
       width: 2,
     };
-    let varsArr = [{$a: 2, $d: 3}];
+    let varsArr = [{ $a: 2, $d: 3 }];
 
     let res = new Style(source, varsArr).calc();
 
@@ -85,7 +81,7 @@ describe('style', function () {
         borderWidth: 6,
         prop: 1,
         width: 4,
-      }
+      },
     });
   });
 
@@ -98,7 +94,7 @@ describe('style', function () {
       prop: '$width',
       width: '$width',
     };
-    let varsArr = [{$a: 2, $d: 3}, {$scale: 2}];
+    let varsArr = [{ $a: 2, $d: 3 }, { $scale: 2 }];
 
     let res = new Style(source, varsArr).calc();
 
@@ -112,7 +108,7 @@ describe('style', function () {
         borderWidth: 6,
         prop: 1,
         width: 2,
-      }
+      },
     });
   });
 
@@ -120,7 +116,7 @@ describe('style', function () {
     let source = {
       prop: 10,
     };
-    let varsArr = [{$outline: true}, {}];
+    let varsArr = [{ $outline: true }, {}];
     Math.random = jest.fn().mockReturnValue(0);
 
     let res = new Style(source, varsArr).calc();
@@ -131,7 +127,7 @@ describe('style', function () {
         prop: 10,
         borderWidth: 1,
         borderColor: 'black',
-      }
+      },
     });
     expect(Math.random.mock.calls.length).toBe(1);
   });
@@ -143,7 +139,7 @@ describe('style', function () {
       '@media ios': {
         $b: 3,
         c: '$b',
-      }
+      },
     };
     const result = new Style(source).calc();
     expect(result).toEqual({
@@ -152,7 +148,7 @@ describe('style', function () {
       },
       calculatedProps: {
         c: 3,
-      }
+      },
     });
   });
 
@@ -161,11 +157,11 @@ describe('style', function () {
       const source = {
         shadowOffset: {
           width: '$width',
-          foo: 'bar'
-        }
+          foo: 'bar',
+        },
       };
 
-      const varsArr = [{$width: 100, $height: 200}];
+      const varsArr = [{ $width: 100, $height: 200 }];
 
       const styles = new Style(source, varsArr).calc();
 
@@ -174,9 +170,9 @@ describe('style', function () {
         calculatedProps: {
           shadowOffset: {
             width: 100,
-            foo: 'bar'
-          }
-        }
+            foo: 'bar',
+          },
+        },
       });
     });
 
@@ -184,17 +180,17 @@ describe('style', function () {
       const source = {
         shadowOffset: {
           width: '$width',
-          foo: 'bar'
+          foo: 'bar',
         },
         '@media ios': {
           shadowOffset: {
             width: 1,
-            height: '$height'
+            height: '$height',
           },
-        }
+        },
       };
 
-      const varsArr = [{$width: 100, $height: 200}];
+      const varsArr = [{ $width: 100, $height: 200 }];
 
       const styles = new Style(source, varsArr).calc();
 
@@ -205,11 +201,9 @@ describe('style', function () {
             width: 1,
             foo: 'bar',
             height: 200,
-          }
-        }
+          },
+        },
       });
     });
-
   });
-
 });

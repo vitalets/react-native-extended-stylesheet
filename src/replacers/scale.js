@@ -47,7 +47,7 @@ function isScalableProp(prop) {
     return false;
   }
   prop = prop.toLowerCase();
-  return SCALABLE_PROPS.some(p => {
+  return SCALABLE_PROPS.some((p) => {
     return prop.indexOf(p) >= 0;
   });
 }

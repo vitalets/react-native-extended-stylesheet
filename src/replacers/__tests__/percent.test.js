@@ -1,4 +1,3 @@
-
 import percent from '../percent';
 
 describe('percent', function () {
@@ -18,9 +17,11 @@ describe('percent', function () {
   });
 
   it('should throw error for invalid prop', function () {
-    expect(() => percent.calc('10%', 'abc')).toThrowError([
-      `Name of variable or property with percent value should contain `,
-      `(height,top,bottom,vertical,width,left,right,horizontal) to define base for percent calculation`,
-    ].join(''));
+    expect(() => percent.calc('10%', 'abc')).toThrowError(
+      [
+        `Name of variable or property with percent value should contain `,
+        `(height,top,bottom,vertical,width,left,right,horizontal) to define base for percent calculation`,
+      ].join('')
+    );
   });
 });

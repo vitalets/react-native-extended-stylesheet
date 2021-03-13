@@ -1,4 +1,3 @@
-
 import Sheet from '../sheet';
 
 describe('sheet', function () {
@@ -11,9 +10,9 @@ describe('sheet', function () {
         fontSize: 10,
         borderWidth: '$b',
         prop: '$e',
-      }
+      },
     };
-    const variables = {$a: 2, $d: 2, $e: 'abc'};
+    const variables = { $a: 2, $d: 2, $e: 'abc' };
     const result = new Sheet(source).calc(variables);
     expect(result).toEqual({
       $a: 1,
@@ -33,14 +32,14 @@ describe('sheet', function () {
       $b: 2,
       _text: {
         borderWidth: '$b',
-      }
+      },
     };
     const result = new Sheet(source).calc();
     expect(result).toEqual({
       $b: 2,
       _text: {
         borderWidth: 2,
-      }
+      },
     });
   });
 
@@ -48,14 +47,14 @@ describe('sheet', function () {
     const source = {
       $b: 2,
       '@media ios': {
-        $b: 3
+        $b: 3,
       },
       button: {
         prop: 2,
         '@media ios': {
-          prop: '$b'
+          prop: '$b',
         },
-      }
+      },
     };
     const result = new Sheet(source).calc();
     expect(result).toEqual({
@@ -76,7 +75,7 @@ describe('sheet', function () {
       e: null,
       f: false,
       g: undefined,
-      h: NaN
+      h: NaN,
     };
     const result = new Sheet(source).calc();
     expect(result).toEqual({
@@ -87,14 +86,16 @@ describe('sheet', function () {
       e: null,
       f: false,
       g: undefined,
-      h: NaN
+      h: NaN,
     });
   });
 
   it('should calc style as a function', function () {
     const source = {
       $b: 2,
-      text: () => {return {fontSize: '$b'}}
+      text: () => {
+        return { fontSize: '$b' };
+      },
     };
     const result = new Sheet(source).calc();
     expect(result).toEqual({
@@ -105,5 +106,4 @@ describe('sheet', function () {
       text: 0,
     });
   });
-
 });

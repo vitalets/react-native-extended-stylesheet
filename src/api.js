@@ -2,7 +2,7 @@
  * Extended StyleSheet API
  */
 
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import Sheet from './sheet';
 import Style from './style';
 import Value from './value';
@@ -84,7 +84,9 @@ export default class EStyleSheet {
   unsubscribe(event, listener) {
     this._assertSubscriptionParams(event, listener);
     if (this.listeners[BUILD_EVENT]) {
-      this.listeners[BUILD_EVENT] = this.listeners[BUILD_EVENT].filter(item => item !== listener);
+      this.listeners[BUILD_EVENT] = this.listeners[BUILD_EVENT].filter(
+        (item) => item !== listener
+      );
     }
   }
 
@@ -92,7 +94,7 @@ export default class EStyleSheet {
    * Clears all cached styles.
    */
   clearCache() {
-    this.sheets.forEach(sheet => sheet.clearCache());
+    this.sheets.forEach((sheet) => sheet.clearCache());
   }
 
   // todo: move global vars stuff to separate module
@@ -101,17 +103,19 @@ export default class EStyleSheet {
       this._checkGlobalVars(rawGlobalVars);
       // $theme is system variable used for caching
       rawGlobalVars.$theme = rawGlobalVars.$theme || 'default';
-      this.globalVars = new Style(rawGlobalVars, [rawGlobalVars]).calc().calculatedVars;
+      this.globalVars = new Style(rawGlobalVars, [
+        rawGlobalVars,
+      ]).calc().calculatedVars;
     }
   }
 
   _calcSheets() {
-    this.sheets.forEach(sheet => sheet.calc(this.globalVars));
+    this.sheets.forEach((sheet) => sheet.calc(this.globalVars));
   }
 
   _callListeners(event) {
     if (Array.isArray(this.listeners[event])) {
-      this.listeners[event].forEach(listener => listener());
+      this.listeners[event].forEach((listener) => listener());
     }
   }
 
@@ -124,7 +128,7 @@ export default class EStyleSheet {
       'absoluteFillObject',
       'flatten',
     ];
-    props.forEach(prop => {
+    props.forEach((prop) => {
       Object.defineProperty(this, prop, {
         get: () => StyleSheet[prop],
         enumerable: true,
@@ -133,11 +137,11 @@ export default class EStyleSheet {
   }
 
   _checkGlobalVars(rawGlobalVars) {
-    Object.keys(rawGlobalVars).forEach(key => {
+    Object.keys(rawGlobalVars).forEach((key) => {
       if (!vars.isVar(key) && !mq.isMediaQuery(key)) {
         throw new Error(
           `EStyleSheet.build() params should contain global variables (start with $) ` +
-          `or media queries (start with @media). Got '${key}'.`
+            `or media queries (start with @media). Got '${key}'.`
         );
       }
     });

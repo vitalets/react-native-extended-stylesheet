@@ -17,8 +17,18 @@ export default function (styles, styleName, index, count) {
   let result = [styles[styleName]];
 
   addStyle(result, styles, styleName + ':first-child', index === 0);
-  addStyle(result, styles, styleName + ':nth-child-even', index < count && index % 2 === 0);
-  addStyle(result, styles, styleName + ':nth-child-odd', index < count && index % 2 === 1);
+  addStyle(
+    result,
+    styles,
+    styleName + ':nth-child-even',
+    index < count && index % 2 === 0
+  );
+  addStyle(
+    result,
+    styles,
+    styleName + ':nth-child-odd',
+    index < count && index % 2 === 1
+  );
   addStyle(result, styles, styleName + ':last-child', index === count - 1);
 
   return result.length > 1 ? result : result[0];

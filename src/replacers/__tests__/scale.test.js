@@ -1,8 +1,6 @@
-
 import scale from '../scale';
 
 describe('scale', function () {
-
   it('should detect scale', function () {
     expect(scale.isScalable(1)).toBe(false);
     expect(scale.isScalable(1, 'prop')).toBe(false);
@@ -16,8 +14,11 @@ describe('scale', function () {
   });
 
   it('should throw errors for invalid input', function () {
-    expect(() => scale.calc('abc', 2)).toThrowError('Invalid value for scale: abc');
-    expect(() => scale.calc(2, 'cde')).toThrowError('Invalid scaleFactor for scale: cde');
+    expect(() => scale.calc('abc', 2)).toThrowError(
+      'Invalid value for scale: abc'
+    );
+    expect(() => scale.calc(2, 'cde')).toThrowError(
+      'Invalid scaleFactor for scale: cde'
+    );
   });
-
 });

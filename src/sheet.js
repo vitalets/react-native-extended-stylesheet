@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import Style from './style';
 import utils from './utils';
 import vars from './replacers/vars';
@@ -46,7 +46,10 @@ export default class {
   calcVars() {
     const rawLocalVars = vars.extract(this.processedSource);
     if (rawLocalVars) {
-      this.localVars = new Style(rawLocalVars, [rawLocalVars, this.globalVars]).calc().calculatedVars;
+      this.localVars = new Style(rawLocalVars, [
+        rawLocalVars,
+        this.globalVars,
+      ]).calc().calculatedVars;
       Object.assign(this.result, this.localVars);
     } else {
       this.localVars = null;
@@ -55,8 +58,11 @@ export default class {
   }
 
   calcStyles() {
-    const extractedStyles = utils.excludeKeys(this.processedSource, this.localVars);
-    Object.keys(extractedStyles).forEach(key => {
+    const extractedStyles = utils.excludeKeys(
+      this.processedSource,
+      this.localVars
+    );
+    Object.keys(extractedStyles).forEach((key) => {
       let styles = extractedStyles[key];
       if (typeof styles === 'function') {
         styles = styles();
@@ -72,7 +78,7 @@ export default class {
 
   calcStyle(key, styleProps) {
     const style = new Style(styleProps, this.allVars);
-    const {calculatedProps, calculatedVars} = style.calc();
+    const { calculatedProps, calculatedVars } = style.calc();
     const merged = Object.assign({}, calculatedVars, calculatedProps);
     if (key.charAt(0) === '_') {
       this.result[key] = merged;
@@ -94,7 +100,7 @@ export default class {
   }
 
   clearResult() {
-    Object.keys(this.result).forEach(key => delete this.result[key]);
+    Object.keys(this.result).forEach((key) => delete this.result[key]);
   }
 
   hasCache() {

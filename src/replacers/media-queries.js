@@ -8,15 +8,15 @@
  * - aspect-ratio
  */
 
-import {Dimensions, Platform, I18nManager} from 'react-native';
+import { Dimensions, Platform, I18nManager } from 'react-native';
 import mediaQuery from 'css-mediaquery';
 import utils from '../utils';
-      
+
 const PREFIX = '@media';
 
 export default {
   isMediaQuery,
-  process
+  process,
 };
 
 /**
@@ -48,7 +48,7 @@ function process(obj) {
   // apply media query stuff
   if (mqKeys.length) {
     const matchObject = getMatchObject();
-    mqKeys.forEach(key => {
+    mqKeys.forEach((key) => {
       const mqStr = key.replace(PREFIX, '');
       const isMatch = mediaQuery.match(mqStr, matchObject);
       if (isMatch) {
@@ -73,7 +73,7 @@ function getMatchObject() {
     orientation: win.width > win.height ? 'landscape' : 'portrait',
     'aspect-ratio': win.width / win.height,
     type: Platform.OS,
-    direction: isRTL ? 'rtl' : 'ltr'
+    direction: isRTL ? 'rtl' : 'ltr',
   };
 }
 
@@ -83,7 +83,7 @@ function getMatchObject() {
  * @param {Object} mqObj
  */
 function merge(obj, mqObj) {
-  Object.keys(mqObj).forEach(key => {
+  Object.keys(mqObj).forEach((key) => {
     if (utils.isObject(obj[key]) && utils.isObject(mqObj[key])) {
       Object.assign(obj[key], mqObj[key]);
     } else {
