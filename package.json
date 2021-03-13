@@ -22,7 +22,8 @@
     "postrelease": "git push --follow-tags --no-verify",
     "release": "npm version $VER && npm publish",
     "release-patch": "VER=patch npm run release",
-    "release-minor": "VER=minor npm run release"
+    "release-minor": "VER=minor npm run release",
+    "prettier": "prettier --write . --ignore-path ./.prettierignore"
   },
   "husky": {
     "hooks": {
