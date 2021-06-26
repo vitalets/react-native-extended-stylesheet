@@ -10,7 +10,6 @@
  * Adding key augmention is tracked here: https://github.com/Microsoft/TypeScript/issues/12754
  */
 
-import { MutableRefObject, RefObject } from "react";
 import { StyleSheet } from "react-native";
 import { ViewStyle, ImageStyle, TextStyle } from "./types";
 
