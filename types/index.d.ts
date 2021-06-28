@@ -12,7 +12,7 @@
 
 import {StyleSheet} from 'react-native';
 
-export = EStyleSheet;
+export default EStyleSheet;
 
 declare namespace EStyleSheet {
     type AnyObject<T = {}> = T & {[key: string]: any};
@@ -21,7 +21,7 @@ declare namespace EStyleSheet {
 
     export function create<T>(styles: AnyObject<T>): AnyObject<T>;
     export function build<T>(rawGlobalVars?: T): void;
-    export function value<T>(expr: any, prop?: string): any;
+    export function value<T>(expr: any, prop?: string): T;
     export function child<T>(styles: T, styleName: string, index: number, count: number): T;
     export function subscribe(event: Event, listener: () => any): void;
     export function clearCache(): void;
