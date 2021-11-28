@@ -10,16 +10,18 @@
  * Adding key augmention is tracked here: https://github.com/Microsoft/TypeScript/issues/12754
  */
 
-import {StyleSheet} from 'react-native';
+import {ImageStyle, StyleSheet, TextStyle, ViewStyle} from 'react-native';
 
 export = EStyleSheet;
 
 declare namespace EStyleSheet {
     type AnyObject<T = {}> = T & {[key: string]: any};
     type Event = 'build';
+    type ExtendedStyle<T> = { 
+        [K in keyof T]: ViewStyle | TextStyle | ImageStyle | string | number | AnyObject
+    }
 
-
-    export function create<T>(styles: AnyObject<T>): AnyObject<T>;
+    export function create<T>(styles: ExtendedStyle<T>): AnyObject<T>;
     export function build<T>(rawGlobalVars?: T): void;
     export function value<T>(expr: any, prop?: string): any;
     export function child<T>(styles: T, styleName: string, index: number, count: number): T;
