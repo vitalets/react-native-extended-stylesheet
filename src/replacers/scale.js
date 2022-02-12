@@ -5,10 +5,17 @@
 const SCALABLE_PROPS = [
   'width',
   'height',
+  'bottom',
   'margin',
   'padding',
   'fontsize',
   'radius',
+];
+
+const SCALABLE_PROPS_EXACT = [
+  'top',
+  'left',
+  'right',
 ];
 
 export default {
@@ -47,7 +54,8 @@ function isScalableProp(prop) {
     return false;
   }
   prop = prop.toLowerCase();
-  return SCALABLE_PROPS.some(p => {
+  return SCALABLE_PROPS_EXACT.includes(prop) || SCALABLE_PROPS.some(p => {
     return prop.indexOf(p) >= 0;
   });
 }
+
