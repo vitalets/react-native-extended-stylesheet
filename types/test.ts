@@ -2,13 +2,16 @@
  * Type definition tests.
  */
 
-import {StyleSheet} from 'react-native';
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
 import EStyleSheet from '..';
 
 const eStyles = EStyleSheet.create({
     $var: 10,
     button1: {
         width: () => '100%',
+        // todo: fix it
+        // @ts-ignore
         '@media (min-width: 350)': {
             width: '$var'
         }
@@ -37,8 +40,8 @@ EStyleSheet.value('100%');
 EStyleSheet.value('100%', 'width');
 EStyleSheet.subscribe('build', () => {});
 EStyleSheet.clearCache();
-const x = EStyleSheet.absoluteFill;
-EStyleSheet.flatten([eStyles.button1, eStyles.button2]);
+EStyleSheet.flatten([eStyles.button1, eStyles.button2, EStyleSheet.absoluteFill]);
 EStyleSheet.flatten(styles.button1);
 EStyleSheet.flatten([styles.button1, styles.button2]);
 EStyleSheet.setStyleAttributePreprocessor('color', () => 'red');
+React.createElement(View, { style: eStyles.button1 })

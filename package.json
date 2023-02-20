@@ -45,6 +45,8 @@
     "@babel/core": "^7.5.0",
     "@babel/runtime": "^7.5.0",
     "@types/react-native": "^0.60.0",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
     "babel-eslint": "^10.0.2",
     "babel-plugin-runtyper": "^0.4.0",
     "coveralls": "^3.0.4",
