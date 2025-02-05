@@ -5,6 +5,11 @@
 [![npm version](https://img.shields.io/npm/v/react-native-extended-stylesheet.svg)](https://www.npmjs.com/package/react-native-extended-stylesheet)
 [![license](https://img.shields.io/npm/l/react-native-extended-stylesheet.svg)](https://www.npmjs.com/package/react-native-extended-stylesheet)
 
+> ### :warning: Deprecation notice
+>
+> This library is **deprecated** and will no longer receive any updates or support.
+> Please consider migrating to alternative solutions. See [#154](https://github.com/vitalets/react-native-extended-stylesheet/issues/154) for details.
+
 Drop-in replacement of [React Native StyleSheet](https://facebook.github.io/react-native/docs/stylesheet.html) with media-queries, variables, dynamic themes,
 relative units, percents, math operations, scaling and other styling stuff.
 
