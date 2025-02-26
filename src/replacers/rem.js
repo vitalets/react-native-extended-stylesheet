@@ -1,6 +1,7 @@
 /**
  * Calculation of REM strings
  */
+import {PixelRatio} from 'react-native';
 
 const SUFFIX = 'rem';
 const DEFAULT_REM = 16;
@@ -31,5 +32,5 @@ function calc(str, rem = DEFAULT_REM) {
   if (isNaN(koef)) {
     throw new Error('Invalid rem value: ' + str);
   }
-  return rem * koef;
+  return PixelRatio.roundToNearestPixel(rem * koef);
 }

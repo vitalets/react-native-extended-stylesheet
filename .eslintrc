@@ -11,7 +11,8 @@
   "plugins": [
     "react",
     "react-native",
-    "import"
+    "import",
+    "@typescript-eslint"
   ],
 
   "rules": {
@@ -58,5 +59,14 @@
     "react/jsx-wrap-multilines": 1,
     "react-native/no-unused-styles": 2,
     "react-native/split-platform-components": 2
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.d.ts"],
+      "parser": "@typescript-eslint/parser",
+      "rules": {
+        "no-unused-vars": "off"
+      }
+    }
+  ]
 }
